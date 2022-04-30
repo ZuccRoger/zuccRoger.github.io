@@ -19,7 +19,7 @@
     <meta name="description" content="什么是自动装配通过注解或者一些简单的配置就能在 Spring Boot 的帮助下实现某块功能。 spring是如何实现自动装配的？springboot的自动配置是基于spring factories机制实现的，这是一种服务发现机制，类似Java SPI。 spring会自动扫描所有jar包类路径下的META-INF&#x2F;spring.factories文件，读取其中的类型并进项实例化。spr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring中如何自己去实现一个starter">
-<meta property="og:url" content="http://example.com/2022/04/30/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:url" content="http://example.com/2022/04/30/spring%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E5%8E%BB%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAstarter/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
 <meta property="og:description" content="什么是自动装配通过注解或者一些简单的配置就能在 Spring Boot 的帮助下实现某块功能。 spring是如何实现自动装配的？springboot的自动配置是基于spring factories机制实现的，这是一种服务发现机制，类似Java SPI。 spring会自动扫描所有jar包类路径下的META-INF&#x2F;spring.factories文件，读取其中的类型并进项实例化。spr">
 <meta property="og:locale" content="zh_CN">
@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/%E5%BE%97%E5%88%B0%E6%8E%92%E9%99%A4%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9.png">
 <meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/%E5%BE%97%E5%88%B0factories%E4%B8%AD%E7%9A%84bean.png">
 <meta property="article:published_time" content="2022-04-30T03:09:20.000Z">
-<meta property="article:modified_time" content="2022-04-30T07:39:26.386Z">
+<meta property="article:modified_time" content="2022-04-30T08:28:10.646Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -251,7 +251,7 @@
             
             <div class="markdown-body">
               <h3 id="什么是自动装配"><a href="#什么是自动装配" class="headerlink" title="什么是自动装配"></a>什么是自动装配</h3><p>通过注解或者一些简单的配置就能在 Spring Boot 的帮助下实现某块功能。</p>
-<h3 id="spring是如何实现自动装配的？"><a href="#spring是如何实现自动装配的？" class="headerlink" title="spring是如何实现自动装配的？"></a>spring是如何实现自动装配的？</h3><p>springboot的自动配置是基于spring factories机制实现的，这是一种服务发现机制，类似Java SPI。 spring会自动扫描所有jar包类路径下的META-INF&#x2F;spring.factories文件，读取其中的类型并进项实例化。<br>spring.factories文件中的内容实际上就是要导入的接口名和实现类组成的kv对，key为文件中定义的一些标识工厂类，value就是能自动配置的一些工厂实现的类。   在自动装配时，其实就是去加载AutoConfiguration类和实现类，<br>● 在加载自动配置类的时候，并不是将spring.factories的配置全部加载进来，而是通过@Conditional等注解的判断进行动态加载，只有当容器满足了注解中的条件的时候，才会将类加载到容器中</p>
+<h3 id="spring是如何实现自动装配的？"><a href="#spring是如何实现自动装配的？" class="headerlink" title="spring是如何实现自动装配的？"></a>spring是如何实现自动装配的？</h3><p>springboot的自动配置是基于spring factories机制实现的，这是一种服务发现机制，类似Java SPI。 spring会自动扫描所有jar包类路径下的META-INF&#x2F;spring.factories文件，读取其中的类型并进项实例化。<br>spring.factories文件中的内容实际上就是要导入的接口名和实现类组成的kv对，key为文件中定义的一些标识工厂类，value就是能自动配置的一些工厂实现的类。   在自动装配时，其实就是去加载AutoConfiguration类和实现类，<br>在加载自动配置类的时候，并不是将spring.factories的配置全部加载进来，而是通过@Conditional等注解的判断进行动态加载，只有当容器满足了注解中的条件的时候，才会将类加载到容器中</p>
 <hr>
 <p>偷来的八股文：<br>自动装配依托@Import的强大功能和spring的SPI机制。通过SPI机制发现类，通过@Import将类注册到spring中。@SpringBootApplication这个注解时组合注解里面包含自动扫描注解，里面包含一个EnableAutoConfiguration注解，这个注解作用是去寻找每个jar包里面的META-INF&#x2F;spring.factories文件，之后将文件里面的类全部实例化。<br>每个需要自动装配的模块都需要编写一个AutoConfiguration类，这些AutoConfiguration类的原理大概是通过@Import注解将其属性类Properties全部到注册spring容器中，属性类通过注解@ConfigurationProperties从配置文件里面取到配置值。之后将关键的类注册为bean自动注入属性类进行初始化完成自动装配的功能。</p>
 <h4 id="细分相关知识如下："><a href="#细分相关知识如下：" class="headerlink" title="细分相关知识如下："></a>细分相关知识如下：</h4><p>我们知道</p>
