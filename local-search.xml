@@ -4,6 +4,144 @@
   
   
   <entry>
+    <title>剪绳子(I)</title>
+    <link href="/2022/05/02/%E5%89%AA%E7%BB%B3%E5%AD%90/"/>
+    <url>/2022/05/02/%E5%89%AA%E7%BB%B3%E5%AD%90/</url>
+    
+    <content type="html"><![CDATA[<p>题目: <a href="https://leetcode-cn.com/problems/jian-sheng-zi-lcof/">剑指 Offer 14- I. 剪绳子</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>如何注册一个bean</title>
+    <link href="/2022/05/01/%E5%A6%82%E4%BD%95%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AAbean/"/>
+    <url>/2022/05/01/%E5%A6%82%E4%BD%95%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AAbean/</url>
+    
+    <content type="html"><![CDATA[<p>通过BeanDefinition以及外部的单体对象来注册</p><p>三个方向</p><ol><li>注解<ul><li>@Bean</li><li>@Component</li><li>@Import</li><li></li></ul></li><li>API </li><li></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>springFrameWork有哪些核心模块</title>
+    <link href="/2022/05/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%9AspringFrameWork%E6%9C%89%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/"/>
+    <url>/2022/05/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%9AspringFrameWork%E6%9C%89%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一题面试题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>webClient扫盲</title>
+    <link href="/2022/05/01/webClient/"/>
+    <url>/2022/05/01/webClient/</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在spring5之前我们知道有http client 以及 web client两种,毫无意外都是同步执行的,然而webclient是异步回调的.</p><h4 id="发送请求的种类"><a href="#发送请求的种类" class="headerlink" title="发送请求的种类"></a>发送请求的种类</h4><ol><li>apache httpclient</li><li>webclient</li><li>resttemplate</li></ol><table><thead><tr><th></th><th>apache httpclient</th><th>resttemplate</th><th>webclient</th></tr></thead><tbody><tr><td>代码简洁程度</td><td>低</td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><p><img src="https://note.youdao.com/yws/res/9441/WEBRESOURCE1403f079524010b181d7f9527f979a6f" alt="image.png"><br>代码量大</p><h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>1. </p><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>非阻塞系统(non-blocking servers)</p><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ol><li>创建</li></ol><ul><li>WebClient.create()<figure class="highlight livecodeserver"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs livecodeserver">WebClient.<span class="hljs-built_in">create</span>()<br><br>WebClient.<span class="hljs-built_in">create</span>(String baseUrl)<br></code></pre></td></tr></table></figure></li><li>WebClient.builder()<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">uriBuilderFactory:</span> Customized UriBuilderFactory <span class="hljs-keyword">to</span> use <span class="hljs-keyword">as</span> a base URL.<br><br><span class="hljs-symbol">defaultUriVariables:</span> <span class="hljs-keyword">default</span> values <span class="hljs-keyword">to</span> use <span class="hljs-keyword">when</span> expanding URI templates.<br><br><span class="hljs-symbol">defaultHeader:</span> Headers <span class="hljs-keyword">for</span> every request.<br><br><span class="hljs-symbol">defaultCookie:</span> Cookies <span class="hljs-keyword">for</span> every request.<br><br><span class="hljs-symbol">defaultRequest:</span> Consumer <span class="hljs-keyword">to</span> customize every request.<br><br><span class="hljs-symbol">filter:</span> Client filter <span class="hljs-keyword">for</span> every request.<br><br><span class="hljs-symbol">exchangeStrategies:</span> HTTP message reader/writer customizations.<br><br><span class="hljs-symbol">clientConnector:</span> HTTP client library settings.<br></code></pre></td></tr></table></figure></li></ul><h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><ul><li><strong>retrieve()</strong> 定义如何去提取响应结果.<br>有三种</li></ul><ol><li>toEntity</li><li>bodyToMono</li><li>bodyToFlux<br>定制错误类型<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Mono&lt;Person&gt; result = client.get<span class="hljs-literal">()</span><br>        .uri(<span class="hljs-string">&quot;/persons/&#123;id&#125;&quot;</span>, id).accept(MediaType.APPLICATION_JSON)<br>        .retrieve<span class="hljs-literal">()</span><br>        .on<span class="hljs-constructor">Status(HttpStatus::<span class="hljs-params">is4xxClientError</span>, <span class="hljs-params">response</span> -&gt; <span class="hljs-operator">...</span>)</span><br>        .on<span class="hljs-constructor">Status(HttpStatus::<span class="hljs-params">is5xxServerError</span>, <span class="hljs-params">response</span> -&gt; <span class="hljs-operator">...</span>)</span><br>        .body<span class="hljs-constructor">ToMono(Person.<span class="hljs-params">class</span>)</span>;<br></code></pre></td></tr></table></figure></li></ol><ul><li>exchange()</li><li></li></ul><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm"><span class="hljs-number">1</span>: 参考资料 https://elim<span class="hljs-number">168</span>.github.io/spring/bean/<span class="hljs-number">31</span>.Spring<span class="hljs-variable">%E4</span><span class="hljs-variable">%B9</span><span class="hljs-variable">%8</span>BWebClient<span class="hljs-variable">%E4</span><span class="hljs-variable">%BB</span><span class="hljs-variable">%8</span>B<span class="hljs-variable">%E7</span><span class="hljs-variable">%BB</span><span class="hljs-variable">%8</span>D.html<br></code></pre></td></tr></table></figure><h4 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h4><ol><li>这个webclient需要配置一个http连接池吗？</li><li>Jetty vs  Netty</li></ol><h4 id="项目中遇到的困难"><a href="#项目中遇到的困难" class="headerlink" title="项目中遇到的困难"></a>项目中遇到的困难</h4><ol><li>302的时候无法捕获到这个cookie</li></ol><h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ol><li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client">spring.io Web Clinent</a></li><li><a href="https://www.baeldung.com/spring-webclient-resttemplate">link</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring框架</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>AOP常见错误</title>
+    <link href="/2022/05/01/AOP%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/"/>
+    <url>/2022/05/01/AOP%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/</url>
+    
+    <content type="html"><![CDATA[<p>AOP本质上是一个代理模式<br>Spring AOP 的底层是动态代理。而创建代理的方式有两种，JDK 的方式和 CGLIB 的方式。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>详述bean生命周期</title>
+    <link href="/2022/05/01/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <url>/2022/05/01/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+    
+    <content type="html"><![CDATA[<h3 id="抛出问题"><a href="#抛出问题" class="headerlink" title="抛出问题"></a>抛出问题</h3><ol><li></li></ol><p>问题解决：<br>即 Spring 初始化单例类的一般过程，基本都是 getBean()-&gt;doGetBean()-&gt;getSingleton()，如果发现 Bean 不存在，则调用 createBean()-&gt;doCreateBean() 进行实例化。</p><h3 id="class到Bean中间经历了哪些生命周期什么？"><a href="#class到Bean中间经历了哪些生命周期什么？" class="headerlink" title="class到Bean中间经历了哪些生命周期什么？"></a>class到Bean中间经历了哪些生命周期什么？</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>元信息配置阶段</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>notify&amp;wait实现生产者消费者模型</title>
     <link href="/2022/04/30/notify&amp;wait%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/"/>
     <url>/2022/04/30/notify&amp;wait%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/</url>
