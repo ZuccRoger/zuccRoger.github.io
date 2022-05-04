@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>剑指Offer32.2从上到下打印二叉树</title>
+    <link href="/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <url>/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * public class TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode left;</span><br><span class="hljs-comment"> *     TreeNode right;</span><br><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="hljs-title function_">levelOrder</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>    Queue&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>    queue.add(root);<br>    List&lt;List&lt;Integer&gt;&gt; lists = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;<br>      ArrayList&lt;Integer&gt; itemList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>      <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> queue.size();<br>      <span class="hljs-keyword">while</span> (len &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">tmpNode</span> <span class="hljs-operator">=</span> queue.remove();<br>        itemList.add(tmpNode.val);<br>        <span class="hljs-keyword">if</span> (tmpNode.left != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(tmpNode.left);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (tmpNode.right != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(tmpNode.right);<br>        &#125;<br>        len--;<br>      &#125;<br>      lists.add(itemList);<br>    &#125;<br>    <span class="hljs-keyword">return</span> lists;<br>    &#125;<br>&#125;**<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指Offer32.1从上到下打印二叉树</title>
     <link href="/2022/05/02/%E5%89%91%E6%8C%87Offer32-1%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     <url>/2022/05/02/%E5%89%91%E6%8C%87Offer32-1%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
