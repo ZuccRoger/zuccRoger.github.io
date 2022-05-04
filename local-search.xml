@@ -4,16 +4,97 @@
   
   
   <entry>
-    <title>剑指Offer32.2从上到下打印二叉树</title>
-    <link href="/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <url>/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <title>剑指Offer33二叉搜索树的后序遍历序列</title>
+    <link href="/2022/05/04/%E5%89%91%E6%8C%87Offer33%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/"/>
+    <url>/2022/05/04/%E5%89%91%E6%8C%87Offer33%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/</url>
     
-    <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * public class TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode left;</span><br><span class="hljs-comment"> *     TreeNode right;</span><br><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="hljs-title function_">levelOrder</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>    Queue&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>    queue.add(root);<br>    List&lt;List&lt;Integer&gt;&gt; lists = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;<br>      ArrayList&lt;Integer&gt; itemList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>      <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> queue.size();<br>      <span class="hljs-keyword">while</span> (len &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">tmpNode</span> <span class="hljs-operator">=</span> queue.remove();<br>        itemList.add(tmpNode.val);<br>        <span class="hljs-keyword">if</span> (tmpNode.left != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(tmpNode.left);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (tmpNode.right != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(tmpNode.right);<br>        &#125;<br>        len--;<br>      &#125;<br>      lists.add(itemList);<br>    &#125;<br>    <span class="hljs-keyword">return</span> lists;<br>    &#125;<br>&#125;**<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: 骆佳俊</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2022/5/4 9:46 AM</span><br><span class="hljs-comment"> *     &lt;p&gt;解题思路: 概念介绍: 二叉搜索树: 左子树上的节点的值 小于 根,右子树上的节点的值 大于 根。 如何判断是否跳出递归? left&gt;right? left right end</span><br><span class="hljs-comment"> *     左子树 右子树 根</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> verifyPostorder(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[] &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>&#125;);<br>    System.out.println(b);<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">verifyPostorder</span><span class="hljs-params">(<span class="hljs-type">int</span>[] postorder)</span> &#123;<br>    <span class="hljs-keyword">return</span> mainCore(postorder, <span class="hljs-number">0</span>, postorder.length - <span class="hljs-number">1</span>);<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">mainCore</span><span class="hljs-params">(<span class="hljs-type">int</span>[] postOrder, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> &#123;<br>    <span class="hljs-comment">/** 跳出递归的条件 */</span><br>    <span class="hljs-keyword">if</span> (start &gt; end) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> start;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">head</span> <span class="hljs-operator">=</span> postOrder[end];<br>    <span class="hljs-comment">// 找到第一个右子树的节点</span><br>    <span class="hljs-keyword">for</span> (; count &lt; postOrder.length; count++) &#123;<br>      <span class="hljs-keyword">if</span> (postOrder[count] &gt;= head) &#123;<br>        <span class="hljs-keyword">break</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> count; i &lt; end; i++) &#123;<br>      <span class="hljs-keyword">if</span> (postOrder[i] &lt;= head) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-comment">/** mark! 这里的end需要-1 */</span><br>    <span class="hljs-keyword">return</span> mainCore(postOrder, start, count - <span class="hljs-number">1</span>) &amp;&amp; mainCore(postOrder, count, end - <span class="hljs-number">1</span>);<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
       
       <category>leetcode</category>
+      
+      <category>剑指Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>请写出一个死锁的demo</title>
+    <link href="/2022/05/04/%E8%AF%B7%E5%86%99%E5%87%BA%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%E7%9A%84demo/"/>
+    <url>/2022/05/04/%E8%AF%B7%E5%86%99%E5%87%BA%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%E7%9A%84demo/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>我是面试官系列</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指Offer32.3从上到下打印二叉树</title>
+    <link href="/2022/05/04/%E5%89%91%E6%8C%87Offer32-3%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <url>/2022/05/04/%E5%89%91%E6%8C%87Offer32-3%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/">题目链接</a></p><figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="hljs-title function_">levelOrder</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>    ArrayList&lt;List&lt;Integer&gt;&gt; resultList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-comment">/** 空树 */</span><br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> resultList;<br>    &#125;<br>    LinkedList&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>    queue.add(root);<br>    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;<br>      ArrayList&lt;Integer&gt; layerList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>      <span class="hljs-comment">/** 个人认为这个分层是比较难的。不知道如何处理 */</span><br>      <span class="hljs-type">int</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> queue.size();<br>      <span class="hljs-keyword">while</span> (size &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">firstNode</span> <span class="hljs-operator">=</span> queue.poll();<br>        layerList.add(firstNode.val);<br>        <span class="hljs-keyword">if</span> (firstNode.left != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(firstNode.left);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (firstNode.right != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(firstNode.right);<br>        &#125;<br>        size--;<br>      &#125;<br>      resultList.add(layerList);<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; resultList.size(); i++) &#123;<br>      <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>        Collections.reverse(resultList.get(i));<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> resultList;<br>  &#125;<br> &#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+      <category>剑指Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指Offer32.2从上到下打印二叉树</title>
+    <link href="/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <url>/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * public class TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode left;</span><br><span class="hljs-comment"> *     TreeNode right;</span><br><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="hljs-title function_">levelOrder</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>    Queue&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>    queue.add(root);<br>    List&lt;List&lt;Integer&gt;&gt; lists = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;<br>      ArrayList&lt;Integer&gt; itemList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>      <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> queue.size();<br>      <span class="hljs-keyword">while</span> (len &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">tmpNode</span> <span class="hljs-operator">=</span> queue.remove();<br>        itemList.add(tmpNode.val);<br>        <span class="hljs-keyword">if</span> (tmpNode.left != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(tmpNode.left);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (tmpNode.right != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(tmpNode.right);<br>        &#125;<br>        len--;<br>      &#125;<br>      lists.add(itemList);<br>    &#125;<br>    <span class="hljs-keyword">return</span> lists;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+      <category>剑指Offer</category>
       
     </categories>
     
@@ -39,6 +120,8 @@
     <categories>
       
       <category>leetcode</category>
+      
+      <category>剑指Offer</category>
       
     </categories>
     
@@ -78,6 +161,8 @@
       
       <category>leetcode</category>
       
+      <category>剑指Offer</category>
+      
     </categories>
     
     
@@ -96,37 +181,12 @@
     <link href="/2022/05/01/%E5%A6%82%E4%BD%95%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AAbean/"/>
     <url>/2022/05/01/%E5%A6%82%E4%BD%95%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AAbean/</url>
     
-    <content type="html"><![CDATA[<p>通过BeanDefinition以及外部的单体对象来注册</p><p>三个方向</p><ol><li>注解<ul><li>@Bean</li><li>@Component</li><li>@Import</li><li></li></ul></li><li>API </li><li></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>通过BeanDefinition以及外部的单体对象来注册</p><p>三个方向</p><ol><li>注解<ul><li>@Bean</li><li>@Component</li><li>@Import</li><li></li></ul></li><li>API</li><li></li></ol>]]></content>
     
     
     <categories>
       
-      <category>每日一题</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>原创</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>springFrameWork有哪些核心模块</title>
-    <link href="/2022/05/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%9AspringFrameWork%E6%9C%89%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/"/>
-    <url>/2022/05/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%9AspringFrameWork%E6%9C%89%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>每日一题面试题</category>
+      <category>我是面试官系列</category>
       
     </categories>
     

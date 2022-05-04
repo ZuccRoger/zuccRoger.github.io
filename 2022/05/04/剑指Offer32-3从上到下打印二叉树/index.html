@@ -16,19 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="springFrameWork有哪些核心模块">
-<meta property="og:url" content="http://example.com/2022/05/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%9AspringFrameWork%E6%9C%89%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/index.html">
+    <meta name="description" content="题目链接 12345678910111213141516171819202122232425262728293031323334public class Solution &amp;#123;  public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &amp;#123;    ArrayList&lt;List&lt;Integer&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指Offer32.3从上到下打印二叉树">
+<meta property="og:url" content="http://example.com/2022/05/04/%E5%89%91%E6%8C%87Offer32-3%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="题目链接 12345678910111213141516171819202122232425262728293031323334public class Solution &amp;#123;  public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &amp;#123;    ArrayList&lt;List&lt;Integer&amp;gt">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-01T07:21:15.000Z">
-<meta property="article:modified_time" content="2022-05-01T07:22:07.428Z">
+<meta property="article:published_time" content="2022-05-04T00:50:15.000Z">
+<meta property="article:modified_time" content="2022-05-04T02:14:48.595Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>springFrameWork有哪些核心模块 - 骆佳俊的博客</title>
+  <title>剑指Offer32.3从上到下打印二叉树 - 骆佳俊的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -174,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="springFrameWork有哪些核心模块">
+            <span class="h2" id="subtitle" title="剑指Offer32.3从上到下打印二叉树">
               
             </span>
 
@@ -184,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-01 15:21" pubdate>
-        2022年5月1日 下午
+      <time datetime="2022-05-04 08:50" pubdate>
+        2022年5月4日 早上
       </time>
     </span>
   
@@ -195,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      873 字
     </span>
   
 
@@ -204,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      8 分钟
     </span>
   
 
@@ -241,10 +243,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">springFrameWork有哪些核心模块</h1>
+            <h1 style="display: none">剑指Offer32.3从上到下打印二叉树</h1>
             
             <div class="markdown-body">
-              
+              <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/">题目链接</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="hljs-title function_">levelOrder</span><span class="hljs-params">(TreeNode root)</span> &#123;<br>    ArrayList&lt;List&lt;Integer&gt;&gt; resultList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-comment">/** 空树 */</span><br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> resultList;<br>    &#125;<br>    LinkedList&lt;TreeNode&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>    queue.add(root);<br>    <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;<br>      ArrayList&lt;Integer&gt; layerList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>      <span class="hljs-comment">/** 个人认为这个分层是比较难的。不知道如何处理 */</span><br>      <span class="hljs-type">int</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> queue.size();<br>      <span class="hljs-keyword">while</span> (size &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">TreeNode</span> <span class="hljs-variable">firstNode</span> <span class="hljs-operator">=</span> queue.poll();<br>        layerList.add(firstNode.val);<br>        <span class="hljs-keyword">if</span> (firstNode.left != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(firstNode.left);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (firstNode.right != <span class="hljs-literal">null</span>) &#123;<br>          queue.add(firstNode.right);<br>        &#125;<br>        size--;<br>      &#125;<br>      resultList.add(layerList);<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; resultList.size(); i++) &#123;<br>      <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>        Collections.reverse(resultList.get(i));<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> resultList;<br>  &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -253,7 +256,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E9%9D%A2%E8%AF%95%E9%A2%98/">每日一题面试题</a>
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
+                    
+                      <a class="hover-with-bg" href="/categories/leetcode/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
                     
                   </div>
                 
@@ -278,9 +283,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/01/%E5%A6%82%E4%BD%95%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AAbean/">
+                      <a href="/2022/05/04/%E8%AF%B7%E5%86%99%E5%87%BA%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%E7%9A%84demo/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何注册一个bean</span>
+                        <span class="hidden-mobile">请写出一个死锁的demo</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -288,8 +293,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/01/webClient/">
-                        <span class="hidden-mobile">webClient扫盲</span>
+                      <a href="/2022/05/03/%E5%89%91%E6%8C%87Offer32-2%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/">
+                        <span class="hidden-mobile">剑指Offer32.2从上到下打印二叉树</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
