@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>面试官:请说说你理解中java的引用</title>
+    <link href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%90%86%E8%A7%A3%E4%B8%ADjava%E7%9A%84%E5%BC%95%E7%94%A8/"/>
+    <url>/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%90%86%E8%A7%A3%E4%B8%ADjava%E7%9A%84%E5%BC%95%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p>引用的类型</p><table><thead><tr><th>引用类型</th><th>作用</th><th></th></tr></thead><tbody><tr><td>强引用</td><td>单元格</td><td></td></tr><tr><td>弱引用</td><td>单元格</td><td></td></tr><tr><td>软引用</td><td>单元格</td><td></td></tr><tr><td>幻想引用</td><td>单元格</td><td></td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>我是面试官系列</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指Offer66.构建乘积数组</title>
     <link href="/2022/05/06/%E5%89%91%E6%8C%87Offer66-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/"/>
     <url>/2022/05/06/%E5%89%91%E6%8C%87Offer66-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/</url>
