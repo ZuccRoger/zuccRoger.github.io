@@ -16,21 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="简单介绍   类型 特点 使用场景    String 是Immutable的,然后它的类名是final修饰的,属性都是final. 然后因为我们经常要去操作比如修改或者增加String的内容所以我们会用到下面介绍的StringBuffer以及StringBuilder. 1. 常量的声明 2.少量字符串的拼接，一定要避免使用+操作去拼接字符串,因为这样会有大量的无用中间对象，耗费空间并且执行效率">
+    <meta name="description" content="剑指 Offer 16. 数值的整数次方解决方案1: 递归法 12345678910111213141516171819202122232425262728293031323334353637package com.roger.leetcodejava.jianzhi.solution_16.logN的解法;import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试官:String、StringBuffer、StringBuilder有什么区别">
-<meta property="og:url" content="http://example.com/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-String%E3%80%81StringBuffer%E3%80%81StringBuilder%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:title" content="剑指Offer16.数值的整数次方">
+<meta property="og:url" content="http://example.com/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
-<meta property="og:description" content="简单介绍   类型 特点 使用场景    String 是Immutable的,然后它的类名是final修饰的,属性都是final. 然后因为我们经常要去操作比如修改或者增加String的内容所以我们会用到下面介绍的StringBuffer以及StringBuilder. 1. 常量的声明 2.少量字符串的拼接，一定要避免使用+操作去拼接字符串,因为这样会有大量的无用中间对象，耗费空间并且执行效率">
+<meta property="og:description" content="剑指 Offer 16. 数值的整数次方解决方案1: 递归法 12345678910111213141516171819202122232425262728293031323334353637package com.roger.leetcodejava.jianzhi.solution_16.logN的解法;import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @d">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-06T07:14:40.000Z">
-<meta property="article:modified_time" content="2022-05-06T11:54:44.649Z">
+<meta property="article:published_time" content="2022-05-07T00:45:12.000Z">
+<meta property="article:modified_time" content="2022-05-07T01:33:23.541Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>面试官:String、StringBuffer、StringBuilder有什么区别 - 骆佳俊的博客</title>
+  <title>剑指Offer16.数值的整数次方 - 骆佳俊的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="面试官:String、StringBuffer、StringBuilder有什么区别">
+            <span class="h2" id="subtitle" title="剑指Offer16.数值的整数次方">
               
             </span>
 
@@ -186,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-06 15:14" pubdate>
-        2022年5月6日 下午
+      <time datetime="2022-05-07 08:45" pubdate>
+        2022年5月7日 早上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      389 字
+      687 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4 分钟
+      6 分钟
     </span>
   
 
@@ -243,36 +243,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">面试官:String、StringBuffer、StringBuilder有什么区别</h1>
+            <h1 style="display: none">剑指Offer16.数值的整数次方</h1>
             
             <div class="markdown-body">
-              <h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>特点</th>
-<th>使用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>String</td>
-<td>是<strong>Immutable</strong>的,然后它的类名是final修饰的,属性都是final. 然后因为我们经常要去操作比如修改或者增加String的内容所以我们会用到下面介绍的StringBuffer以及StringBuilder.</td>
-<td>1. 常量的声明 <br />2.<strong>少量</strong>字符串的拼接，一定要避免使用+操作去拼接字符串,因为这样会有大量的无用中间对象，耗费空间并且执行效率低下(新建对象、回收对象需要大量的时间)</td>
-</tr>
-<tr>
-<td>StringBuffer</td>
-<td>首先基于Synchronized是<strong>线程安全</strong>的,导致有额外的性能开销所以一般推荐使用StringBuilder.</td>
-<td><strong>多线程环境</strong> ,比如XML的解析、HTTP参数的解析</td>
-</tr>
-<tr>
-<td>StringBuilder</td>
-<td><strong>线程不安全</strong>,但是是首选的.</td>
-<td><strong>单线程环境</strong>,SQL语句的拼接还有JSON的封装</td>
-</tr>
-</tbody></table>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
-<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/7349">String、StringBuffer、StringBuilder有什么区别？</a></li>
+              <h4 id="剑指-Offer-16-数值的整数次方"><a href="#剑指-Offer-16-数值的整数次方" class="headerlink" title="剑指 Offer 16. 数值的整数次方"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">剑指 Offer 16. 数值的整数次方</a></h4><p>解决方案1: 递归法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.roger.leetcodejava.jianzhi.solution_16.logN的解法;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: 骆佳俊</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2022/5/7 7:56 AM</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(myPow(<span class="hljs-number">0.44528</span>, <span class="hljs-number">0</span>));<br>  &#125;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 因为 x^72次 = x^36 * x ^ 36 所以是一个递归的解决方案.</span><br><span class="hljs-comment">   *</span><br><span class="hljs-comment">   * &lt;p&gt;然后我们通过奇 和 偶 进行递归.</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">myPow</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">int</span> n)</span> &#123;<br>    <span class="hljs-comment">/** 处理异常case */</span><br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-type">long</span> <span class="hljs-variable">N</span> <span class="hljs-operator">=</span> n;<br>    <span class="hljs-keyword">return</span> N &gt;= <span class="hljs-number">0</span> ? quickMul(x, N) : <span class="hljs-number">1.0</span> / quickMul(x, -N);<br>  &#125;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">quickMul</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">long</span> N)</span> &#123;<br>    <span class="hljs-keyword">if</span> (N == <span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-keyword">return</span> x;<br>    &#125;<br>    <span class="hljs-type">double</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> quickMul(x, N / <span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">return</span> N % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> ? result * result * x : result * result;<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>弊端:</p>
+<ol>
+<li>因为使用递归其实是会使用额外的栈空间。</li>
 </ol>
+<p>解决方法二: 迭代法</p>
 
             </div>
             <hr>
@@ -309,18 +290,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指Offer16.数值的整数次方</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%90%86%E8%A7%A3%E4%B8%ADjava%E7%9A%84%E5%BC%95%E7%94%A8/">
-                        <span class="hidden-mobile">面试官:请说说你理解中java的引用</span>
+                      <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-String%E3%80%81StringBuffer%E3%80%81StringBuilder%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/">
+                        <span class="hidden-mobile">面试官:String、StringBuffer、StringBuilder有什么区别</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
