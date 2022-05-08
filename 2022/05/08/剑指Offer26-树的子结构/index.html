@@ -16,21 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="剑指 Offer 16. 数值的整数次方解决方案1: 递归法 12345678910111213141516171819202122232425262728293031323334353637package com.roger.leetcodejava.jianzhi.solution_16.logN的解法;import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @d">
+    <meta name="description" content="剑指 Offer 26. 树的子结构12执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户内存消耗：43.9 MB, 在所有 Java 提交中击败了9.74%的用户  因为使用的是dfs所以整一个内存的开销比较大。 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer16.数值的整数次方">
-<meta property="og:url" content="http://example.com/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/index.html">
+<meta property="og:title" content="剑指Offer26.树的子结构">
+<meta property="og:url" content="http://example.com/2022/05/08/%E5%89%91%E6%8C%87Offer26-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
-<meta property="og:description" content="剑指 Offer 16. 数值的整数次方解决方案1: 递归法 12345678910111213141516171819202122232425262728293031323334353637package com.roger.leetcodejava.jianzhi.solution_16.logN的解法;import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @d">
+<meta property="og:description" content="剑指 Offer 26. 树的子结构12执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户内存消耗：43.9 MB, 在所有 Java 提交中击败了9.74%的用户  因为使用的是dfs所以整一个内存的开销比较大。 123456789101112131415161718192021222324252627282930313233343536373839404142434445">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-07T00:45:12.000Z">
-<meta property="article:modified_time" content="2022-05-08T07:56:54.231Z">
+<meta property="article:published_time" content="2022-05-08T07:52:28.000Z">
+<meta property="article:modified_time" content="2022-05-08T07:56:58.268Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>剑指Offer16.数值的整数次方 - 骆佳俊的博客</title>
+  <title>剑指Offer26.树的子结构 - 骆佳俊的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="剑指Offer16.数值的整数次方">
+            <span class="h2" id="subtitle" title="剑指Offer26.树的子结构">
               
             </span>
 
@@ -186,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-07 08:45" pubdate>
-        2022年5月7日 早上
+      <time datetime="2022-05-08 15:52" pubdate>
+        2022年5月8日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.2k 字
     </span>
   
 
@@ -243,20 +243,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">剑指Offer16.数值的整数次方</h1>
+            <h1 style="display: none">剑指Offer26.树的子结构</h1>
             
             <div class="markdown-body">
-              <h4 id="剑指-Offer-16-数值的整数次方"><a href="#剑指-Offer-16-数值的整数次方" class="headerlink" title="剑指 Offer 16. 数值的整数次方"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">剑指 Offer 16. 数值的整数次方</a></h4><p>解决方案1: 递归法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.roger.leetcodejava.jianzhi.solution_16.logN的解法;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: 骆佳俊</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2022/5/7 7:56 AM</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(myPow(<span class="hljs-number">0.44528</span>, <span class="hljs-number">0</span>));<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 因为 x^72次 = x^36 * x ^ 36 所以是一个递归的解决方案.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * &lt;p&gt;然后我们通过奇 和 偶 进行递归.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">myPow</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-comment">/** 处理异常case */</span><br>        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">N</span> <span class="hljs-operator">=</span> n;<br>        <span class="hljs-keyword">return</span> N &gt;= <span class="hljs-number">0</span> ? quickMul(x, N) : <span class="hljs-number">1.0</span> / quickMul(x, -N);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">quickMul</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">long</span> N)</span> &#123;<br>        <span class="hljs-keyword">if</span> (N == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> x;<br>        &#125;<br>        <span class="hljs-type">double</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> quickMul(x, N / <span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">return</span> N % <span class="hljs-number">2</span> == <span class="hljs-number">1</span> ? result * result * x : result * result;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+              <h4 id="剑指-Offer-26-树的子结构"><a href="#剑指-Offer-26-树的子结构" class="headerlink" title="剑指 Offer 26. 树的子结构"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/">剑指 Offer 26. 树的子结构</a></h4><figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs java">执行用时：<span class="hljs-number">0</span> ms, 在所有 Java 提交中击败了<span class="hljs-number">100.00</span>%的用户<br>内存消耗：<span class="hljs-number">43.9</span> MB, 在所有 Java 提交中击败了<span class="hljs-number">9.74</span>%的用户<br></code></pre></td></tr></table></figure>
 
-<p>弊端:</p>
-<ol>
-<li>因为使用递归其实是会使用额外的栈空间。</li>
-</ol>
-<p>解决方法二: 迭代法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.roger.leetcodejava.jianzhi.solution_16.迭代;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: 骆佳俊</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2022/5/8 9:07 AM</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 实现 类似 Math.pow函数 这个递归搞不明白哭</span><br><span class="hljs-comment">   *</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> x</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> n</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">myPow</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">int</span> n)</span> &#123;<br>    <span class="hljs-comment">/** 异常case判断 */</span><br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-type">double</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-type">double</span> <span class="hljs-variable">currentMul</span> <span class="hljs-operator">=</span> x;<br>    <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">if</span> (n % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-comment">/* 个人这地方理解难 */</span> <br>        result *= currentMul;<br>      &#125;<br>      currentMul *= currentMul;<br>      n = n &gt;&gt; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;<br><br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(myPow(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>));<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>个人感觉这个迭代比较难理解。</p>
+<p>因为使用的是dfs所以整一个内存的开销比较大。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">import</span> com.roger.leetcodejava.TreeNode;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: 骆佳俊</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2022/5/8 10:53 AM</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-comment">/** 约定空树不是任意一个树的子结构 */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isSubStructure</span><span class="hljs-params">(TreeNode A, TreeNode B)</span> &#123;<br>    <span class="hljs-keyword">if</span> (A == <span class="hljs-literal">null</span> || B == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dfs(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);<br>  &#125;<br><br>  <span class="hljs-comment">/** 以下代码太精髓了! */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(TreeNode A, TreeNode B)</span> &#123;<br>    <span class="hljs-keyword">if</span> (B == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (A == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 注意！:</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * &lt;p&gt;1. 这里是&amp;&amp; 而不是 ||</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * &lt;p&gt;2. 然后是左右子树分别去进行比对。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">return</span> A.val == B.val &amp;&amp; dfs(A.left, B.left) &amp;&amp; dfs(A.right, B.right);<br>  &#125;<br><br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeA</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">3</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeB</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">4</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeC</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">5</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeD</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeE</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">2</span>);<br>    treeNodeA.left = treeNodeB;<br>    treeNodeA.right = treeNodeC;<br>    treeNodeB.left = treeNodeD;<br>    treeNodeB.right = treeNodeE;<br><br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeF</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">4</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeG</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">1</span>);<br>    treeNodeF.left = treeNodeG;<br><br>    System.out.println(isSubStructure(treeNodeA, treeNodeF));<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -293,18 +286,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/08/%E5%89%91%E6%8C%87Offer26-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指Offer26.树的子结构</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%98%AF%E5%9F%BA%E4%BA%8E%E4%BB%80%E4%B9%88%E5%8E%9F%E7%90%86/">
-                        <span class="hidden-mobile">面试官:动态代理是基于什么原理</span>
+                      <a href="/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/">
+                        <span class="hidden-mobile">剑指Offer16.数值的整数次方</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

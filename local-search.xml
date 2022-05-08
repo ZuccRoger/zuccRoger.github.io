@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指Offer26.树的子结构</title>
+    <link href="/2022/05/08/%E5%89%91%E6%8C%87Offer26-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/"/>
+    <url>/2022/05/08/%E5%89%91%E6%8C%87Offer26-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/</url>
+    
+    <content type="html"><![CDATA[<h4 id="剑指-Offer-26-树的子结构"><a href="#剑指-Offer-26-树的子结构" class="headerlink" title="剑指 Offer 26. 树的子结构"></a><a href="https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/">剑指 Offer 26. 树的子结构</a></h4><figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs java">执行用时：<span class="hljs-number">0</span> ms, 在所有 Java 提交中击败了<span class="hljs-number">100.00</span>%的用户<br>内存消耗：<span class="hljs-number">43.9</span> MB, 在所有 Java 提交中击败了<span class="hljs-number">9.74</span>%的用户<br></code></pre></td></tr></table></figure><p>因为使用的是dfs所以整一个内存的开销比较大。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">import</span> com.roger.leetcodejava.TreeNode;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: 骆佳俊</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span>: 2022/5/8 10:53 AM</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>  <span class="hljs-comment">/** 约定空树不是任意一个树的子结构 */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isSubStructure</span><span class="hljs-params">(TreeNode A, TreeNode B)</span> &#123;<br>    <span class="hljs-keyword">if</span> (A == <span class="hljs-literal">null</span> || B == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dfs(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);<br>  &#125;<br><br>  <span class="hljs-comment">/** 以下代码太精髓了! */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(TreeNode A, TreeNode B)</span> &#123;<br>    <span class="hljs-keyword">if</span> (B == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (A == <span class="hljs-literal">null</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 注意！:</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * &lt;p&gt;1. 这里是&amp;&amp; 而不是 ||</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * &lt;p&gt;2. 然后是左右子树分别去进行比对。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">return</span> A.val == B.val &amp;&amp; dfs(A.left, B.left) &amp;&amp; dfs(A.right, B.right);<br>  &#125;<br><br>  <span class="hljs-meta">@Test</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeA</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">3</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeB</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">4</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeC</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">5</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeD</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeE</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">2</span>);<br>    treeNodeA.left = treeNodeB;<br>    treeNodeA.right = treeNodeC;<br>    treeNodeB.left = treeNodeD;<br>    treeNodeB.right = treeNodeE;<br><br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeF</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">4</span>);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">treeNodeG</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(<span class="hljs-number">1</span>);<br>    treeNodeF.left = treeNodeG;<br><br>    System.out.println(isSubStructure(treeNodeA, treeNodeF));<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+      <category>剑指Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指Offer16.数值的整数次方</title>
     <link href="/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/"/>
     <url>/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/</url>
@@ -13,7 +40,9 @@
     
     <categories>
       
-      <category>Java</category>
+      <category>leetcode</category>
+      
+      <category>剑指Offer</category>
       
     </categories>
     
