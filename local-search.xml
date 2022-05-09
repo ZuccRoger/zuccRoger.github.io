@@ -4,6 +4,46 @@
   
   
   <entry>
+    <title>面试官:java线程池是如何实现的,定时线程怎么做到的定时运行？</title>
+    <link href="/2022/05/09/%E9%9D%A2%E8%AF%95%E5%AE%98-java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84-%E5%AE%9A%E6%97%B6%E7%BA%BF%E7%A8%8B%E6%80%8E%E4%B9%88%E5%81%9A%E5%88%B0%E7%9A%84%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%9F/"/>
+    <url>/2022/05/09/%E9%9D%A2%E8%AF%95%E5%AE%98-java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84-%E5%AE%9A%E6%97%B6%E7%BA%BF%E7%A8%8B%E6%80%8E%E4%B9%88%E5%81%9A%E5%88%B0%E7%9A%84%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%9F/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>面试官:请介绍一些类加载,双亲委派模型</title>
+    <link href="/2022/05/09/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E7%B1%BB%E5%8A%A0%E8%BD%BD-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/"/>
+    <url>/2022/05/09/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E7%B1%BB%E5%8A%A0%E8%BD%BD-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<h3 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h3><p>类加载的过程分为加载、链接和初始化。</p><h4 id="加载阶段"><a href="#加载阶段" class="headerlink" title="加载阶段"></a>加载阶段</h4><p>Java将字节码从不同的数据源读取到JVM中，并映射为JVM认可的数据结构(Class对象),这里的数据源可以是各种各样形态的，比如jar文件、class文件,甚至是网络数据源，如果输入数据不是ClassFile的结构，则会抛出ClassFormatError.</p><h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><p>简单来说就是将定义的类信息平滑地转入到JVM的运行过程中.</p><h5 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h5><p>这个是虚拟机安全的保障,JVM需要核验一下字节信息是否符合JVM的规范,否则就会被认定为<strong>VerifyError</strong>，这样就防止了恶意信息危害JVM的运行，验证阶段可能会触发更多的class加载。</p><h5 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h5><p>创建类或者接口中的静态变量，并且初始化静态变量（侧重在内存空间的分配上）</p><h5 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h5><p>会将常量池中的符号引用替换为直接引用</p><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>真正地去执行类的初始化代码逻辑，包括静态字段的赋值，以及执行类定义中的静态初始化块内的逻辑。</p><h3 id="双亲委派"><a href="#双亲委派" class="headerlink" title="双亲委派"></a>双亲委派</h3><p>就是说类加载器试图加载某个类型的时候，除非父类型找不到相应的类型，否则尽量将这个任务代理给当前加载器的父加载器去做。使用委派模式的目的是为了避免重复加载Java类型。</p><h3 id="类加载机制的3个基本特征"><a href="#类加载机制的3个基本特征" class="headerlink" title="类加载机制的3个基本特征"></a>类加载机制的3个基本特征</h3><ol><li>双亲委派模型</li><li>可见行</li><li>单一性</li></ol><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol><li><a href="https://time.geekbang.org/column/article/9946">请介绍类加载过程，什么是双亲委派模型？</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>我是面试官系列</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指OfferII076数组中的第k大的数字</title>
     <link href="/2022/05/09/%E5%89%91%E6%8C%87OfferII076%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACk%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/"/>
     <url>/2022/05/09/%E5%89%91%E6%8C%87OfferII076%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACk%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/</url>
