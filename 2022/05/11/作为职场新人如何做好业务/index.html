@@ -16,27 +16,23 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="背景介绍项目层级和IDEA设置介绍:多模块的目录层级为可以看到有3个子模块，分别是dnm-business、dnm-ess4j、dnm-web. IDEA中也设置了:  我的操作点击了下的clean 然后install. 然后dnm-web下的taget文件目录中运行了java -jar后的运行结果如图：总而言之不是缺这个就是缺那个.但是打包是正常的. 有个项目是多module进行打包的,打包后发">
+    <meta name="description" content="应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上 有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解 我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。 如何做代码怎么写？需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么你的maven打包老是出现问题">
-<meta property="og:url" content="http://example.com/2022/05/05/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/index.html">
+<meta property="og:title" content="作为职场新人如何做好业务?">
+<meta property="og:url" content="http://example.com/2022/05/11/%E4%BD%9C%E4%B8%BA%E8%81%8C%E5%9C%BA%E6%96%B0%E4%BA%BA%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E4%B8%9A%E5%8A%A1/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
-<meta property="og:description" content="背景介绍项目层级和IDEA设置介绍:多模块的目录层级为可以看到有3个子模块，分别是dnm-business、dnm-ess4j、dnm-web. IDEA中也设置了:  我的操作点击了下的clean 然后install. 然后dnm-web下的taget文件目录中运行了java -jar后的运行结果如图：总而言之不是缺这个就是缺那个.但是打包是正常的. 有个项目是多module进行打包的,打包后发">
+<meta property="og:description" content="应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上 有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解 我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。 如何做代码怎么写？需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/IDEA%E9%80%92%E5%BD%92%E8%AE%BE%E7%BD%AE.png">
-<meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E8%BF%90%E8%A1%8C%E9%94%99%E8%AF%AF%E6%88%AA%E5%9B%BE.png">
-<meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E6%9C%80%E7%BB%88pom.xml%E6%B2%A1%E6%9C%89%E5%86%B2%E7%AA%81.png">
-<meta property="og:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E5%AE%8C%E7%BE%8E%E8%BF%90%E8%A1%8C.png">
-<meta property="article:published_time" content="2022-05-05T07:36:08.000Z">
-<meta property="article:modified_time" content="2022-05-12T00:41:56.137Z">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h24fnneqk1j21gl0u077f.jpg">
+<meta property="article:published_time" content="2022-05-11T05:53:12.000Z">
+<meta property="article:modified_time" content="2022-05-12T00:42:16.894Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h24fnneqk1j21gl0u077f.jpg">
   
   
-  <title>为什么你的maven打包老是出现问题 - 骆佳俊的博客</title>
+  <title>作为职场新人如何做好业务? - 骆佳俊的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -182,7 +178,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="为什么你的maven打包老是出现问题">
+            <span class="h2" id="subtitle" title="作为职场新人如何做好业务?">
               
             </span>
 
@@ -192,8 +188,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-05 15:36" pubdate>
-        2022年5月5日 下午
+      <time datetime="2022-05-11 13:53" pubdate>
+        2022年5月11日 下午
       </time>
     </span>
   
@@ -203,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      471 字
+      272 字
     </span>
   
 
@@ -212,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4 分钟
+      3 分钟
     </span>
   
 
@@ -249,20 +245,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">为什么你的maven打包老是出现问题</h1>
+            <h1 style="display: none">作为职场新人如何做好业务?</h1>
             
             <div class="markdown-body">
-              <h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><h4 id="项目层级和IDEA设置介绍"><a href="#项目层级和IDEA设置介绍" class="headerlink" title="项目层级和IDEA设置介绍:"></a>项目层级和IDEA设置介绍:</h4><p>多模块的目录层级为<br><img src="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload alt="多模块的目录层级"><br>可以看到有3个子模块，分别是dnm-business、dnm-ess4j、dnm-web. IDEA中也设置了:</p>
-<p><img src="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/IDEA%E9%80%92%E5%BD%92%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="IDEA的设置"></p>
-<h3 id="我的操作"><a href="#我的操作" class="headerlink" title="我的操作"></a>我的操作</h3><p>点击了下的clean 然后install. 然后dnm-web下的taget文件目录中运行了java -jar后的运行结果如图：<br><img src="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E8%BF%90%E8%A1%8C%E9%94%99%E8%AF%AF%E6%88%AA%E5%9B%BE.png" srcset="/img/loading.gif" lazyload alt="运行结果"><br>总而言之不是缺这个就是缺那个.但是打包是正常的.</p>
-<p>有个项目是多module进行打包的,打包后发现不是这里缺一个类，就是那边一个依赖没有打包完全。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
-<li>使用了maven Helper这个IDEA的插件,只要简单地进行对于标红的冲突依赖进行exclude即可，最后重新clean-package.<br><img src="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E6%9C%80%E7%BB%88pom.xml%E6%B2%A1%E6%9C%89%E5%86%B2%E7%AA%81.png" srcset="/img/loading.gif" lazyload alt="最终的pom.xml依赖树"></li>
-<li>也可以通过 mvn dependency:tree -Dverbose -includes&#x3D;gid:aid看看所依赖的版本和实际用的版本对不对，gid:aid换成这个依赖的ga信息<br>例如:</li>
+              <p>应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上</p>
+<p>有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解</p>
+<p>我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。</p>
+<h3 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h3><h4 id="代码怎么写？"><a href="#代码怎么写？" class="headerlink" title="代码怎么写？"></a>代码怎么写？</h4><p>需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式地构建系统</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h24fnneqk1j21gl0u077f.jpg" srcset="/img/loading.gif" lazyload alt="image-20220511140915654"></p>
+<h4 id="业务技术怎么做？"><a href="#业务技术怎么做？" class="headerlink" title="业务技术怎么做？"></a>业务技术怎么做？</h4><p>即业务技术到底是在做业务，还是做技术？业务技术的技术性体现在哪里？</p>
+<p>业务所面临的复杂性并不亚于底层技术</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/alisystemsoftware/article/details/109286754">一文教会你如何写复杂业务代码</a></li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs Java">➜  target mvn dependency:tree -Dverbose -Dincludes=io.springfox:springfox-boot-starter<br></code></pre></td></tr></table></figure>
-
-<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><img src="https://eshop-photo1.oss-cn-beijing.aliyuncs.com/blog/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E5%A5%BD%E5%A5%BD%E7%9A%84-maven%E4%B8%80%E6%89%93%E5%8C%85%E5%B0%B1%E4%B8%A2%E5%A4%B1%E7%B1%BB/%E5%AE%8C%E7%BE%8E%E8%BF%90%E8%A1%8C.png" srcset="/img/loading.gif" lazyload alt="完美运行"></p>
 
             </div>
             <hr>
@@ -274,7 +269,7 @@
                     
                       <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/maven/">maven</a>
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/%E8%81%8C%E5%9C%BA%E6%9D%82%E8%B0%88/">职场杂谈</a>
                     
                   </div>
                 
@@ -299,9 +294,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/06/%E5%89%91%E6%8C%87Offer66-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/">
+                      <a href="/2022/05/12/%E5%89%91%E6%8C%87Offer49%E4%B8%91%E6%95%B0/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指Offer66.构建乘积数组</span>
+                        <span class="hidden-mobile">剑指Offer49丑数</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -309,8 +304,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/05/%E5%89%91%E6%8C%87Offer30%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/">
-                        <span class="hidden-mobile">剑指Offer30包含min函数的栈</span>
+                      <a href="/2022/05/10/AutowiredVsResource%E7%A7%91%E6%99%AE%E7%AF%87/">
+                        <span class="hidden-mobile">AutowiredVsResource科普篇</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
