@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>趣学设计模式-工厂模式</title>
+    <link href="/2022/05/13/%E8%B6%A3%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2022/05/13/%E8%B6%A3%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>先来看一个例子,没有使用工厂模式之前你的代码的样子：</p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h26iez4omrj20w90u0q6a.jpg" alt="image-20220513091548782"></p><p>工厂模式是一个创建型的设计模式</p><p>通常有三个细分的类型：简单工厂、工厂方法 和 抽象工厂。</p><p>其中简单工厂和抽象工厂的原理比较简单，抽象工厂的原理稍微复杂些，并且相对不常用。</p><p>复杂度无法被消除，只能被转移： </p><ul><li>不用工厂模式，if-else 逻辑、创建逻辑和业务代码耦合在一起 </li><li>简单工厂是将不同创建逻辑放到一个工厂类中，if-else 逻辑在这个工厂类中 </li><li>工厂方法是将不同创建逻辑放到不同工厂类中，先用一个工厂类的工厂来来得到某个工厂，再用这个工厂来创建，if-else 逻辑在工厂类的工厂中</li></ul><h3 id="带着问题去学习"><a href="#带着问题去学习" class="headerlink" title="带着问题去学习"></a>带着问题去学习</h3><ol><li>什么时候该用工厂模式？相对于直接 new 来创建对象，用工厂模式来创建究竟有什么好处呢？</li></ol><h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p>​首先简单工厂<strong>不是</strong>一个设计模式,</p><h3 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h3><p>工厂方法模式：定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类</p><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td></td><td></td></tr></tbody></table><h3 id="抽象-工厂"><a href="#抽象-工厂" class="headerlink" title="抽象 工厂"></a>抽象 工厂</h3><p>抽象工厂模式：提供一个接口，用于创建相关或依赖对象的家族，而不需要明确指定具体类</p><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>1. </p><h3 id="使用推荐"><a href="#使用推荐" class="headerlink" title="使用推荐"></a>使用推荐</h3><ol><li>大部分工厂类都是以“Factory”这个单词结尾的，但也不是必须的，比如 Java 中的 DateFormat、Calender。</li><li></li></ol><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol><li><a href="https://time.geekbang.org/column/article/197254">设计模式之美</a></li><li><a href="https://book.douban.com/subject/2243615/">Head First 设计模式中文版</a></li><li></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+      <category>创建型模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>基于SVN的CICD调研方案</title>
+    <link href="/2022/05/12/Jar%E7%83%AD%E9%83%A8%E7%BD%B2/"/>
+    <url>/2022/05/12/Jar%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
+    
+    <content type="html"><![CDATA[<h3 id="定个小目标"><a href="#定个小目标" class="headerlink" title="定个小目标"></a>定个小目标</h3><p>​经过沟通后，第一阶段来说是至少将 dnm项目的后端 代码上传到 svn 之后, 能够容器化地去做到热部署。</p><h3 id="CICD工具现状"><a href="#CICD工具现状" class="headerlink" title="CICD工具现状"></a>CICD工具现状</h3><p>​工具的选择：</p><table><thead><tr><th>比较项目</th><th>Jenkins</th><th>Drone</th><th>GitlabCi（不考虑）</th></tr></thead><tbody><tr><td>空间容量清理问题</td><td>需要定时清理，否则占空间越来越大</td><td>无残留</td><td></td></tr><tr><td>插件升级</td><td>每次需要在新环境(测试环境上)，升级测试一下，比较繁琐</td><td>插件都是docker容易,一切都是全自动的.</td><td></td></tr><tr><td>生态的构建</td><td><strong>强大</strong>,插件很多</td><td>完全基于容器来实现的 CI&#x2F;CD 工具，构建的过程也完全是在容器中实现的。</td><td></td></tr><tr><td>CSV支持(关键)</td><td>git、svn</td><td>git. <a href="https://github.com/harness/drone/issues/2799">Do drone Support the SVN?</a></td><td>git</td></tr></tbody></table><p>​其中新锐Drone 以及 老牌的gitlabCI 需要和git搭配,但是 我们 效能平台部 以及整个雷火的游戏都是在svn上的，所以可以告别这俩只有Jenkins。</p><h3 id="方案选定"><a href="#方案选定" class="headerlink" title="方案选定"></a>方案选定</h3><ol><li>Jenkins + Docker 自动化集成环境搭建</li></ol><h3 id="我遇到的问题"><a href="#我遇到的问题" class="headerlink" title="我遇到的问题"></a>我遇到的问题</h3><ol><li><p>缺失 构建一个maven项目 的选项.<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h25ptdixcxj21pa0u0n2b.jpg" alt="image-20220512164618895"></p><p>【解决方案 I 】是需要去插件市场下载的 maven integration </p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h25puly2mvj22ue0u0444.jpg" alt="image-20220512164730229"></p><p>【解决方案 II】 直接在maven的镜像中打jar包进行代码的编译打包，至于我是怎么做的<strong>后文有介绍</strong>.</p></li><li><p>对于java的项目我该配置哪些流程</p><ol><li><p>流程拆解<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h25meu2vudj21hu0ha76h.jpg" alt="整体流程"></p></li><li><div class="code-wrapper"><pre><code class="dockerfile">## 可以自己搞一个镜像不需要在jenkins上安装java maven之类的。FROM maven:3.6.0-jdk-8-alpine AS mvnCOPY settings.xml WORKSPACE /data/workspaceCOPY xxx /data/workspaceRUN mvn clean packageFrom openjdk:8-jre-alpineCOPY --from=mvn /data/workspace/xxx/target/my-app-1.0-SNAPSHOT.jar destENTRYPOINT[]<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><pre><code class="hljs awk"><br><span class="hljs-number">3</span>. 编写自己的dockerfile<br><br>   ```dockerfile<br>   FROM openjdk:<span class="hljs-number">8</span>-jdk-stretch<br>   <br>   COPY target<span class="hljs-regexp">/jenkinsImage-0.0.1-SNAPSHOT.jar &quot;/</span>tmp/jenkinsImage-<span class="hljs-number">0.0</span>.<span class="hljs-number">1</span>-SNAPSHOT.ja<span class="hljs-string">r&quot;</span><br><span class="hljs-string">   </span><br><span class="hljs-string">   # 启动应用程序</span><br><span class="hljs-string">   ENTRYPOINT [&quot;</span>java<span class="hljs-string">&quot;, &quot;</span>-serve<span class="hljs-string">r&quot;, &quot;</span>-Xms2048m<span class="hljs-string">&quot;, &quot;</span>-Xmx4096m<span class="hljs-string">&quot;, &quot;</span>-XX:+UseG1GC<span class="hljs-string">&quot;, &quot;</span>-ja<span class="hljs-string">r&quot;, &quot;</span><span class="hljs-regexp">/tmp/</span>jenkinsImage-<span class="hljs-number">0.0</span>.<span class="hljs-number">1</span>-SNAPSHOT.ja<span class="hljs-string">r&quot;, &quot;</span>--spring.profiles.active=test<span class="hljs-string">&quot;]</span><br></code></pre></td></tr></table></figure></code></pre></li><li><p>命令</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span>. docker buildx build -t hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span>.com/luojiajun/jenkins-build:<span class="hljs-number">1.1</span> .<br><span class="hljs-number">2</span>. docker login hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span><span class="hljs-selector-class">.com</span><br><span class="hljs-number">3</span>. docker push hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span>.com/luojiajun/jenkins-build:<span class="hljs-number">1.1</span><br></code></pre></td></tr></table></figure></li></ol></li><li><p>Docker部署后发现<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2705a6d4gj22xq08eq5l.jpg" alt="运行失败"></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:<span class="hljs-number">2.6</span><span class="hljs-number">.7</span>:repackage (repackage) on project jenkinsImage: Execution repackage of goal org.springframework.boot:spring-boot-maven-plugin:<span class="hljs-number">2.6</span><span class="hljs-number">.7</span>:repackage failed: Unable to find main class -&gt; [Help <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure><p>查看自己的dockerfile文件,只有短短几行就是做了一个复制到&#x2F;tmp下然后进行mvn clean package.结果说找不到主类.</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6</span> AS mvn<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /tmp</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> * /tmp</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> mvn clean package</span><br></code></pre></td></tr></table></figure><p>于是自己到镜像中查看</p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2708ex4xkj22hw07e0un.jpg" alt="镜像中目录文件">好家伙发现没有src目录。</p><p>找到了一个<a href="https://github.com/moby/moby/issues/15858">病友</a>, 现象是:  </p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h270tl1b9bj20a40a8jri.jpg" alt="copy前">   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h270ttuxraj20h207y74e.jpg" alt="copy后"></p><p>最后通过修改dockerfile</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6</span> AS mvn<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /tmp</span><br><span class="hljs-comment"># 注意这里是 / 不是 * </span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> / /tmp  </span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> mvn clean package</span><br></code></pre></td></tr></table></figure><p>最后完美运行。</p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h270oopltej22ls0ban00.jpg" alt="主类问题解决正常打包"></p></li></ol><h3 id="需要解决的事情-按照优先级排序"><a href="#需要解决的事情-按照优先级排序" class="headerlink" title="需要解决的事情(按照优先级排序)"></a>需要解决的事情(按照优先级排序)</h3><ol><li>不同机器之间如何部署？<ol><li><a href="https://juejin.cn/post/7000534516410351646">Jenkins通过Publish Over SSH实现前端项目部署到远程服务全纪录</a></li></ol></li><li>多module的问题是如何处理？</li><li>代码的diff,类似发布系统，两个环境的代码进行比对。</li><li>热部署,在服务升级的时候最好不出现502等问题，用户无感知地去升级</li></ol><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol><li><a href="https://blog.csdn.net/chenjie19891104/article/details/42807959">热部署</a></li><li><a href="https://zhuanlan.zhihu.com/p/89312003">手把手带你搭建jenkins</a></li><li><a href="https://kms.netease.com/article/38761">基于轻舟CICD的代码静态扫描流程分享</a></li><li><a href="https://www.infoq.cn/article/432edcqbiu5je_dqj3zx">阿里巴巴如何基于 Kubernetes 实践 CI&#x2F;CD</a></li><li><a href="https://www.i4k.xyz/article/weixin_38087538/109080218">修改docker镜像并重新推送到镜像仓库</a></li><li><a href="https://yeasy.gitbook.io/docker_practice/image/multistage-builds">Dockerfile 多阶段构建</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>项目实践</category>
+      
+      <category>maven</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指Offer49丑数</title>
     <link href="/2022/05/12/%E5%89%91%E6%8C%87Offer49%E4%B8%91%E6%95%B0/"/>
     <url>/2022/05/12/%E5%89%91%E6%8C%87Offer49%E4%B8%91%E6%95%B0/</url>
