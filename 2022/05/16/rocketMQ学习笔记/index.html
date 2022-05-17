@@ -16,23 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上 有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解 我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。 如何做代码怎么写？需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式">
+    <meta name="description" content="环境安装 拉取镜像  1docker pull rocketmqinc&#x2F;rocketmq   启动namesrv服务  12345678910111213docker run \--restart&#x3D;always \--name rmqbroker \--link rmqnamesrv:namesrv \-p 10911:10911 \-p 10909:10909 \-v  &#x2F;tmp&#x2F;rocketm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="作为职场新人如何做好业务?">
-<meta property="og:url" content="http://example.com/2022/05/11/%E4%BD%9C%E4%B8%BA%E8%81%8C%E5%9C%BA%E6%96%B0%E4%BA%BA%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E4%B8%9A%E5%8A%A1/index.html">
+<meta property="og:title" content="rocketMQ学习笔记">
+<meta property="og:url" content="http://example.com/2022/05/16/rocketMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
-<meta property="og:description" content="应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上 有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解 我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。 如何做代码怎么写？需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式">
+<meta property="og:description" content="环境安装 拉取镜像  1docker pull rocketmqinc&#x2F;rocketmq   启动namesrv服务  12345678910111213docker run \--restart&#x3D;always \--name rmqbroker \--link rmqnamesrv:namesrv \-p 10911:10911 \-p 10909:10909 \-v  &#x2F;tmp&#x2F;rocketm">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h24fnneqk1j21gl0u077f.jpg">
-<meta property="article:published_time" content="2022-05-11T05:53:12.000Z">
-<meta property="article:modified_time" content="2022-05-15T03:03:30.501Z">
+<meta property="article:published_time" content="2022-05-15T23:49:18.000Z">
+<meta property="article:modified_time" content="2022-05-17T11:26:21.225Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h24fnneqk1j21gl0u077f.jpg">
   
   
-  <title>作为职场新人如何做好业务? - 骆佳俊的博客</title>
+  <title>rocketMQ学习笔记 - 骆佳俊的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -178,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="作为职场新人如何做好业务?">
+            <span class="h2" id="subtitle" title="rocketMQ学习笔记">
               
             </span>
 
@@ -188,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-11 13:53" pubdate>
-        2022年5月11日 下午
+      <time datetime="2022-05-16 07:49" pubdate>
+        2022年5月16日 早上
       </time>
     </span>
   
@@ -199,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      345 字
+      5.4k 字
     </span>
   
 
@@ -208,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      46 分钟
     </span>
   
 
@@ -245,19 +243,73 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">作为职场新人如何做好业务?</h1>
+            <h1 style="display: none">rocketMQ学习笔记</h1>
             
             <div class="markdown-body">
-              <p>应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上</p>
-<p>有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解</p>
-<p>我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。</p>
-<h3 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h3><h4 id="代码怎么写？"><a href="#代码怎么写？" class="headerlink" title="代码怎么写？"></a>代码怎么写？</h4><p>需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式地构建系统</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h24fnneqk1j21gl0u077f.jpg" srcset="/img/loading.gif" lazyload alt="image-20220511140915654"></p>
-<h4 id="业务技术怎么做？"><a href="#业务技术怎么做？" class="headerlink" title="业务技术怎么做？"></a>业务技术怎么做？</h4><p>即业务技术到底是在做业务，还是做技术？业务技术的技术性体现在哪里？</p>
-<p>业务所面临的复杂性并不亚于底层技术</p>
-<h3 id="如何评价是不是一个好的程序员"><a href="#如何评价是不是一个好的程序员" class="headerlink" title="如何评价是不是一个好的程序员"></a>如何评价是不是一个好的程序员</h3><p>​	因为程序员最重要的事情就是写代码，好的程序员本质上就是好的工程师，写代码整洁而规范（比如你家做装修的做的又干净又好）</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/alisystemsoftware/article/details/109286754">一文教会你如何写复杂业务代码</a></li>
+              <h3 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h3><ol>
+<li>拉取镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">docker pull rocketmqinc/rocketmq<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启动namesrv服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>--restart=always \<br>--name rmqbroker \<br>--link rmqnamesrv:namesrv \<br>-p 10911:10911 \<br>-p 10909:10909 \<br>-v  /tmp/rocketmq/data/broker/logs:/root/logs \<br>-v  /tmp/rocketmq/data/broker/store:/root/store \<br>-v /tmp/rocketmq/conf/broker.conf:/opt/rocketmq-4.4.0/conf/broker.conf \<br>-e &quot;NAMESRV_ADDR=namesrv:9876&quot; \<br>-e &quot;MAX_POSSIBLE_HEAP=200000000&quot; \<br>rocketmqinc/rocketmq \<br>sh mqbroker -c /opt/rocketmq-4.4.0/conf/broker.conf <br></code></pre></td></tr></table></figure>
+
+<h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><h3 id="我遇到的问题以及如何解决的"><a href="#我遇到的问题以及如何解决的" class="headerlink" title="我遇到的问题以及如何解决的"></a>我遇到的问题以及如何解决的</h3><ol>
+<li><p>当我通过docker-compose去启动相应的rmq的时候出现了下面的情况。</p>
+<ol>
+<li><div class="code-wrapper"><pre><code class="sh">➜  rocketmq docker-compose up
+Docker Compose is now in the Docker CLI, try `docker compose up`
+
+Starting rmqnamesrv ... done
+Starting rmqbroker  ... done
+Starting rmqconsole ... done
+Attaching to rmqnamesrv, rmqconsole, rmqbroker
+rmqnamesrv    | OpenJDK 64-Bit Server VM warning: Using the DefNew young collector with the CMS collector is deprecated and will likely be removed in a future release
+rmqnamesrv    | OpenJDK 64-Bit Server VM warning: UseCMSCompactAtFullCollection is deprecated and will likely be removed in a future release.
+rmqbroker     | ======================================
+rmqbroker     | -server -Xms994M -Xmx994M -Xmn248M -XX:+UseG1GC -XX:G1HeapRegionSize=16m -XX:G1ReservePercent=25 -XX:InitiatingHeapOccupancyPercent=30 -XX:SoftRefLRUPolicyMSPerMB=0 -XX:SurvivorRatio=8 -verbose:gc -Xloggc:/dev/shm/mq_gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m -XX:-OmitStackTraceInFastThrow -XX:+AlwaysPreTouch -XX:MaxDirectMemorySize=994M -XX:-UseLargePages -XX:-UseBiasedLocking -Djava.ext.dirs=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.275.b01-0.el7_9.x86_64/jre/lib/ext:/home/rocketmq/rocketmq-4.8.0/bin/../lib -server -Xms128m -Xmx128m -Xmn128m -cp .:/home/rocketmq/rocketmq-4.8.0/bin/../conf:
+rmqconsole    | 02:11:59,486 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+rmqconsole    | 02:11:59,489 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+rmqconsole    | 02:11:59,491 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/app.jar!/BOOT-INF/classes!/logback.xml]
+rmqconsole    | 02:11:59,645 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@1b2c6ec2 - URL [jar:file:/app.jar!/BOOT-INF/classes!/logback.xml] is not of type file
+rmqconsole    | 02:12:00,096 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+rmqconsole    | 02:12:00,126 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+rmqconsole    | 02:12:00,223 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+rmqconsole    | 02:12:00,289 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+rmqconsole    | 02:12:00,687 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+rmqconsole    | 02:12:00,703 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [FILE]
+rmqconsole    | 02:12:00,885 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1323165413 - No compression will be used
+rmqconsole    | 02:12:00,896 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1323165413 - Will use the pattern /root/logs/consolelogs/rocketmq-console-%d&#123;yyyy-MM-dd&#125;.%i.log for the active file
+rmqconsole    | 02:12:00,920 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@70177ecd - The date pattern is &#39;yyyy-MM-dd&#39; from file name pattern &#39;/root/logs/consolelogs/rocketmq-console-%d&#123;yyyy-MM-dd&#125;.%i.log&#39;.
+rmqconsole    | 02:12:00,920 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@70177ecd - Roll-over at midnight.
+rmqconsole    | 02:12:00,933 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@70177ecd - Setting initial period to Mon May 16 02:10:01 UTC 2022
+rmqconsole    | 02:12:00,936 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@70177ecd - SizeAndTimeBasedFNATP is deprecated. Use SizeAndTimeBasedRollingPolicy instead
+rmqconsole    | 02:12:00,946 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+rmqconsole    | 02:12:00,962 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[FILE] - Active log file name: /root/logs/consolelogs/rocketmq-console.log
+rmqconsole    | 02:12:00,962 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[FILE] - File property is set to [/root/logs/consolelogs/rocketmq-console.log]
+rmqconsole    | 02:12:00,967 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+rmqconsole    | 02:12:00,967 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+rmqconsole    | 02:12:00,970 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [FILE] to Logger[ROOT]
+rmqconsole    | 02:12:00,970 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+rmqconsole    | 02:12:00,972 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@1e80bfe8 - Registering current configuration as safe fallback point
+rmqconsole    |
+rmqconsole    | qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+rmqconsole    | Segmentation fault
+rmqconsole exited with code 139
+rmqnamesrv    | The Name Server boot success. serializeType=JSON
+rmqbroker     | The broker[broker-a, 172.19.0.4:10911] boot success. serializeType=JSON and name server is rmqnamesrv:9876
+</code></pre></div>
+</li>
+</ol>
+</li>
+<li></li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a href="(https://github.com/apache/rocketmq/blob/master/docs/cn/RocketMQ_Example.md)">官方快速入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/ming19951224/article/details/109063041">手把手带你启动rmq</a></li>
+<li></li>
 </ol>
 
             </div>
@@ -268,9 +320,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E8%81%8C%E5%9C%BA/">职场</a>
+                      <a class="hover-with-bg" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E8%81%8C%E5%9C%BA/%E6%9D%82%E8%B0%88/">杂谈</a>
+                      <a class="hover-with-bg" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rocketMQ/">rocketMQ</a>
                     
                   </div>
                 
@@ -295,9 +347,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/12/%E5%89%91%E6%8C%87Offer49%E4%B8%91%E6%95%B0/">
+                      <a href="/2022/05/16/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指Offer49丑数</span>
+                        <span class="hidden-mobile">Docker学习记录</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -305,8 +357,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/10/AutowiredVsResource%E7%A7%91%E6%99%AE%E7%AF%87/">
-                        <span class="hidden-mobile">AutowiredVsResource科普篇</span>
+                      <a href="/2022/05/15/kafka%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">kafka 3.x 学习笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
