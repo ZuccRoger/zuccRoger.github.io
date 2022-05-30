@@ -16,16 +16,17 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基本概念 镜像和容器的关系 镜像和容器可以类比为类和对象，容器可以被创建、启动、停止、删除和暂停。    实战经历 如何进入容器？  第一阶段: 首先需要把镜像启动起来.   &#96;&#96;&#96;shdocker run -it –name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6 12345678">
+    <meta name="description" content="基本概念 镜像和容器的关系 镜像和容器可以类比为类和对象，容器可以被创建、启动、停止、删除和暂停。    实战经历 如何进入容器？  第一阶段: 首先需要把镜像启动起来. 1docker run -it --name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6  第二阶段: 通过容器ID进入 或者 NAMES 进行 (其中name">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker学习记录">
 <meta property="og:url" content="http://example.com/2022/05/16/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
-<meta property="og:description" content="基本概念 镜像和容器的关系 镜像和容器可以类比为类和对象，容器可以被创建、启动、停止、删除和暂停。    实战经历 如何进入容器？  第一阶段: 首先需要把镜像启动起来.   &#96;&#96;&#96;shdocker run -it –name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6 12345678">
+<meta property="og:description" content="基本概念 镜像和容器的关系 镜像和容器可以类比为类和对象，容器可以被创建、启动、停止、删除和暂停。    实战经历 如何进入容器？  第一阶段: 首先需要把镜像启动起来. 1docker run -it --name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6  第二阶段: 通过容器ID进入 或者 NAMES 进行 (其中name">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-16T02:45:11.000Z">
-<meta property="article:modified_time" content="2022-05-17T07:44:33.697Z">
+<meta property="article:modified_time" content="2022-05-19T06:39:13.107Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -196,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      709 字
+      938 字
     </span>
   
 
@@ -205,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分钟
+      8 分钟
     </span>
   
 
@@ -254,15 +255,43 @@
 <h3 id="实战经历"><a href="#实战经历" class="headerlink" title="实战经历"></a>实战经历</h3><ol>
 <li><p>如何进入容器？</p>
 <ol>
-<li><p>第一阶段: 首先需要把镜像启动起来. </p>
+<li><p>第一阶段: 首先需要把镜像启动起来.</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs applescript">docker <span class="hljs-built_in">run</span> -<span class="hljs-keyword">it</span> <span class="hljs-comment">--name lhepMaven hub.fuxi.netease.com/qa-web/jenkins-maven:3.6</span><br></code></pre></td></tr></table></figure>
 </li>
-<li><p>&#96;&#96;&#96;sh<br>docker run -it –name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs bash"><br>3. 第二阶段: 通过容器ID进入 或者 NAMES 进行 (其中names可以通过docker ps -a查看到)<br><br>   ```sh<br>   ➜  /etc docker ps -a<br>   CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS                  PORTS                                                                     NAMES<br>   98d6fde314ce   bitnami/kafka   <span class="hljs-string">&quot;/opt/bitnami/script…&quot;</span>   15 seconds ago   Up Less than a second   0.0.0.0:9002-&gt;9002/tcp, :::9002-&gt;9002/tcp, 9092/tcp                       kafka<br>   6d90e0c7f652   zookeeper       <span class="hljs-string">&quot;/docker-entrypoint.…&quot;</span>   5 minutes ago    Up 5 minutes            2888/tcp, 3888/tcp, 0.0.0.0:2181-&gt;2181/tcp, :::2181-&gt;2181/tcp, 8080/tcp   zookeeper<br></code></pre></td></tr></table></figure>
+<li><p>第二阶段: 通过容器ID进入 或者 NAMES 进行 (其中names可以通过docker ps -a查看到)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">➜  /etc docker ps -a<br>CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS                  PORTS                                                                     NAMES<br>98d6fde314ce   bitnami/kafka   <span class="hljs-string">&quot;/opt/bitnami/script…&quot;</span>   15 seconds ago   Up Less than a second   0.0.0.0:9002-&gt;9002/tcp, :::9002-&gt;9002/tcp, 9092/tcp                       kafka<br>6d90e0c7f652   zookeeper       <span class="hljs-string">&quot;/docker-entrypoint.…&quot;</span>   5 minutes ago    Up 5 minutes            2888/tcp, 3888/tcp, 0.0.0.0:2181-&gt;2181/tcp, :::2181-&gt;2181/tcp, 8080/tcp   zookeeper<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 第一种 容器ID进入</span><br>docker <span class="hljs-built_in">exec</span> -it 8x9zc89asd /bin/bash <br><span class="hljs-comment"># 第二种 NAMES 进行</span><br>docker <span class="hljs-built_in">exec</span> -it zookeeper /bin/bash<br></code></pre></td></tr></table></figure></li>
 </ol>
 </li>
-<li></li>
+<li><p>CMD vs ENTRYPOINT</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>RUN</th>
+<th>ENTRYPOINT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令设置容器启动后默认执行的命令及其参数，但CMD设置的命令能够被<code>docker run</code>命令后面的命令行参数替换</td>
+<td>命令执行命令并创建新的镜像层，通常用于安装软件包</td>
+<td>配置容器启动时的执行命令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>运行代码</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">FROM alpine:3.2<br>ARG JAVA_ENV=<span class="hljs-string">&quot;-server -Xms2047m -Xmx4097m -XX:+UseG1GC&quot;</span><br>RUN <span class="hljs-built_in">echo</span> -------------- <span class="hljs-variable">$JAVA_ENV</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010180815/article/details/107837717">Dockerfile RUN vs CMD vs ENTRYPOINT区别</a></p>
+</li>
+</ol>
+</li>
 <li><p>Docker-compose.yml</p>
 <ol>
 <li>如何启动</li>
@@ -275,6 +304,22 @@
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%B9%E5%99%A8/">容器</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%B9%E5%99%A8/Docker/">Docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
                 
               </div>
               
@@ -288,6 +333,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/05/18/kafka%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E6%8E%8C%E6%8F%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">kafka基本概念掌握</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

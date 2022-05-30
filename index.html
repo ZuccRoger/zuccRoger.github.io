@@ -191,15 +191,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/16/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" target="_self">
-          Docker学习记录
+        <a href="/2022/05/27/Spring%E4%BA%8B%E7%89%A9%E6%A2%B3%E7%90%86/" target="_self">
+          Spring事物梳理
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/16/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" target="_self">
+        <a href="/2022/05/27/Spring%E4%BA%8B%E7%89%A9%E6%A2%B3%E7%90%86/" target="_self">
           
-          基本概念 镜像和容器的关系 镜像和容器可以类比为类和对象，容器可以被创建、启动、停止、删除和暂停。    实战经历 如何进入容器？  第一阶段: 首先需要把镜像启动起来.   &#96;&#96;&#96;shdocker run -it –name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6 12345678
+          前言​	本文讲述的是Spring中如何使用事物，以及个人在使用Spring的事物中遇到的问题的梳理和总结。 ​	读后你能学到什么？      1. 如何在Spring中引入事物 以及 如何搭建一个基础的demo.     1. 事物为什么会失效，以及事物传递是咋回事?  如何使用？​	@Configuration 123@Configuration@EnableTransactionManagem
         </a>
       </p>
 
@@ -207,41 +207,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-16 10:45" pubdate>
-              2022-05-16
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/16/rocketMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
-          rocketMQ学习笔记
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/16/rocketMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
-          
-          环境安装 拉取镜像  1docker pull rocketmqinc&#x2F;rocketmq   启动namesrv服务  12345678910111213docker run \--restart&#x3D;always \--name rmqbroker \--link rmqnamesrv:namesrv \-p 10911:10911 \-p 10909:10909 \-v  &#x2F;tmp&#x2F;rocketm
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-16 07:49" pubdate>
-              2022-05-16
+            <time datetime="2022-05-27 19:13" pubdate>
+              2022-05-27
             </time>
           </div>
         
@@ -249,9 +216,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
-            
-              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rocketMQ/">rocketMQ</a>
+              <a href="/categories/Spring/">Spring</a>
             
           </div>
         
@@ -259,7 +224,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+              <a href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
             
           </div>
         
@@ -273,15 +238,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/15/kafka%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
-          kafka 3.x 学习笔记
+        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E7%9A%84swagger%E6%80%BB%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98/" target="_self">
+          为什么你的swagger总是出问题?
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/15/kafka%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E7%9A%84swagger%E6%80%BB%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98/" target="_self">
           
-          定义分布式   的事件流平台， 被数千家用于高性能的数据管道、流分析、数据集成和关键任务应用。  基于发布&#x2F;订阅模式的消息队列, 传统消息队列应用场景 缓存&#x2F;消峰 解耦 异步通信  安装​	kafka需要配合zookeeper联合使用,所以为了方便安装部署直接上docker-compose.yml ​	可以看一下这篇文章利用docker和docker-compose部署单机ka
+          遇到了个坑爹问题 发现是cookie过期了，请求被拦截导致的。
         </a>
       </p>
 
@@ -289,228 +254,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-15 13:00" pubdate>
-              2022-05-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
-            
-              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/kafka/">kafka</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/15/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%B0%83%E7%A0%94/" target="_self">
-          消息队列调研
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/15/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%B0%83%E7%A0%94/" target="_self">
-          
-          定义​	消息队列是消息的传输过程中保存信息的容器，用于接受消息并以文件的方式存储，一个消息队列可以被一个或者多个消息者消费。 使用场景​	在大数据里面里面采用Kafka作为消息队列，在我们的JavaEE中会主要啊次用RabbitMq、RocketMQ等。 对比分析​	 ActiveMQ 5.x 维护越来越少，较少在大规模吞吐的场景中使用所以不做讨论。    – apache&#x2F;Kafa R
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-15 11:50" pubdate>
-              2022-05-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/15/%E8%81%8C%E5%9C%BA%E5%B0%8F%E7%99%BD%E5%A6%82%E4%BD%95%E6%99%8B%E5%8D%87/" target="_self">
-          职场小白如何晋升
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/15/%E8%81%8C%E5%9C%BA%E5%B0%8F%E7%99%BD%E5%A6%82%E4%BD%95%E6%99%8B%E5%8D%87/" target="_self">
-          
-          在我看来第一点肯定是能力模型.中级开发的能力模型是 123456【关键词】点：初学者，单模块&#x2F;单场景*初做者，能做好被安排的一般性工作；*有限的知识和技能，能够做与自己专业相关领域的知识管理；*对职位的标准要求、政策、流程等从业所必需了解的知识处于学习成长阶段，尚需要主管或高级别人员对负责的任务和完成的产出进行清晰的定义和沟通，并随时提供支持以达到要求；*通过配合他人完成较复杂的问题。  然后如果
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-15 11:03" pubdate>
-              2022-05-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%81%8C%E5%9C%BA/">职场</a>
-            
-              <a href="/categories/%E8%81%8C%E5%9C%BA/%E6%99%8B%E5%8D%87/">晋升</a>
-            
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/14/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/" target="_self">
-          设计原则-单一职责原则
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/14/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/" target="_self">
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-14 14:25" pubdate>
-              2022-05-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/13/%E8%B6%A3%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_self">
-          趣学设计模式-工厂模式
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/13/%E8%B6%A3%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_self">
-          
-          前言先来看一个例子,没有使用工厂模式之前你的代码的样子：  点评一下：很明显这样写代码非常不好，没有分层，一但要加一个判断则需要新增if else.非常难去维护和更新，并且容易犯错。 那么如何解决呢？这就是我们今天要讲的工厂模式 定义​	工厂方法模式是一个 创建型设计模式，在父类中提供一个创建对象的方法，允许子类决定实例化对象的类型。 工厂模式通用类图​	 工厂方法模式的优点 良好的封装性,代码结
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-13 08:31" pubdate>
-              2022-05-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-            
-              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/12/Jar%E7%83%AD%E9%83%A8%E7%BD%B2/" target="_self">
-          基于SVN的CICD调研方案
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/12/Jar%E7%83%AD%E9%83%A8%E7%BD%B2/" target="_self">
-          
-          定个小目标​	 经过沟通后，第一阶段来说是至少将 dnm 项目的后端(基于Springboot框架) 代码上传到 svn 之后, 能够容器化地去做到热部署。 CICD工具现状​	工具的选择：    比较项目 Jenkins Drone GitlabCi（不考虑）    空间容量清理问题 需要定时清理，否则占空间越来越大 无残留    插件升级 每次需要在新环境(测试环境上)，升级测试一下，比较繁琐
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-12 10:40" pubdate>
-              2022-05-12
+            <time datetime="2022-05-27 11:27" pubdate>
+              2022-05-27
             </time>
           </div>
         
@@ -520,7 +265,7 @@
             
               <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
             
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/CICD/">CICD</a>
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/Java/">Java</a>
             
           </div>
         
@@ -542,15 +287,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/12/%E5%89%91%E6%8C%87Offer49%E4%B8%91%E6%95%B0/" target="_self">
-          剑指Offer49丑数
+        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%A0%E8%BF%9B%E6%9D%A5%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%80%BC%E7%A9%BA%E4%BA%86%EF%BC%9F/" target="_self">
+          为什么我传进来的对象值空了？
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/12/%E5%89%91%E6%8C%87Offer49%E4%B8%91%E6%95%B0/" target="_self">
+        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%A0%E8%BF%9B%E6%9D%A5%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%80%BC%E7%A9%BA%E4%BA%86%EF%BC%9F/" target="_self">
           
-          剑指 Offer 49. 丑数解决方案DP12345678910111213141516171819202122232425262728293031323334353637383940import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @date: 2022&#x2F;5&#x2F;11 9:16 PM *&#x2F;public class Solution &amp;#123;  &#x2F;**   *
+          碰到了一个的事情：  为什么会这样？  上代码截图片段！ 发现问题可以看到我的 Item 以及 Prop 是没有get、set方法的，这就是为什么我的这个Item对象的值是空的原因！ 如何解决通过懒人方法直接@Data注解搞定! 运行截图
         </a>
       </p>
 
@@ -558,8 +303,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-12 08:43" pubdate>
-              2022-05-12
+            <time datetime="2022-05-27 09:06" pubdate>
+              2022-05-27
             </time>
           </div>
         
@@ -567,9 +312,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/leetcode/">leetcode</a>
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
             
-              <a href="/categories/leetcode/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/Java/">Java</a>
             
           </div>
         
@@ -591,15 +336,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/11/%E4%BD%9C%E4%B8%BA%E8%81%8C%E5%9C%BA%E6%96%B0%E4%BA%BA%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E4%B8%9A%E5%8A%A1/" target="_self">
-          作为职场新人如何做好业务?
+        <a href="/2022/05/26/Spring%E4%B8%AD%E5%85%A5%E5%8F%82%E6%A0%A1%E9%AA%8C%E8%AE%B0%E5%BD%95/" target="_self">
+          Spring中 @Valid vs @Validate 的区别
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/11/%E4%BD%9C%E4%B8%BA%E8%81%8C%E5%9C%BA%E6%96%B0%E4%BA%BA%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E4%B8%9A%E5%8A%A1/" target="_self">
+        <a href="/2022/05/26/Spring%E4%B8%AD%E5%85%A5%E5%8F%82%E6%A0%A1%E9%AA%8C%E8%AE%B0%E5%BD%95/" target="_self">
           
-          应该多花时间在对问题分析，结构化分解，最后通过合理的抽象，形成合适的阶段（Phase）和步骤（Step）上 有过程分解要好于没有分解，过程分解+对象模型要好于仅仅是过程分解 我发现这种循序渐进的能力下沉策略，应该是一种更符合实际、更敏捷的方法。因为我们承认模型不是一次性设计出来的，而是迭代演化出来的。 如何做代码怎么写？需要上下结合 - 自上而下的结构化分解 + 自下而上的面形对象建模 - 螺旋式
+          先说结论:​	需要用到了Group校验，就用@Validate，其他情况下直接用@Valid即可。 Group校验简单小科普：​	简单来说就是比如你有一个DTO对象，增、改都是这个对象。但是你想改这个对象的值，你肯定要传递ID,但是你增的时候肯定不会带ID，因此就有了Group的概念。	 举个栗子🌰 ​	下图中我就没有传递id这个字段，但是仍然通过了校验，这就是Gourp校验。 	  从问题出发
         </a>
       </p>
 
@@ -607,8 +352,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-11 13:53" pubdate>
-              2022-05-11
+            <time datetime="2022-05-26 10:54" pubdate>
+              2022-05-26
             </time>
           </div>
         
@@ -616,9 +361,285 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E8%81%8C%E5%9C%BA/">职场</a>
+              <a href="/categories/Spring/">Spring</a>
             
-              <a href="/categories/%E8%81%8C%E5%9C%BA/%E6%9D%82%E8%B0%88/">杂谈</a>
+              <a href="/categories/Spring/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a>
+            
+              <a href="/categories/Spring/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E5%85%A5%E5%8F%82%E6%A0%A1%E9%AA%8C/">入参校验</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/23/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1/" target="_self">
+          记录一次平台未加锁导致的的大量数据丢失问题
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/23/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1/" target="_self">
+          
+          背景介绍翻译平台有个功能是能将A表中的数据恢复到上一次备份时候的节点。 作为开发在实践的时候，其实就是通过 两张数据结构一模一样的表 记做 表A 以及 表A+ 进行拷贝数据而已。 123456789A、A+两个表。A表是当前数据A+表是拷贝某个时间点的数据。点了备份之后 A+表清空，A表中的数据插入A+表。当了恢复 A 表清空，A+s表中的数据插入A表。  用户的操作 当用户备份、恢复操作时间过短
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 17:05" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/23/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/" target="_self">
+          婚姻问题
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/23/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/" target="_self">
+          
+          对女生来说青春是比较宝贵的，过来给你生儿育女，还是需要安全感。 结婚这方面还是得两个人自己多处理多协商，毕竟最后还是我和她过日子。  遇到的问题如果一个女孩子他不愿意跟你一起贷款买房，那么你还会娶她吗？​	宝宝相信，如果看到这个问题的男人经济条件较好，都会笑称“老子才不会遇到这种问题，不会让女人受罪”；可经济条件一般的男人会说“结婚过日子不就是两个人共同承担么？我不过是选择用银行的钱买房而已，贷
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 08:30" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%B8%AA%E4%BA%BA/">个人</a>
+            
+              <a href="/categories/%E4%B8%AA%E4%BA%BA/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/">婚姻问题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/22/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E7%AC%94%E8%AE%B0/" target="_self">
+          程序员如何做好笔记?
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/22/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E7%AC%94%E8%AE%B0/" target="_self">
+          
+          一、前言  对于刚刚学习编程或者已经学习了编程的朋友，难免会产生该不该做笔记的想法。是做好？还是多练习几遍比较好？下面将个人想法和大家分享一下，希望给正在迷茫的你能提供一点帮助 二、问题 学编程有没有必要做笔记？  我该记哪些内容？  如何去做笔记才高效？   三、正文 问：学编程有没有必要做笔记？   答：十分肯定，一定要做！   作为一名软件开发人员，你的职业生涯中不可能只掌握一门编程语言或者
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-22 15:25" pubdate>
+              2022-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/">个人提升</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/" target="_self">
+          聊一下kafka的中的生产者
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/" target="_self">
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-22 15:07" pubdate>
+              2022-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/">消费队列</a>
+            
+              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/">Kafka</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/" target="_self">
+          无消息丢失配置
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/" target="_self">
+          
+          消息丢失的情况 生产者程序丢失数据  使用 producer.send(msg) 这个API是属于异步发送消息，所以如果要用的话需要用 producer.send(msg,callback).  消费者程序丢失数据
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-22 12:55" pubdate>
+              2022-05-22
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/22/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_self">
+          生产者消费分区机制原理剖析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/22/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_self">
+          
+          kafka有主题Topic的概念，它是承载真实数据的逻辑容器，主题之下还有有若干个分区，所以Kafka的消息组织方式有三级 主题 - 分区 -消息 提出问题为什么kafka不直接使用多个主题，而是使用了多分区呢？ 其实分区主要是提供了负责均衡 和 高吞吐量的关键. 如何自定义分区策略1234567891011121314public class PartitionImpl implements o
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-22 10:43" pubdate>
+              2022-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/">消费队列</a>
+            
+              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/">Kafka</a>
             
           </div>
         
@@ -638,7 +659,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

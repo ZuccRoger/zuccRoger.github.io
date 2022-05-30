@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言​	本文讲述的是Spring中如何使用事物，以及个人在使用Spring的事物中遇到的问题的梳理和总结。 ​	读后你能学到什么？      1. 如何在Spring中引入事物 以及 如何搭建一个基础的demo.     1. 事物为什么会失效，以及事物传递是咋回事?  如何使用？​	@Configuration 123@Configuration@EnableTransactionManagem">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring事物梳理">
+<meta property="og:url" content="http://example.com/2022/05/27/Spring%E4%BA%8B%E7%89%A9%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="前言​	本文讲述的是Spring中如何使用事物，以及个人在使用Spring的事物中遇到的问题的梳理和总结。 ​	读后你能学到什么？      1. 如何在Spring中引入事物 以及 如何搭建一个基础的demo.     1. 事物为什么会失效，以及事物传递是咋回事?  如何使用？​	@Configuration 123@Configuration@EnableTransactionManagem">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2o5avvddxj20if07sdh7.jpg">
+<meta property="article:published_time" content="2022-05-27T11:13:51.000Z">
+<meta property="article:modified_time" content="2022-05-30T00:10:26.482Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="转载">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2o5avvddxj20if07sdh7.jpg">
+  
+  
+  <title>Spring事物梳理 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Spring事物梳理">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-27 19:13" pubdate>
+        2022年5月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring事物梳理</h1>
+            
+            <div class="markdown-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​	本文讲述的是Spring中如何使用事物，以及个人在使用Spring的事物中遇到的问题的梳理和总结。</p>
+<p>​	读后你能学到什么？ </p>
+<div class="code-wrapper"><pre><code class="hljs">    1. 如何在Spring中引入事物 以及 如何搭建一个基础的demo.
+    1. 事物为什么会失效，以及事物传递是咋回事?
+</code></pre></div>
+<h3 id="如何使用？"><a href="#如何使用？" class="headerlink" title="如何使用？"></a>如何使用？</h3><p>​	@Configuration</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableTransactionManagement</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionConfig</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​	@Controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> String <span class="hljs-title function_">processIndex</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>  <span class="hljs-type">JenkinsDto</span> <span class="hljs-variable">jenkinsDto</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JenkinsDto</span>();<br>  jenkinsDto.setJenkinsUrl(<span class="hljs-string">&quot;www.baidu.com&quot;</span>);<br>  jenkinsDto.setIsUse(<span class="hljs-number">1</span>);<br>  jenkinsDto.setSvnUrl(<span class="hljs-string">&quot;www.baidu2.com&quot;</span>);<br>  jenkinsDto.setUsername(<span class="hljs-string">&quot;luojiajun&quot;</span>);<br>  jenkinsDto.setPassword(<span class="hljs-string">&quot;asda&quot;</span>);<br>  jenkinsDto.setParams(<span class="hljs-string">&quot;ahjaaha&quot;</span>);<br>  transactionService.transactionDemo(jenkinsDto);<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ok&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>@Service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>  jenkinsService.insertJenkins(jenkinsDto);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == <span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;hahaah&quot;</span>);<br>  &#125;<br>  jenkinsDto.setUsername(<span class="hljs-string">&quot;wusiyao&quot;</span>);<br>  jenkinsService.updateJenkins(jenkinsDto);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="关于-Transactional注解属性字段"><a href="#关于-Transactional注解属性字段" class="headerlink" title="关于@Transactional注解属性字段"></a>关于@Transactional注解属性字段</h3><p>有几个概念一定要知道：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Propagation</td>
+<td>事物的传播行为</td>
+</tr>
+<tr>
+<td>Isolation</td>
+<td>事物的隔离行为</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>事物的超时时间</td>
+</tr>
+<tr>
+<td>readOnly</td>
+<td>是否是只读事物</td>
+</tr>
+<tr>
+<td>rollbackFor</td>
+<td>用于指定能否触发事物回滚的异常类型，并且可以指定多个<strong>异常类型</strong> (这个后面有个例子可以现学现用)</td>
+</tr>
+</tbody></table>
+<h3 id="我遇到的问题"><a href="#我遇到的问题" class="headerlink" title="我遇到的问题"></a>我遇到的问题</h3><h4 id="1-为什么我明明抛出了异常，但是没有回滚呢？！"><a href="#1-为什么我明明抛出了异常，但是没有回滚呢？！" class="headerlink" title="1.  为什么我明明抛出了异常，但是没有回滚呢？！"></a>1.  为什么我明明抛出了异常，但是没有回滚呢？！</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRED)</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>  jenkinsService.insertJenkins(jenkinsDto);<br>  transactionSecondService.transactionPropagationDemo(jenkinsDto);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == <span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-comment">// 可以看到这里我new Exception 结果还是能插入jenkinsDto</span><br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Exception</span>(<span class="hljs-string">&quot;hahaah&quot;</span>);<br>  &#125;<br>  jenkinsDto.setUsername(<span class="hljs-string">&quot;wusiyao&quot;</span>);<br>  jenkinsService.updateJenkins(jenkinsDto);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​	可以看到这个rollbackFor的注解，标注了默认是RuntimeException 和 Error进行回滚的。</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2o5avvddxj20if07sdh7.jpg" srcset="/img/loading.gif" lazyload alt="默认的rollbackFor"></p>
+<p>那么如何解决呢？</p>
+<p>可以手动修改rollbackFor的默认返回值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>  	<span class="hljs-comment">// 省略核心代码</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-同一个类中明明用了-Transactional-propagation-x3D-Propagation-REQUIRES-NEW-，为什么我的事物仍然回滚。"><a href="#2-同一个类中明明用了-Transactional-propagation-x3D-Propagation-REQUIRES-NEW-，为什么我的事物仍然回滚。" class="headerlink" title="2.  同一个类中明明用了@Transactional(propagation &#x3D; Propagation.REQUIRES_NEW)，为什么我的事物仍然回滚。"></a>2.  同一个类中明明用了@Transactional(propagation &#x3D; Propagation.REQUIRES_NEW)，为什么我的事物仍然回滚。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionService</span> &#123; <br>	<span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRED)</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    jenkinsService.insertJenkins(jenkinsDto);<br>    transactionPropagationLocal(jenkinsDto);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == <span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;hahaah&quot;</span>);<br>    &#125;<br>    jenkinsDto.setUsername(<span class="hljs-string">&quot;wusiyao&quot;</span>);<br>    jenkinsService.updateJenkins(jenkinsDto);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>  &#125;<br><br>  <span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionPropagationLocal</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    jenkinsDto.setSvnUrl(<span class="hljs-string">&quot;www.baidu3.com&quot;</span>);<br>    jenkinsService.insertJenkins(jenkinsDto);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里就涉及到了一个事物的传播性的问题了，我们可以看到同一个类中 两个不同的事物传递性， A会传递给B。</p>
+<p>如何解决呢</p>
+<ol>
+<li><p>通过AOP. 启动类上加 @EnableAspectJAutoProxy(exposeProxy &#x3D; true) 该注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@EnableAspectJAutoProxy(exposeProxy = true)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DemoApplication</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionService</span> &#123;<br><br>  <span class="hljs-meta">@Autowired</span> <span class="hljs-keyword">private</span> IJenkinsService jenkinsService;<br>  <span class="hljs-meta">@Autowired</span> <span class="hljs-keyword">private</span> TransactionSecondService transactionSecondService;<br><br>  <span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRED)</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    jenkinsService.insertJenkins(jenkinsDto);<br><br>    ## 加如下两条 AOP 代理一下<br>    <span class="hljs-type">TransactionService</span> <span class="hljs-variable">test</span> <span class="hljs-operator">=</span> (TransactionService) AopContext.currentProxy();<br>    test.transactionPropagationLocal(jenkinsDto);<br><br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == <span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;hahaah&quot;</span>);<br>    &#125;<br>    jenkinsDto.setUsername(<span class="hljs-string">&quot;wusiyao&quot;</span>);<br>    jenkinsService.updateJenkins(jenkinsDto);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>  &#125;<br><br>  <span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionPropagationLocal</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    jenkinsDto.setSvnUrl(<span class="hljs-string">&quot;www.baidu3.com&quot;</span>);<br>    jenkinsService.insertJenkins(jenkinsDto);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>​		2.当然最简单的还是放到另外一个类中就行了。</p>
+<p>所以总结一下(箭头表示调用方向)：</p>
+<p>A-&gt;B-&gt;C-&gt;D.</p>
+<p><strong>同一个类</strong> 如果最初的调用者没有，则 后面就没有。</p>
+<p>如果最初的调用者有，则事物就会传播下去，<strong>但是这个事物的策略是调用者一开始的策略</strong>。</p>
+<h4 id="如何做到A没有-Transactional注解但是B有-Transactional注解-然后能回滚B的代码嘛？"><a href="#如何做到A没有-Transactional注解但是B有-Transactional注解-然后能回滚B的代码嘛？" class="headerlink" title="如何做到A没有@Transactional注解但是B有@Transactional注解 然后能回滚B的代码嘛？"></a>如何做到A没有@Transactional注解但是B有@Transactional注解 然后能回滚B的代码嘛？</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionService</span> &#123;<br>  <span class="hljs-meta">@Autowired</span> <span class="hljs-keyword">private</span> IJenkinsService jenkinsService;<br>  <span class="hljs-meta">@Autowired</span> <span class="hljs-keyword">private</span> TransactionSecondService transactionSecondService;<br>  <span class="hljs-meta">@Autowired</span> TransactionService transactionService;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    transactionService.transactionPropagationDemo(jenkinsDto);<br>    jenkinsDto.setUsername(<span class="hljs-string">&quot;6666&quot;</span>);<br>    jenkinsService.updateJenkins(jenkinsDto);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>  &#125;<br><br>  <span class="hljs-meta">@Transactional</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">transactionPropagationDemo</span><span class="hljs-params">(JenkinsDto jenkinsDto)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    jenkinsDto.setSvnUrl(<span class="hljs-string">&quot;www.baidu3.com&quot;</span>);<br>    jenkinsService.insertJenkins(jenkinsDto);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == <span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;hahaah&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里可以看到有个重新注入了一个 @Autowired TransactionService transactionService;</p>
+<p>相当于重新通过CGLIB去注入了该对象，可以在 controller -&gt;A(没有  @Transactional 注解 )-&gt;B (有   @Transactional 注解 )。</p>
+<p>完成B的回滚。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40202111/article/details/105098283">同一个类中@Transactionla事物失效</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Spring/">Spring</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E7%9A%84swagger%E6%80%BB%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">为什么你的swagger总是出问题?</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

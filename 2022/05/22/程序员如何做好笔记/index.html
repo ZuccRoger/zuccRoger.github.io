@@ -1,0 +1,591 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、前言  对于刚刚学习编程或者已经学习了编程的朋友，难免会产生该不该做笔记的想法。是做好？还是多练习几遍比较好？下面将个人想法和大家分享一下，希望给正在迷茫的你能提供一点帮助 二、问题 学编程有没有必要做笔记？  我该记哪些内容？  如何去做笔记才高效？   三、正文 问：学编程有没有必要做笔记？   答：十分肯定，一定要做！   作为一名软件开发人员，你的职业生涯中不可能只掌握一门编程语言或者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员如何做好笔记?">
+<meta property="og:url" content="http://example.com/2022/05/22/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="一、前言  对于刚刚学习编程或者已经学习了编程的朋友，难免会产生该不该做笔记的想法。是做好？还是多练习几遍比较好？下面将个人想法和大家分享一下，希望给正在迷茫的你能提供一点帮助 二、问题 学编程有没有必要做笔记？  我该记哪些内容？  如何去做笔记才高效？   三、正文 问：学编程有没有必要做笔记？   答：十分肯定，一定要做！   作为一名软件开发人员，你的职业生涯中不可能只掌握一门编程语言或者">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-22T07:25:21.000Z">
+<meta property="article:modified_time" content="2022-05-22T07:26:01.821Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="转载">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>程序员如何做好笔记? - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="程序员如何做好笔记?">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-22 15:25" pubdate>
+        2022年5月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">程序员如何做好笔记?</h1>
+            
+            <div class="markdown-body">
+              <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、<strong>前言</strong></h1><p>  对于刚刚学习编程或者已经学习了编程的朋友，难免会产生该不该做笔记的想法。是做好？还是多练习几遍比较好？下面将个人想法和大家分享一下，希望给正在迷茫的你能提供一点帮助</p>
+<h1 id="二、问题"><a href="#二、问题" class="headerlink" title="二、问题"></a>二、<strong>问题</strong></h1><ol>
+<li><p>学编程有没有必要做笔记？</p>
+</li>
+<li><p>我该记哪些内容？</p>
+</li>
+<li><p>如何去做笔记才高效？</p>
+</li>
+</ol>
+<h1 id="三、正文"><a href="#三、正文" class="headerlink" title="三、正文"></a>三、<strong>正文</strong></h1><blockquote>
+<p><strong>问</strong>：<strong>学编程有没有必要做笔记？</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>答</strong>：<strong>十分肯定，一定要做！</strong></p>
+</blockquote>
+<ol>
+<li>作为一名软件开发人员，你的职业生涯中不可能只掌握一门编程语言或者技能，技能单一迟早会被淘汰</li>
+<li>当只学一门编程语言的时候，做不做笔记其实问题不大，就比如你现在学习C，你发现你能记得每一个知识点，都能运用，这个时候做笔记反而并不重要</li>
+<li>但是当更进一步学习C++、Java、JavaWeb、Oracle、MySQL、Python、Linux等等的时候，会发现当你知识积累越多，复杂度就会更高，这个时候如果不去做笔记，所学的知识点将会很快被遗忘以及搞得混杂，这样一来接下来的学习将变得不容易</li>
+<li>所以一定要去做笔记，这样很多人又会说，记笔记？记了也不一定看！那为什么还要去做？其实没有正确与错误之说，如果没有记笔记和看笔记，大部分情况下只能说你学得不够深或者你每天都在重复做某一部分技能，可锻炼性不高，所以笔记意义不大。做笔记不是让你像高中那样每个知识点都去记一遍，而是有针对性去做，这样才能将学习效率最大化。</li>
+</ol>
+<h2 id="3-1-问：我该记哪些内容？"><a href="#3-1-问：我该记哪些内容？" class="headerlink" title="3.1 问：我该记哪些内容？"></a>3.1 <strong>问</strong>：<strong>我该记哪些内容？</strong></h2><blockquote>
+<p><strong>答</strong>：<strong>记笔记有“三记 *<em>” “*</em> 三不记 *<em>”*</em></strong></p>
+</blockquote>
+<h3 id="3-1-1-三记"><a href="#3-1-1-三记" class="headerlink" title="3.1.1 三记"></a>3.1.1 <strong>三记</strong></h3><blockquote>
+<p>涉及到软件安装和配置记</p>
+</blockquote>
+<ol>
+<li>这里说的软件安装和配置记，并不是傻瓜式安装的软件，下一步下一步就OK的软件，而是需要涉及到配置环境等软件，比如Eclipse、MyEclipse、Tomcat等，这些软件的配置需要配置环境变量，还有许多配置如Tomcat配置虚拟路径、修改端口号等，把配置过程写下来，闲着没事干忘了的时候就复习一下，有巩固才能提高</li>
+<li>再比如学习了Linux搭建服务器、搭建大数据开发环境如Hadoop的时候，如果你不做配置笔记，相信我，你会疯的！！</li>
+</ol>
+<blockquote>
+<p>涉及到项目实战技能记</p>
+</blockquote>
+<ol>
+<li>当你做项目的时候会涉及到很多问题，比如用Java Web开发网页，你会涉及到如何产生验证码、何防止SQL注入、如何避免404，如何控制Servlet跳转、如何通过JS控制隐藏域提交额外信息</li>
+<li>这些技能记下来，给自己一个温习的环境，你的牛13程度取决于你的技能有多牛13，所有的技能不可能全部记住，好记性不如烂笔头，这就是为什么要有开发文档的存在</li>
+<li>好比现在现在如果不去看笔记和文档，多少人能纯手工不借助文档和IDE搭建SSH或SSM环境？</li>
+</ol>
+<blockquote>
+<p><strong>涉及到出错问题必须记！</strong></p>
+</blockquote>
+<ol>
+<li>这点是最重要的一点，就算上面两个你不愿意记，但是出错问题一定要记！</li>
+<li>为什么？编程中如果出现错误你不记下来，你很可能会被同一个错误折磨千百次，是不是很开心？</li>
+<li>简单举个例子<ul>
+<li>今天你用Java中的BigDecimal写了一个除法，但是发现提示你出现了一个异常，你百思不得其解，为什么偶数除法没问题啊但是奇数除法怎么就是有错误，这是因为大数奇数除法会出现一个循环小数的问题，你需要指定小数位数才能解决</li>
+<li>再比如你个人电脑上搭建Hadoop环境提示你namenode进入安全模式就是启动不起来，网上说了很多办法说关闭安全模式就可以了，最后你发现是因为你的空间不够了</li>
+<li>写web配置struts的时候提示你说没有log4j等等</li>
+</ul>
+</li>
+<li>诸如此类，当记一个问题可以，记10个也还行，但是当你有成百上千我不觉得每一个的解决办法你都能记得！</li>
+</ol>
+<h3 id="3-1-2-三不记"><a href="#3-1-2-三不记" class="headerlink" title="3.1.2 三不记"></a>3.1.2 三不记</h3><blockquote>
+<p><strong>书上有的知识点不记（配置、实战技能、易错点除外）</strong></p>
+</blockquote>
+<ol>
+<li><p>这里说的书上是指你买了一本实体书比如叫Pythonxxxxx，你说我哪里记得书上那么多东西，我要把所有知识点都记下来！</p>
+</li>
+<li><p>想法很好，但是灭有必要，这么说，常见的编程书籍99%都有电子版，我相信书上写你要比你记得要好得多，所以个人喜欢把自己买的书的电子书放到手机里面，坐公交闲着的时候就拿出来复习一下，书上已经写得很详细了，而且有电子版给你，何必要去把书上所有有的东西再记一遍？</p>
+</li>
+<li><p>翻开电子书你能很快找到自己需要的知识</p>
+<blockquote>
+<p>很喜欢一句话：“如果你喜欢一本书，第二遍才能真正的阅读”</p>
+</blockquote>
+</li>
+<li><p>编程书籍，除非你是过目不忘，否则一遍你一定记不住！所以你会倒回去看第二遍甚至多遍，这个时候书上的结构和知识分布点你已经很清楚了，这个时候你去看电子书，你能很轻松定位到需要巩固的地方，我相信效果会很好！但是并不是说什么都不记，如果你看第二遍和第三遍还是不懂的地方这就是需要记的知识点了</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>网上已经有完善的参考手册不记</strong></p>
+</blockquote>
+<ol>
+<li>还有一些书上没有的知识，比如HTML元素，书上没有给你全部列出来，但是网上W3cschool等网站已经给你总结的很好了，查找起来特别方便，还有离线手册，这个时候再去记这些东西有什么必要？</li>
+<li>花时间还没有别人做的好，何必呢？对吧？而且与其花时间去记这些没有多大意义的东西，还不如花点时间将这些离线手册保存下来，放到自己的网盘等都是很不错的选择，查找起来很方便，<strong>不要多做无用功</strong>！</li>
+</ol>
+<blockquote>
+<p><strong>看书的时候一定不记</strong></p>
+</blockquote>
+<ol>
+<li>很多人学习效率很高，很多人效率很低，为什么？大部分是因为你的投入程度！</li>
+<li>就比如别人一分钟就能理解这个知识点，而你需要三分钟，为什么？</li>
+<li>因为别人这一分钟投入是100%，而你三分钟每一分钟只投入30%，加起来才90%！</li>
+<li>所以看书的时候不要去做笔记，专心投入到理解知识点和代码中去，将专注投入效率最大化</li>
+<li>如果你边看书边记笔记，当你的思维从学习跳转到记笔记这个过程，就会严重打乱你的学习效率！不建议边看书边记！</li>
+<li>如果你对某一个知识点觉得需要记，你就先做一个标记，完了再回来记。希望<strong>一次只做一件事！</strong></li>
+</ol>
+<h2 id="3-2-问：如何做笔记才高效？"><a href="#3-2-问：如何做笔记才高效？" class="headerlink" title="3.2 问：如何做笔记才高效？"></a>3.2 <strong>问</strong>：<strong>如何做笔记才高效？</strong></h2><blockquote>
+<p><strong>答</strong>：作为一名学计算机的人，如果你说你用一个笔记本（纸质）去记，我觉得还是别说你是学计算机的，有点丢不起人（个人看法，不喜可以忽略），假如你现在笔记本记了一半本，我想让你查一下其中XXX知识点你要查多久？还是电脑上ctrl+F几秒钟就搞定？做笔记一定要专业的去做，比如利用<strong>有道云笔记</strong>、<strong>印象笔记</strong>甚至是自己搭建环境和用word打好目录来记，要比你用笔记本去记效率好几十倍！所以一定要使用软件去记，可以多端同步，电脑上记好手机就会同步完成，要看就打开就可以。而且项目和工作中遇到问题打开笔记ctrl+F马上就能找到自己需要的内容！</p>
+</blockquote>
+<blockquote>
+<p>其次就是一定要总结，特别重要，不会总结就只是瞎学，为什么别人就可以举一反三？因为别人善于总结。总结不是把每个知识点都记一遍，而是把一节或者一章的知识点柔和成一份精炼笔记，将自己学的知识梳理，提取精华</p>
+</blockquote>
+<blockquote>
+<p>最重要一点，就是<strong>一定要学会独立解决问题</strong>！意思就是说遇到问题，先看错误信息，看看能不能解决，不能就把错误信息粘贴到百度，看一下别人是怎么解决的，这些错误解决了就把问题记下来，这些错误就是你踩的坑，你的财富，你成为大神的基石！不要一有错误就问别人，这样你永远学不会独立解决问题，只有百度找不到解决办法了再向前辈请教，这样才能成长和提高</p>
+</blockquote>
+<h1 id="四、额外提及"><a href="#四、额外提及" class="headerlink" title="四、额外提及"></a>四、额外提及</h1><ol>
+<li>作为一个开发人员，希望记笔记更多的使用markdown来记录</li>
+<li>普通的文本笔记要花费一些时间来进行排版整理，markdown可以帮我们做好这些事情</li>
+<li>记录笔记的软件很多，现在在用的有以下两个</li>
+</ol>
+<blockquote>
+<p>语雀：专业的文档知识库，markdown支持可以，有微信和支付宝小程序端，方便同步；功能很多，可以试一下</p>
+</blockquote>
+<blockquote>
+<p>Typora：支持markdown最好的软件之一，缺点是不支持同步，不过可以整合PicGo+OSS自己搭建存储服务器</p>
+</blockquote>
+<ol>
+<li>当然还有很多可选择的软件比如有道云笔记、印象笔记、做脑图、word等等最终都是一样的目的，采用哪个看自己的喜好</li>
+<li>还有就是养成分享的习惯，比如博客等，都是可以打造自己名片的一种方式。学会固然很OK，分享出来才难能可贵</li>
+</ol>
+<p>作者：TianXinCoord<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6986449219955490853">https://juejin.cn/post/6986449219955490853</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/">个人提升</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/23/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">婚姻问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/">
+                        <span class="hidden-mobile">聊一下kafka的中的生产者</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

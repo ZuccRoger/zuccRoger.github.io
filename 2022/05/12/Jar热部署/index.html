@@ -37,8 +37,9 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2abo4d3xvj21il0u0n27.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2abokpqw8j22gl0u0q7s.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bhfiw8k4j22fk0qijwb.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2cogqs9zoj22xk064mym.jpg">
 <meta property="article:published_time" content="2022-05-12T02:40:09.000Z">
-<meta property="article:modified_time" content="2022-05-17T11:25:23.708Z">
+<meta property="article:modified_time" content="2022-05-19T05:47:34.783Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -212,7 +213,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.5k 字
+      4.7k 字
     </span>
   
 
@@ -221,7 +222,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      30 分钟
+      40 分钟
     </span>
   
 
@@ -396,18 +397,47 @@
 </li>
 </ol>
 </li>
-<li><p>如何将  ENTRYPOINT  中的启动参数进行抽离，从而做到Dockerfile一次编写后续可以0维护?</p>
+<li><p>如何将  ENTRYPOINT  中的启动参数进行抽离,从而做到Dockerfile一次编写后续可以0维护 相当于 JVM的参数如何写在yml中，从而不需要每次去改变Dockerfile包括如下JVM参数</p>
 <ol>
-<li></li>
+<li><p>JVM参数列表</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">-XX:MetaspaceSize=128m （元空间默认大小）<br>-XX:MaxMetaspaceSize=128m （元空间最大大小）<br>-Xms1024m （堆默认大小）<br>-Xmx1024m （堆最大大小）<br>-Xmn256m （新生代大小）<br>-Xss256k （棧最大深度大小）<br>-XX:SurvivorRatio=8 （新生代分区比例 8:2）<br>-XX:+UseConcMarkSweepGC （指定使用的垃圾收集器，这里使用CMS收集器） - -XX:+PrintGCDetails （打印详细的GC日志）<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解决方案</p>
+<ol>
+<li><p>在Dockerfile中使用镜像比如有version参数,需要从外部脚本传递</p>
+<ol>
+<li>在jenkins中配置以下</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">TOMCAT_VERSION=8.5.24<br>docker build --build-arg TOMCAT_VERSION=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;TOMCAT_VERSION&#125;</span>&quot;</span> -t my-dest-image-<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;TOMCAT_VERSION&#125;</span>&quot;</span> .<br></code></pre></td></tr></table></figure>
+
+<p>dockerfile中写以下内容</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ARG</span> TOMCAT_VERSION<br><span class="hljs-keyword">FROM</span> my-src-image-$&#123;TOMCAT_VERSION&#125;:<span class="hljs-number">1.0</span><br><span class="hljs-keyword">ARG</span> TOMCAT_VERSION<br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;TOMCAT_VERSION&#125;</span>&quot;</span></span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>手把手实践</p>
+<ol>
+<li><p>第一步编写固定的ARG</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6002</span> AS mvn<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /tmp</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> / /tmp</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> mvn clean package</span><br><br><span class="hljs-keyword">ARG</span> JAVA_ENV=<span class="hljs-string">&quot;-server -Xms2047m -Xmx4097m -XX:+UseG1GC&quot;</span><br><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">8</span>-jdk-stretch<br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=mvn /tmp/target/jenkinsImage-0.0.1-SNAPSHOT.jar <span class="hljs-string">&quot;/tmp/jenkinsImage-0.0.1-SNAPSHOT.jar&quot;</span></span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">echo</span> -------------- <span class="hljs-variable">$JAVA_ENV</span></span><br><span class="hljs-keyword">ARG</span> JAVA_ENV=<span class="hljs-string">&quot;-server -Xms2047m -Xmx4097m -XX:+UseG1GC&quot;</span><br><span class="hljs-keyword">ENV</span> my_env_var=$JAVA_ENV<br><span class="hljs-comment"># 启动应用程序</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> java <span class="hljs-variable">$my_env_var</span> -jar /tmp/jenkinsImage-0.0.1-SNAPSHOT.jar</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>第二步打包镜像进入容器jps 找到jar的服务,然后jinfo可以看到如下 command line中非常清晰:</p>
+<ol>
+<li><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2cogqs9zoj22xk064mym.jpg" srcset="/img/loading.gif" lazyload alt="image-20220518171832748"></li>
 </ol>
 </li>
 </ol>
-<h3 id="需要解决的事情-持续更新中-按照优先级排序"><a href="#需要解决的事情-持续更新中-按照优先级排序" class="headerlink" title="需要解决的事情(持续更新中,按照优先级排序)"></a>需要解决的事情(持续更新中,按照优先级排序)</h3><ol>
-<li>发送popo的消息</li>
-<li>打tag对映的tag</li>
+</li>
+<li><p>校验是否正确按照我们传递的参数。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>需要解决的事情(持续更新中,按照优先级排序)</p>
+<ol>
 <li>多module的问题是如何处理？</li>
 <li>代码的diff,类似发布系统，两个环境的代码进行比对。</li>
 <li>热部署,在服务升级的时候最好不出现502等问题，用户无感知地去升级</li>
+</ol>
+</li>
 </ol>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/chenjie19891104/article/details/42807959">热部署</a></li>
@@ -416,6 +446,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/432edcqbiu5je_dqj3zx">阿里巴巴如何基于 Kubernetes 实践 CI&#x2F;CD</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.i4k.xyz/article/weixin_38087538/109080218">修改docker镜像并重新推送到镜像仓库</a></li>
 <li><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/image/multistage-builds">Dockerfile 多阶段构建</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/34324277/how-to-pass-arg-value-to-entrypoint">How to pass ARG value to ENTRYPOINT?</a></li>
 </ol>
 
             </div>
