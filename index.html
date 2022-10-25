@@ -191,15 +191,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/27/Spring%E4%BA%8B%E7%89%A9%E6%A2%B3%E7%90%86/" target="_self">
-          Spring事物梳理
+        <a href="/2022/10/24/Node-js%E4%B8%AD%E5%B0%8F%E6%95%B0%E8%AE%A1%E7%AE%97%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/" target="_self">
+          Node.js中小数计算溢出问题以及如何解决
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/27/Spring%E4%BA%8B%E7%89%A9%E6%A2%B3%E7%90%86/" target="_self">
+        <a href="/2022/10/24/Node-js%E4%B8%AD%E5%B0%8F%E6%95%B0%E8%AE%A1%E7%AE%97%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/" target="_self">
           
-          前言​	本文讲述的是Spring中如何使用事物，以及个人在使用Spring的事物中遇到的问题的梳理和总结。 ​	读后你能学到什么？      1. 如何在Spring中引入事物 以及 如何搭建一个基础的demo.     1. 事物为什么会失效，以及事物传递是咋回事?  如何使用？​	@Configuration 123@Configuration@EnableTransactionManagem
+          120.1 + 0.2 &#x3D; 0.30000000000000004 记一次八方翻译平台相似度检测的bug跟进以及问题反馈。  雷火八方翻译平台有一个相似度检测的功能，其中有一个计算两个字符串相似度的函数结果发现两个完全一模一样的字符串返回的相似度竟然为 ，根据 余弦相似度算法[1] 得到 ，小于用户传递的最小相似度阈值1，因此归到了低相似度的文本中了。 为什么会这样： 因为计算机执行的是二进制,并
         </a>
       </p>
 
@@ -207,8 +207,381 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-27 19:13" pubdate>
-              2022-05-27
+            <time datetime="2022-10-24 10:59" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/nodejs/">nodejs</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/Node-js%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" target="_self">
+          Node.js学习札记
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/Node-js%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" target="_self">
+          
+          我们可以创建一个 nodejs 的项目 123mkdir latercd laternpm init -y 通过 npm init 可以让我快速 初始化 package.json，它会让我们确认各种东西，所以如果想快速初始化可以 通过 npm init -y 这个指令当然 我们可以通过 最简单的 npm install 去安装依赖， –save 可以让它保存在package.json中, 然后输出
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:58" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/nodejs/">nodejs</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/Node-jsEtimeout%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+          Node.jsEtimeout解决方案
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/Node-jsEtimeout%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+          
+          1DNS解析需要花大量时间的，导致了阻塞，这个时候会返回etimeout的错误,只需要简单的将 process.env.UV_THREADPOOL_SIZE &#x3D; &amp;#x27;128&amp;#x27; 设置一下，最大支持 1024  在压测绝对演绎朋友圈服务的时候，因为接入了易盾的敏感词检测是http的请求，在TPS数百的时候，服务内部大量报错了 ETIMEOUT 的错误;  在Node.js中可以在程序
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:57" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/nodejs/">nodejs</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/%E7%AB%AF%E5%8D%88AR%E6%8A%BD%E5%A5%96%E9%80%BB%E8%BE%91%E5%A4%A7%E6%8F%AD%E7%A7%98/" target="_self">
+          端午AR抽奖逻辑大揭秘
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/%E7%AB%AF%E5%8D%88AR%E6%8A%BD%E5%A5%96%E9%80%BB%E8%BE%91%E5%A4%A7%E6%8F%AD%E7%A7%98/" target="_self">
+          
+          解密端午抽奖实现逻辑: 首先抽奖的前提肯定是：  保证在抽奖奖池抽完后，将奖品刚刚好发完，并且每个人都抽过奖。 每个人中奖的概率是一样的。  实现：提前统计参与抽奖的人，形成一个数组，比如2600人抽奖，初始化好一个 2600长度的 数组，丢进redis，比如有50个人可以中奖，就将号码牌&lt;50的抽奖号视为中奖。 redis 中spop的实现抽奖    intset 编码的实现方法 hash
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:51" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/%E5%9F%BA%E4%BA%8ESVN%E7%9A%84CICD%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/" target="_self">
+          基于SVN的CICD调研和实践总结
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/%E5%9F%BA%E4%BA%8ESVN%E7%9A%84CICD%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/" target="_self">
+          
+          1组内基于SVN的CICD调研和实践总结落地调研,持续更新中...  定个小目标 经过沟通后，第一阶段来说是至少将 dnm 项目的后端(基于Springboot框架) 代码上传到 svn 之后, 能够容器化地去做到热部署。  CICD工具现状工具的选择：     比较项目 Jenkins Drone GitlabCi（不考虑）    空间容量清理问题 需要定时清理，否则占空间越来越大 无残留
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:50" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/">部署教程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" target="_self">
+          常用的消息队列对比分析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" target="_self">
+          
+          1分析了 kafka、RabbitMq 以及 Rocket 三种常用的消息队列  定义消息队列是消息的传输过程中保存信息的容器，用于接受消息并以文件的方式存储，一个消息队列可以被一个或者多个消息者消费。 对比分析 ActiveMQ 5.x 维护越来越少，较少在大规模吞吐的场景中使用所以不做讨论。    – apache&#x2F;Kafa RabbitMQ apache&#x2F;RocketMQ
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:49" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/kafka/">kafka</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/%E4%BA%86%E8%A7%A3websocket/" target="_self">
+          了解websocket
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/%E4%BA%86%E8%A7%A3websocket/" target="_self">
+          
+          1websocker协议简介，踩坑经验以及在nodejs中的实践  简介WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。 其他特点包括： （1）建立在 TCP 协议之上，服务器端的实现比较容易。 （2）与 HTTP 协议有着
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:48" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+            
+              <a href="/categories/%E7%BD%91%E7%BB%9C/websocket/">websocket</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E5%AE%9E%E8%B7%B5Kafka/" target="_self">
+          手把手带你实践Kafka
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E5%AE%9E%E8%B7%B5Kafka/" target="_self">
+          
+          定义分布式的事件流平台， 被数千家用于高性能的数据管道、流分析、数据集成和关键任务应用。  基于发布&#x2F;订阅模式的消息队列, 传统消息队列应用场景 缓存&#x2F;消峰 解耦 异步通信  安装[docker版本]kafka需要配合zookeeper联合使用,所以为了方便安装部署直接上docker-compose.yml.  你可能和我会有同样的疑惑，我装一个kafka为什么还要给我整个Zo
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:46" pubdate>
+              2022-10-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kafka/">Kafka</a>
+            
+              <a href="/categories/Kafka/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/">部署教程</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/24/Spring%E4%B8%AD-Schedule%E5%92%8C-Async%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E7%BB%86%E7%B2%92%E5%BA%A6%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" target="_self">
+          Spring中@Schedule和@Async注解实现细粒度定时任务
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/24/Spring%E4%B8%AD-Schedule%E5%92%8C-Async%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E7%BB%86%E7%B2%92%E5%BA%A6%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" target="_self">
+          
+          1前言:多任务并发执行,同一任务的异步执行并且需要自定义线程池从而做到对线程得更加细粒度的控制,请问你该如何实现? 首先仅仅@Schedule发现用的是仅仅同一个线程会发生线程的阻塞. 123456789101112131415161718192021222324@Componentpublic class CurrThreadRun &amp;#123;    @Scheduled(fixedRate
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-24 10:43" pubdate>
+              2022-10-24
             </time>
           </div>
         
@@ -224,55 +597,6 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E7%9A%84swagger%E6%80%BB%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98/" target="_self">
-          为什么你的swagger总是出问题?
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E7%9A%84swagger%E6%80%BB%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98/" target="_self">
-          
-          遇到了个坑爹问题 发现是cookie过期了，请求被拦截导致的。
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-27 11:27" pubdate>
-              2022-05-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
-            
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
               <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
             
           </div>
@@ -287,15 +611,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%A0%E8%BF%9B%E6%9D%A5%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%80%BC%E7%A9%BA%E4%BA%86%EF%BC%9F/" target="_self">
-          为什么我传进来的对象值空了？
+        <a href="/2022/10/23/Spring%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" target="_self">
+          【TODO】Spring多线程共享变量
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/27/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%A0%E8%BF%9B%E6%9D%A5%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%80%BC%E7%A9%BA%E4%BA%86%EF%BC%9F/" target="_self">
+        <a href="/2022/10/23/Spring%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/" target="_self">
           
-          碰到了一个的事情：  为什么会这样？  上代码截图片段！ 发现问题可以看到我的 Item 以及 Prop 是没有get、set方法的，这就是为什么我的这个Item对象的值是空的原因！ 如何解决通过懒人方法直接@Data注解搞定! 运行截图
+          如何保证线程安全？
         </a>
       </p>
 
@@ -303,8 +627,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-27 09:06" pubdate>
-              2022-05-27
+            <time datetime="2022-10-23 17:52" pubdate>
+              2022-10-23
             </time>
           </div>
         
@@ -312,334 +636,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
+              <a href="/categories/java/">java</a>
             
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/26/Spring%E4%B8%AD%E5%85%A5%E5%8F%82%E6%A0%A1%E9%AA%8C%E8%AE%B0%E5%BD%95/" target="_self">
-          Spring中 @Valid vs @Validate 的区别
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/26/Spring%E4%B8%AD%E5%85%A5%E5%8F%82%E6%A0%A1%E9%AA%8C%E8%AE%B0%E5%BD%95/" target="_self">
-          
-          先说结论:​	需要用到了Group校验，就用@Validate，其他情况下直接用@Valid即可。 Group校验简单小科普：​	简单来说就是比如你有一个DTO对象，增、改都是这个对象。但是你想改这个对象的值，你肯定要传递ID,但是你增的时候肯定不会带ID，因此就有了Group的概念。	 举个栗子🌰 ​	下图中我就没有传递id这个字段，但是仍然通过了校验，这就是Gourp校验。 	  从问题出发
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-26 10:54" pubdate>
-              2022-05-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Spring/">Spring</a>
-            
-              <a href="/categories/Spring/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a>
-            
-              <a href="/categories/Spring/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E5%85%A5%E5%8F%82%E6%A0%A1%E9%AA%8C/">入参校验</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/23/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1/" target="_self">
-          记录一次平台未加锁导致的的大量数据丢失问题
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/23/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1/" target="_self">
-          
-          背景介绍翻译平台有个功能是能将A表中的数据恢复到上一次备份时候的节点。 作为开发在实践的时候，其实就是通过 两张数据结构一模一样的表 记做 表A 以及 表A+ 进行拷贝数据而已。 123456789A、A+两个表。A表是当前数据A+表是拷贝某个时间点的数据。点了备份之后 A+表清空，A表中的数据插入A+表。当了恢复 A 表清空，A+s表中的数据插入A表。  用户的操作 当用户备份、恢复操作时间过短
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-23 17:05" pubdate>
-              2022-05-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/23/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/" target="_self">
-          婚姻问题
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/23/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/" target="_self">
-          
-          对女生来说青春是比较宝贵的，过来给你生儿育女，还是需要安全感。 结婚这方面还是得两个人自己多处理多协商，毕竟最后还是我和她过日子。  遇到的问题如果一个女孩子他不愿意跟你一起贷款买房，那么你还会娶她吗？​	宝宝相信，如果看到这个问题的男人经济条件较好，都会笑称“老子才不会遇到这种问题，不会让女人受罪”；可经济条件一般的男人会说“结婚过日子不就是两个人共同承担么？我不过是选择用银行的钱买房而已，贷
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-23 08:30" pubdate>
-              2022-05-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%B8%AA%E4%BA%BA/">个人</a>
-            
-              <a href="/categories/%E4%B8%AA%E4%BA%BA/%E5%A9%9A%E5%A7%BB%E9%97%AE%E9%A2%98/">婚姻问题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/22/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E7%AC%94%E8%AE%B0/" target="_self">
-          程序员如何做好笔记?
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/22/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E7%AC%94%E8%AE%B0/" target="_self">
-          
-          一、前言  对于刚刚学习编程或者已经学习了编程的朋友，难免会产生该不该做笔记的想法。是做好？还是多练习几遍比较好？下面将个人想法和大家分享一下，希望给正在迷茫的你能提供一点帮助 二、问题 学编程有没有必要做笔记？  我该记哪些内容？  如何去做笔记才高效？   三、正文 问：学编程有没有必要做笔记？   答：十分肯定，一定要做！   作为一名软件开发人员，你的职业生涯中不可能只掌握一门编程语言或者
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-22 15:25" pubdate>
-              2022-05-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/">个人提升</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/" target="_self">
-          聊一下kafka的中的生产者
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/" target="_self">
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-22 15:07" pubdate>
-              2022-05-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/">消费队列</a>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/">Kafka</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/" target="_self">
-          无消息丢失配置
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/" target="_self">
-          
-          消息丢失的情况 生产者程序丢失数据  使用 producer.send(msg) 这个API是属于异步发送消息，所以如果要用的话需要用 producer.send(msg,callback).  消费者程序丢失数据
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-22 12:55" pubdate>
-              2022-05-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/22/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_self">
-          生产者消费分区机制原理剖析
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/22/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_self">
-          
-          kafka有主题Topic的概念，它是承载真实数据的逻辑容器，主题之下还有有若干个分区，所以Kafka的消息组织方式有三级 主题 - 分区 -消息 提出问题为什么kafka不直接使用多个主题，而是使用了多分区呢？ 其实分区主要是提供了负责均衡 和 高吞吐量的关键. 如何自定义分区策略1234567891011121314public class PartitionImpl implements o
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-22 10:43" pubdate>
-              2022-05-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/">消费队列</a>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/">Kafka</a>
+              <a href="/categories/java/todo/">todo</a>
             
           </div>
         
@@ -659,7 +658,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

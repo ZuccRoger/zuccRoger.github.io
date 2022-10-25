@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1websocker协议简介，踩坑经验以及在nodejs中的实践  简介WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。 其他特点包括： （1）建立在 TCP 协议之上，服务器端的实现比较容易。 （2）与 HTTP 协议有着">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解websocket">
+<meta property="og:url" content="http://example.com/2022/10/24/%E4%BA%86%E8%A7%A3websocket/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="1websocker协议简介，踩坑经验以及在nodejs中的实践  简介WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。 其他特点包括： （1）建立在 TCP 协议之上，服务器端的实现比较容易。 （2）与 HTTP 协议有着">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-24T02:48:19.000Z">
+<meta property="article:modified_time" content="2022-10-25T03:13:51.474Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>了解websocket - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="了解websocket">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-24 10:48" pubdate>
+        2022年10月24日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">了解websocket</h1>
+            
+            <div class="markdown-body">
+              <figure class="highlight"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs">websocker协议简介，踩坑经验以及在nodejs中的实践<br></code></pre></td></tr></table></figure>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。</p>
+<p>它的<strong>最大特点</strong>就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。</p>
+<p><strong>其他特点包括：</strong></p>
+<p>（1）建立在 TCP 协议之上，服务器端的实现比较容易。</p>
+<p>（2）与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器。</p>
+<p>（3）数据格式比较轻量，性能开销小，通信高效。</p>
+<p>（4）可以发送文本，也可以发送二进制数据。</p>
+<p>（5）没有同源限制，客户端可以与任意服务器通信。</p>
+<p>（6）协议标识符是ws（如果加密，则为wss），服务器网址就是 URL。</p>
+<h1 id="readyState"><a href="#readyState" class="headerlink" title="readyState"></a>readyState</h1><table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CONNECTING</td>
+<td>0</td>
+<td>The connection is not yet open.</td>
+</tr>
+<tr>
+<td>OPEN</td>
+<td>1</td>
+<td>The connection is open and ready to communicate.</td>
+</tr>
+<tr>
+<td>CLOSING</td>
+<td>2</td>
+<td>The connection is in the process of closing.</td>
+</tr>
+<tr>
+<td>CLOSED</td>
+<td>3</td>
+<td>The connection is closed.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>坑点: websocket.readyState &#x3D;&#x3D;&#x3D;3 这里 没有走 close 的生命周期  </p>
+</blockquote>
+<h3 id="断线重连解决方案"><a href="#断线重连解决方案" class="headerlink" title="断线重连解决方案"></a>断线重连解决方案</h3><ol>
+<li>在websocket&#x2F;ws 这个框架中，会有open,message,close 和 error生命周期。</li>
+<li>可以在 close 的生命周期中，执行reconnect流程<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22431751/websocket-how-to-automatically-reconnect-after-it-dies/23176223">参考最高赞答案</a>.然后在error的生命周期中 打印crash日志,由于 error 必定触发close 所以只需要在 close 生命周期中进行 reconnect方法。<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stata">ws.<span class="hljs-keyword">on</span>(<span class="hljs-string">&quot;close&quot;</span>, function <span class="hljs-keyword">close</span>() &#123;<br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;ai connect close&quot;</span>);<br>    reconnect(); <span class="hljs-comment">/// 每隔5s 重连 </span><br>&#125;);<br>ws.<span class="hljs-keyword">on</span>(<span class="hljs-string">&quot;error&quot;</span>, function <span class="hljs-keyword">error</span>(<span class="hljs-keyword">error</span>) &#123;<br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;ai connect error&quot;</span>, <span class="hljs-keyword">error</span>);<br>    errorLogger.<span class="hljs-keyword">error</span>(<span class="hljs-string">&quot;ai connect error&quot;</span>, <span class="hljs-keyword">error</span>); <span class="hljs-comment">//打印crash日志</span><br>    ws.<span class="hljs-keyword">close</span>()<br>&#125;);<br></code></pre></td></tr></table></figure></li>
+<li>readyState&#x3D;3 不会触发close的生命周期，所以需要对其单独处理，一旦检测到 其为3,则 terminate()该websocket.当然还有一种解决方案，因为在websocket中有心跳包的存在,详见<a target="_blank" rel="noopener" href="https://github.com/websockets/ws">How to detect and close broken connections?</a>，可以在接收到来自其他socketServer的’pong’的信号,则写一个定时器，如果规定时间内，没有收到来自下一个的心跳包则 terminate 该socket<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (message === <span class="hljs-string">&#x27;pong&#x27;</span>) &#123;<br>        <span class="hljs-built_in">clearTimeout</span>(aliveInterval);<br>        aliveInterval = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>            wsObj.<span class="hljs-property">wsAI</span>.<span class="hljs-title function_">terminate</span>()<br>        &#125;, <span class="hljs-number">10000</span> + <span class="hljs-number">1000</span>)<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>ws&#x2F;websocket 官方Tip: Use <code>WebSocket#terminate()</code>, which immediately destroys the connection,<br>instead of <code>WebSocket#close()</code>, which waits for the close timer.<br>之我的理解: terminate() 能够立马 destory 连接,如果是close()的话，意味着还需要等待 close 的任务  </p>
+</blockquote>
+<blockquote>
+<p>工程化  Tips:   </p>
+<ul>
+<li>当我们搭建 websocketServer的时候，常常会遇到socket.readyState &#x3D;0 的情况, 会报Error: WebSocket is not open: readyState 0 (CONNECTING)这个错误,所以在我们和每个socket通信的时候，可以增加前提 ws.readyState&#x3D;&#x3D;&#x3D;1 才进行ws.send()，否则socket中断，如何socket发送方没有做socket重连的话，会导致服务的崩溃。</li>
+<li>我们可以实时检测是否有 readyState &#x3D;&#x3D;&#x3D;2 或者 readyState &#x3D;&#x3D;&#x3D;3 的socket连接，主动去执行ws.terminate(),因为在实战的过程中，发现某个socket状态持续为 2(即closing),而不是3(closed)</li>
+</ul>
+</blockquote>
+<p>最后 放上两个websocket的nodejs的框架</p>
+<p>1 <a target="_blank" rel="noopener" href="https://socket.io/">https://socket.io/</a><br>2. <a target="_blank" rel="noopener" href="https://github.com/websockets/ws">https://github.com/websockets/ws</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C/websocket/">websocket</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/24/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">常用的消息队列对比分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/24/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E5%AE%9E%E8%B7%B5Kafka/">
+                        <span class="hidden-mobile">手把手带你实践Kafka</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

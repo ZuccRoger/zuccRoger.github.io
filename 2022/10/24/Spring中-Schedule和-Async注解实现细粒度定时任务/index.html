@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1前言:多任务并发执行,同一任务的异步执行并且需要自定义线程池从而做到对线程得更加细粒度的控制,请问你该如何实现? 首先仅仅@Schedule发现用的是仅仅同一个线程会发生线程的阻塞. 123456789101112131415161718192021222324@Componentpublic class CurrThreadRun &amp;#123;    @Scheduled(fixedRate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring中@Schedule和@Async注解实现细粒度定时任务">
+<meta property="og:url" content="http://example.com/2022/10/24/Spring%E4%B8%AD-Schedule%E5%92%8C-Async%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E7%BB%86%E7%B2%92%E5%BA%A6%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="1前言:多任务并发执行,同一任务的异步执行并且需要自定义线程池从而做到对线程得更加细粒度的控制,请问你该如何实现? 首先仅仅@Schedule发现用的是仅仅同一个线程会发生线程的阻塞. 123456789101112131415161718192021222324@Componentpublic class CurrThreadRun &amp;#123;    @Scheduled(fixedRate">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-24T02:43:16.000Z">
+<meta property="article:modified_time" content="2022-10-25T03:07:58.509Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Spring中@Schedule和@Async注解实现细粒度定时任务 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Spring中@Schedule和@Async注解实现细粒度定时任务">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-24 10:43" pubdate>
+        2022年10月24日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      72 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring中@Schedule和@Async注解实现细粒度定时任务</h1>
+            
+            <div class="markdown-body">
+              <figure class="highlight makefile"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">前言:多任务并发执行,同一任务的异步执行并且需要自定义线程池从而做到对线程得更加细粒度的控制,请问你该如何实现?</span><br></code></pre></td></tr></table></figure>
+<p>首先仅仅@Schedule发现用的是仅仅同一个线程会发生线程的阻塞.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CurrThreadRun</span> &#123;<br>    <span class="hljs-meta">@Scheduled(fixedRate = 3000)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">scheduledTask</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">sdf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>();<br>        sdf.applyPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss a&quot;</span>);<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===1 run&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">6</span> * <span class="hljs-number">1000</span>);<br>        date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===1 end&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Scheduled(fixedRate = 3000)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">scheduledTask2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">sdf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>();<br>        sdf.applyPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss a&quot;</span>);<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===2 run&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">6</span> * <span class="hljs-number">1000</span>);<br>        date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===2 end&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>控制台的输出为以下内容,可以看到@shedule是个同步执行的任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">2022-03-06 16:26:39.744  INFO 63252 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8091 (http) with context path <span class="hljs-string">&#x27;&#x27;</span><br>2022-03-06 16:26:39.749  INFO 63252 --- [           main] s.a.ScheduledAnnotationBeanPostProcessor : More than one TaskScheduler bean exists within the context, and none is named <span class="hljs-string">&#x27;taskScheduler&#x27;</span>. Mark one of them as primary or name it <span class="hljs-string">&#x27;taskScheduler&#x27;</span> (possibly as an <span class="hljs-built_in">alias</span>); or implement the SchedulingConfigurer interface and call ScheduledTaskRegistrar<span class="hljs-comment">#setScheduler explicitly within the configureTasks() callback: [scheduledTaskTwo, scheduledTaskOne]</span><br>2022-03-06 16:26:39 下午pool-1-thread-1===1 run<br>2022-03-06 16:26:39.753  INFO 63252 --- [           main] c.r.s.SpringbootDemoApplication          : Started SpringbootDemoApplication <span class="hljs-keyword">in</span> 1.198 seconds (JVM running <span class="hljs-keyword">for</span> 1.407)<br>2022-03-06 16:26:45 下午pool-1-thread-1===1 end<br>2022-03-06 16:26:45 下午pool-1-thread-1===2 run<br>2022-03-06 16:26:51 下午pool-1-thread-1===2 end<br>2022-03-06 16:26:51 下午pool-1-thread-1===1 run<br></code></pre></td></tr></table></figure>
+<p>打开了ThreadPoolTaskScheduler源码发0现(Set the ScheduledExecutorService’s pool size. Default is 1.<br>This setting can be modified at runtime, for example through JMX.)默认开启的线程数量为一。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setPoolSize</span><span class="hljs-params">(<span class="hljs-type">int</span> poolSize)</span> &#123;<br>	Assert.isTrue(poolSize &gt; <span class="hljs-number">0</span>, <span class="hljs-string">&quot;&#x27;poolSize&#x27; must be 1 or higher&quot;</span>);<br>	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.scheduledExecutor <span class="hljs-keyword">instanceof</span> ScheduledThreadPoolExecutor) &#123;<br>		((ScheduledThreadPoolExecutor) <span class="hljs-built_in">this</span>.scheduledExecutor).setCorePoolSize(poolSize);<br>	&#125;<br>	<span class="hljs-built_in">this</span>.poolSize = poolSize;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>于是我们的代码又有了以下的改动。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> TaskScheduler <span class="hljs-title function_">taskScheduler</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">ThreadPoolTaskScheduler</span> <span class="hljs-variable">taskScheduler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadPoolTaskScheduler</span>();<br>    taskScheduler.setPoolSize(<span class="hljs-number">2</span>);<span class="hljs-comment">//我这里设置的线程数是2,可以根据需求调整</span><br>    <span class="hljs-keyword">return</span> taskScheduler;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>做到这里我们实现了多任务并发执行,但是同一任务异步执行还没有实现.这个需求就更加简单了.<br>加上@Async之后,我们可以实现了同一任务的异步执行.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CurrThreadRun</span> &#123;<br>    <span class="hljs-meta">@Async</span><br>    <span class="hljs-meta">@Scheduled(fixedRate = 3000)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">scheduledTask</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">sdf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>();<br>        sdf.applyPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss a&quot;</span>);<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===1 run&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">6</span> * <span class="hljs-number">1000</span>);<br>        date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===1 end&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Async</span><br>    <span class="hljs-meta">@Scheduled(fixedRate = 3000)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">scheduledTask2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">sdf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>();<br>        sdf.applyPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss a&quot;</span>);<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===2 run&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">6</span> * <span class="hljs-number">1000</span>);<br>        date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===2 end&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> TaskScheduler <span class="hljs-title function_">taskScheduler</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">ThreadPoolTaskScheduler</span> <span class="hljs-variable">taskScheduler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadPoolTaskScheduler</span>();<br>        taskScheduler.setPoolSize(<span class="hljs-number">2</span>);<span class="hljs-comment">//我这里设置的线程数是2,可以根据需求调整</span><br>        <span class="hljs-keyword">return</span> taskScheduler;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输出为以下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">55.794</span>  INFO <span class="hljs-number">63750</span> --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on <span class="hljs-title function_">port</span><span class="hljs-params">(s)</span>: <span class="hljs-number">8091</span> (http) with context path <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">55.799</span>  INFO <span class="hljs-number">63750</span> --- [taskScheduler-<span class="hljs-number">1</span>] .s.a.AnnotationAsyncExecutionInterceptor : More than one TaskExecutor bean found within the context, and none is named <span class="hljs-string">&#x27;taskExecutor&#x27;</span>. Mark one of them as primary or name it <span class="hljs-string">&#x27;taskExecutor&#x27;</span> (possibly as an alias) in order to use it <span class="hljs-keyword">for</span> async processing: [taskScheduler, scheduledTaskTwo, scheduledTaskOne]<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">55</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">2</span>===<span class="hljs-number">2</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">55</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">1</span>===<span class="hljs-number">1</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">55.801</span>  INFO <span class="hljs-number">63750</span> --- [           main] c.r.s.SpringbootDemoApplication          : Started SpringbootDemoApplication in <span class="hljs-number">1.261</span> seconds (JVM running <span class="hljs-keyword">for</span> <span class="hljs-number">1.581</span>)<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">58</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">3</span>===<span class="hljs-number">1</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span>:<span class="hljs-number">58</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">4</span>===<span class="hljs-number">2</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">41</span>:<span class="hljs-number">01</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">6</span>===<span class="hljs-number">2</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">41</span>:<span class="hljs-number">01</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">5</span>===<span class="hljs-number">1</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">16</span>:<span class="hljs-number">41</span>:<span class="hljs-number">01</span> 下午SimpleAsyncTaskExecutor-<span class="hljs-number">2</span>===<span class="hljs-number">2</span> end<br></code></pre></td></tr></table></figure>
+<p>但是这个输出的线程池名称让人难以理解，因为@Async是Async用的是默认的SimpleAsyncTaskExecutor作为线程池,所以 为了日志的可阅读性,<br>带着好奇心看了一下SimpleAsyncTaskExecutor这个线程池,文件开头就出现了一注释</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">TaskExecutor implementation that fires up a <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span> <span class="hljs-keyword">for</span> each task, executing it asynchronously.<br>Supports limiting concurrent threads through the <span class="hljs-string">&quot;concurrencyLimit&quot;</span> bean property. By <span class="hljs-keyword">default</span>, the number of concurrent threads is unlimited.<br>NOTE: This implementation does not reuse threads! Consider a thread-pooling TaskExecutor implementation instead, in particular <span class="hljs-keyword">for</span> executing a large number of <span class="hljs-type">short</span>-lived tasks  <br>TaskExecutor 实现为每个任务启动一个新线程，异步执行它。<br>支持通过“concurrencyLimit”bean 属性限制并发线程。 默认情况下，并发线程数是无限的。<br>注意：此实现不重用线程！ 考虑一个线程池 TaskExecutor 实现，特别是用于执行大量短期任务<br></code></pre></td></tr></table></figure>
+<p>所以该线程池默认来一个任务创建一个线程，若系统中不断的创建线程，最终会导致系统占用内存过高，引发OutOfMemoryError错误。所以严格意义上说这个人并不是啥线程池我们要重新设置一下。</p>
+<p>那么@Async是如何配置线程池的呢，这个我会另外再写一篇@Async配置线程池的文章进行描述.</p>
+<p>为了满足前言的需求，我简单将@Async配置了ThreadPoolTaskScheduler,全部的代码如下图所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CurrThreadRun</span> &#123;<br><br>    <span class="hljs-meta">@Async(&quot;scheduledTaskOne&quot;)</span><br>    <span class="hljs-meta">@Scheduled(fixedRate = 3000)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">scheduledTask</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">sdf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>();<br>        sdf.applyPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss a&quot;</span>);<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===1 run&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">6</span> * <span class="hljs-number">1000</span>);<br>        date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===1 end&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Async(&quot;scheduledTaskTwo&quot;)</span><br>    <span class="hljs-meta">@Scheduled(fixedRate = 3000)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">scheduledTask2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">sdf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>();<br>        sdf.applyPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss a&quot;</span>);<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===2 run&quot;</span>);<br>        Thread.sleep(<span class="hljs-number">6</span> * <span class="hljs-number">1000</span>);<br>        date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        System.out.println(sdf.format(date) + Thread.currentThread().getName() + <span class="hljs-string">&quot;===2 end&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    ThreadPoolTaskScheduler <span class="hljs-title function_">scheduledTaskTwo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">ThreadPoolTaskScheduler</span> <span class="hljs-variable">threadPoolTaskScheduler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadPoolTaskScheduler</span>();<br>        threadPoolTaskScheduler.setPoolSize(<span class="hljs-number">2</span>);<br>        threadPoolTaskScheduler.setAwaitTerminationSeconds(<span class="hljs-number">60</span>);<br>        threadPoolTaskScheduler.setThreadNamePrefix(<span class="hljs-string">&quot;TASK_SCHEDULER_SECOND-AAA-&quot;</span>);<br>        <span class="hljs-keyword">return</span> threadPoolTaskScheduler;<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    ThreadPoolTaskScheduler <span class="hljs-title function_">scheduledTaskOne</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">ThreadPoolTaskScheduler</span> <span class="hljs-variable">threadPoolTaskScheduler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadPoolTaskScheduler</span>();<br>        threadPoolTaskScheduler.setPoolSize(<span class="hljs-number">2</span>);<br>        threadPoolTaskScheduler.setThreadNamePrefix(<span class="hljs-string">&quot;TASK_SCHEDULER_SECOND-BBB-&quot;</span>);<br>        <span class="hljs-keyword">return</span> threadPoolTaskScheduler;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>得到了输出的控制台如下所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">18.509</span>  INFO <span class="hljs-number">64755</span> --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on <span class="hljs-title function_">port</span><span class="hljs-params">(s)</span>: <span class="hljs-number">8091</span> (http) with context path <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">18.513</span>  INFO <span class="hljs-number">64755</span> --- [           main] s.a.ScheduledAnnotationBeanPostProcessor : More than one TaskScheduler bean exists within the context, and none is named <span class="hljs-string">&#x27;taskScheduler&#x27;</span>. Mark one of them as primary or name it <span class="hljs-string">&#x27;taskScheduler&#x27;</span> (possibly as an alias); or implement the SchedulingConfigurer <span class="hljs-keyword">interface</span> <span class="hljs-title class_">and</span> call ScheduledTaskRegistrar#setScheduler explicitly within the <span class="hljs-title function_">configureTasks</span><span class="hljs-params">()</span> callback: [scheduledTaskTwo, scheduledTaskOne]<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">18.516</span>  INFO <span class="hljs-number">64755</span> --- [           main] c.r.s.SpringbootDemoApplication          : Started SpringbootDemoApplication in <span class="hljs-number">1.391</span> seconds (JVM running <span class="hljs-keyword">for</span> <span class="hljs-number">1.613</span>)<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">18</span> 下午TASK_SCHEDULER_SECOND-BBB-<span class="hljs-number">1</span>===<span class="hljs-number">1</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">18</span> 下午TASK_SCHEDULER_SECOND-AAA-<span class="hljs-number">1</span>===<span class="hljs-number">2</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">21</span> 下午TASK_SCHEDULER_SECOND-BBB-<span class="hljs-number">2</span>===<span class="hljs-number">1</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">21</span> 下午TASK_SCHEDULER_SECOND-AAA-<span class="hljs-number">2</span>===<span class="hljs-number">2</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">24</span> 下午TASK_SCHEDULER_SECOND-BBB-<span class="hljs-number">1</span>===<span class="hljs-number">1</span> end<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">24</span> 下午TASK_SCHEDULER_SECOND-AAA-<span class="hljs-number">1</span>===<span class="hljs-number">2</span> end<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">24</span> 下午TASK_SCHEDULER_SECOND-BBB-<span class="hljs-number">1</span>===<span class="hljs-number">1</span> run<br><span class="hljs-number">2022</span>-<span class="hljs-number">03</span>-<span class="hljs-number">06</span> <span class="hljs-number">17</span>:<span class="hljs-number">10</span>:<span class="hljs-number">24</span> 下午TASK_SCHEDULER_SECOND-AAA-<span class="hljs-number">1</span>===<span class="hljs-number">2</span> run<br></code></pre></td></tr></table></figure>
+
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ol>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015253688">SpringBoot @Scheduled注解使用: 同步&#x2F;异步同一任务及多任务并发执行</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wlandwl/p/async.html">Spring使用@Async注解</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Spring/">Spring</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/24/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E5%AE%9E%E8%B7%B5Kafka/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">手把手带你实践Kafka</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/23/Spring%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/">
+                        <span class="hidden-mobile">【TODO】Spring多线程共享变量</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

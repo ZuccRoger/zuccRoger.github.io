@@ -16,21 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="什么是反射">
+    <meta name="description" content="前言Java是静态的强类型语言，因为提供了反射等机制，也具备了动态类型语言的能力。 代理模式一句话概括来说就是你玩游戏，你找个代练，代练替你打游戏这就带代理模式。优点 职责清晰 高拓展性 智能化  使用场景 Spring AOP  撸代码12345678public interface IGamePlayer &amp;#123;  &#x2F;&#x2F; 登陆  public void login(String user">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试官:动态代理是基于什么原理">
+<meta property="og:title" content="动态代理是基于什么原理">
 <meta property="og:url" content="http://example.com/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%98%AF%E5%9F%BA%E4%BA%8E%E4%BB%80%E4%B9%88%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="骆佳俊的博客">
-<meta property="og:description" content="什么是反射">
+<meta property="og:description" content="前言Java是静态的强类型语言，因为提供了反射等机制，也具备了动态类型语言的能力。 代理模式一句话概括来说就是你玩游戏，你找个代练，代练替你打游戏这就带代理模式。优点 职责清晰 高拓展性 智能化  使用场景 Spring AOP  撸代码12345678public interface IGamePlayer &amp;#123;  &#x2F;&#x2F; 登陆  public void login(String user">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-06T14:43:13.000Z">
-<meta property="article:modified_time" content="2022-05-06T14:51:09.185Z">
+<meta property="article:modified_time" content="2022-10-25T06:47:39.130Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>面试官:动态代理是基于什么原理 - 骆佳俊的博客</title>
+  <title>动态代理是基于什么原理 - 骆佳俊的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="面试官:动态代理是基于什么原理">
+            <span class="h2" id="subtitle" title="动态代理是基于什么原理">
               
             </span>
 
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5 字
+      1.8k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      16 分钟
     </span>
   
 
@@ -243,10 +243,32 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">面试官:动态代理是基于什么原理</h1>
+            <h1 style="display: none">动态代理是基于什么原理</h1>
             
             <div class="markdown-body">
-              <h3 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h3>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java是静态的强类型语言，因为提供了反射等机制，也具备了动态类型语言的能力。</p>
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><h4 id="一句话概括"><a href="#一句话概括" class="headerlink" title="一句话概括"></a>一句话概括</h4><h4 id="来说就是你玩游戏，你找个代练，代练替你打游戏这就带代理模式。"><a href="#来说就是你玩游戏，你找个代练，代练替你打游戏这就带代理模式。" class="headerlink" title="来说就是你玩游戏，你找个代练，代练替你打游戏这就带代理模式。"></a>来说就是你玩游戏，你找个代练，代练替你打游戏这就带代理模式。</h4><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ol>
+<li>职责清晰</li>
+<li>高拓展性</li>
+<li>智能化</li>
+</ol>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ol>
+<li>Spring AOP</li>
+</ol>
+<h4 id="撸代码"><a href="#撸代码" class="headerlink" title="撸代码"></a>撸代码</h4><figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">IGamePlayer</span> &#123;<br>  <span class="hljs-comment">// 登陆</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">login</span><span class="hljs-params">(String user, String password)</span>;<br>  <span class="hljs-comment">// 杀怪</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">killBoss</span><span class="hljs-params">()</span>;<br>  <span class="hljs-comment">// 升级</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">upgrade</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GamePlayer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IGamePlayer</span> &#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">GamePlayer</span><span class="hljs-params">(String name)</span> &#123;<br>    <span class="hljs-built_in">this</span>.name = name;<br>  &#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">login</span><span class="hljs-params">(String user, String password)</span> &#123;<br>    System.out.println(<span class="hljs-built_in">this</span>.name + <span class="hljs-string">&quot;登陆&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">killBoss</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(<span class="hljs-built_in">this</span>.name + <span class="hljs-string">&quot;杀Boss&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">upgrade</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(<span class="hljs-built_in">this</span>.name + <span class="hljs-string">&quot;升级&quot;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GamePlayerProxy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IGamePlayer</span> &#123;<br>  <span class="hljs-comment">/** 通过构造函数传递要对谁进行代练 */</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-type">IGamePlayer</span> <span class="hljs-variable">gamePlayer</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">GamePlayerProxy</span><span class="hljs-params">(IGamePlayer _gamePlayer)</span> &#123;<br>    <span class="hljs-built_in">this</span>.gamePlayer = _gamePlayer;<br>  &#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">killBoss</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">this</span>.gamePlayer.killBoss();<br>  &#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">login</span><span class="hljs-params">(String user, String password)</span> &#123;<br>    <span class="hljs-built_in">this</span>.gamePlayer.login(user, password);<br>  &#125;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">upgrade</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">this</span>.gamePlayer.upgrade();<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Client</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><br>    <span class="hljs-comment">// 定义一个痴迷的玩家</span><br>    <span class="hljs-type">IGamePlayer</span> <span class="hljs-variable">player</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GamePlayer</span>(<span class="hljs-string">&quot;张三&quot;</span>);<br><br>    <span class="hljs-type">IGamePlayer</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GamePlayerProxy</span>(player);<br>    <span class="hljs-comment">// 开始打游戏，记下时间戳</span><br>    System.out.println(<span class="hljs-string">&quot;开始时间是:2009-8-25 10:45&quot;</span>);<br><br>    proxy.login(<span class="hljs-string">&quot;zhangSan&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>);<br>    <span class="hljs-comment">// 开始杀怪</span><br>    proxy.killBoss();<br>    <span class="hljs-comment">// 升级</span><br>    proxy.upgrade();<br>    <span class="hljs-comment">// 记录结束游戏时间</span><br>    System.out.println(<span class="hljs-string">&quot;结束时间是:2009-8-26 03:40&quot;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>以上代码很简单地实现了一个 代理模式的case (以玩家找代练)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">开始时间是:<span class="hljs-number">2009</span>-<span class="hljs-number">8</span>-<span class="hljs-number">25</span> <span class="hljs-number">10</span>:<span class="hljs-number">45</span><br>张三登陆<br>张三杀Boss<br>张三升级<br>结束时间是:<span class="hljs-number">2009</span>-<span class="hljs-number">8</span>-<span class="hljs-number">26</span> <span class="hljs-number">03</span>:<span class="hljs-number">40</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="代理模式的拓展"><a href="#代理模式的拓展" class="headerlink" title="代理模式的拓展"></a>代理模式的拓展</h3><h4 id="普通代理"><a href="#普通代理" class="headerlink" title="普通代理"></a>普通代理</h4><h4 id="强制代理"><a href="#强制代理" class="headerlink" title="强制代理"></a>强制代理</h4><p>比如你知道了一个明星的电话方式，但是偏偏得要找到她的经纪人才行，这个就是强制代理。</p>
+<h3 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h3><p>运行时得到这个某个对象的类型.</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><h3 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h3><h3 id="cglib动态代理"><a href="#cglib动态代理" class="headerlink" title="cglib动态代理"></a>cglib动态代理</h3>
             </div>
             <hr>
             <div>
@@ -255,9 +277,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/">我是面试官系列</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/Java/todo/">todo</a>
                     
                   </div>
                 

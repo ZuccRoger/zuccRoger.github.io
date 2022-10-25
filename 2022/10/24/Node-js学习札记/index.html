@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="我们可以创建一个 nodejs 的项目 123mkdir latercd laternpm init -y 通过 npm init 可以让我快速 初始化 package.json，它会让我们确认各种东西，所以如果想快速初始化可以 通过 npm init -y 这个指令当然 我们可以通过 最简单的 npm install 去安装依赖， –save 可以让它保存在package.json中, 然后输出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js学习札记">
+<meta property="og:url" content="http://example.com/2022/10/24/Node-js%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="我们可以创建一个 nodejs 的项目 123mkdir latercd laternpm init -y 通过 npm init 可以让我快速 初始化 package.json，它会让我们确认各种东西，所以如果想快速初始化可以 通过 npm init -y 这个指令当然 我们可以通过 最简单的 npm install 去安装依赖， –save 可以让它保存在package.json中, 然后输出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d1d1294454cd40aaad062a005a9b996e~tplv-k3u1fbpfcp-zoom-1.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1725297ae2744873a211e70e620a8fba~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2022-10-24T02:58:17.000Z">
+<meta property="article:modified_time" content="2022-10-25T03:11:07.331Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d1d1294454cd40aaad062a005a9b996e~tplv-k3u1fbpfcp-zoom-1.image">
+  
+  
+  <title>Node.js学习札记 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Node.js学习札记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-24 10:58" pubdate>
+        2022年10月24日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      48 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Node.js学习札记</h1>
+            
+            <div class="markdown-body">
+              <p>我们可以创建一个 nodejs 的项目</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs vim"><span class="hljs-built_in">mkdir</span> <span class="hljs-keyword">later</span><br><span class="hljs-keyword">cd</span> <span class="hljs-keyword">later</span><br>npm init -<span class="hljs-keyword">y</span><br></code></pre></td></tr></table></figure>
+<p>通过 npm init 可以让我快速 初始化 package.json，它会让我们确认各种东西，所以如果想快速初始化可以 通过 npm init -y 这个指令<br>当然 我们可以通过 最简单的 npm install 去安装依赖， –save 可以让它保存在package.json中, 然后输出一棵 ** node_modules ** 树 ，理应来说它 npm install 应该是一个 ** 纯函数** </p>
+<blockquote>
+<ol>
+<li>不同版本npm的安装算法不同  </li>
+<li>某些依赖自上次安装以来，可能已经发布了新的版本，因此将根据package.json中的semverrang version去更新依赖</li>
+</ol>
+</blockquote>
+<p>比如</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">npm install --<span class="hljs-built_in">save</span> <span class="hljs-built_in">express</span> <br></code></pre></td></tr></table></figure>
+<p>当我们想卸载该依赖的时候我们可以</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">npm rm <span class="hljs-built_in">express</span> --<span class="hljs-built_in">save</span><br></code></pre></td></tr></table></figure>
+<p>这个时候我们发现 会在该文件下的目录下面，有一个 package-lock.json 文件，字面上理解 是锁定版本的意思。<br>我们再来谈一下这个<strong>package-lock.json</strong>文件</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-string">&quot;devDependencies&quot;</span>: &#123;<br>  <span class="hljs-string">&quot;@types/ffi&quot;</span>: <span class="hljs-string">&quot;^0.5.7&quot;</span>,<br>  <span class="hljs-string">&quot;@types/mocha&quot;</span>: <span class="hljs-string">&quot;^8.2.0&quot;</span>,<br>  <span class="hljs-string">&quot;@types/node&quot;</span>: <span class="hljs-string">&quot;^14.14.30&quot;</span>,<br>  <span class="hljs-string">&quot;@types/power-assert&quot;</span>: <span class="hljs-string">&quot;^1.5.3&quot;</span>,<br>  <span class="hljs-string">&quot;espower-typescript&quot;</span>: <span class="hljs-string">&quot;^9.0.2&quot;</span>,<br>  <span class="hljs-string">&quot;mocha&quot;</span>: <span class="hljs-string">&quot;^8.2.1&quot;</span>,<br>  <span class="hljs-string">&quot;power-assert&quot;</span>: <span class="hljs-string">&quot;^1.6.1&quot;</span>,<br>  <span class="hljs-string">&quot;typescript&quot;</span>: <span class="hljs-string">&quot;^4.0.0&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>其中的^是什么意思呢？</p>
+<h3 id="module模块概念"><a href="#module模块概念" class="headerlink" title="module模块概念"></a>module模块概念</h3><ol>
+<li><div class="code-wrapper"><pre><code class="hljs">每个.js文件即是一个模块。当我们 console.log(module)的时候 
+</code></pre></div>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">Module &#123;<br>  id: &#x27;.&#x27;,<br>  path: &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>src&#x27;,<br>  exports: &#123; a: 1 &#125;,<br>  parent: null,<br>  filename: &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>src<span class="hljs-symbol">\\</span>index.js&#x27;,<br>  loaded: false,<br>  children: [],<br>  paths: [<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>src<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>node_modules&#x27;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>会输出如上所示的数据格式，其中 拥有 exports 属性  </p>
+</li>
+<li><div class="code-wrapper"><pre><code class="hljs">exports 和 module.exports的关系
+</code></pre></div>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> 对象是由模块系统创建的。<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = &#123;<br>    a: <span class="hljs-number">1</span><br>&#125;<br><span class="hljs-keyword">exports</span>.a = <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>以上的使用方式是等效的，如果 exports.b &#x3D; 2 ，那么输出的export则是以下内容</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">Module &#123;<br>  id: &#x27;.&#x27;,<br>  path: &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>src&#x27;,<br>  exports: &#123; b: 2, a: 1 &#125;,<br>  parent: null,<br>  filename: &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>src<span class="hljs-symbol">\\</span>index.js&#x27;,<br>  loaded: false,<br>  children: [],<br>  paths: [<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>src<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>Engine<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>AICode20200624<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>code<span class="hljs-symbol">\\</span>node_modules&#x27;,<br>    &#x27;D:<span class="hljs-symbol">\\</span>node_modules&#x27;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ！">Express是以Node自带的http模块为基础，致力于在HTTP请求和响应上来建模Web程序<br></code></pre></td></tr></table></figure>
+
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d1d1294454cd40aaad062a005a9b996e~tplv-k3u1fbpfcp-zoom-1.image" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p>中间件的本质其实是一个函数，在接收到和返回的过程中进行处理。  </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> <span class="hljs-title class_">Koa</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>);<br><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Koa</span>();<br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> (ctx,next)=&gt;&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);<br>   <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);<br>&#125;);<br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> (ctx,next)=&gt;&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);<br>   <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">4</span>);<br>&#125;);<br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-string">&quot;3000&quot;</span>); <br></code></pre></td></tr></table></figure>
+<p>先来看看这段代码输出是的 1324 ,它的执行过程很像一颗洋葱,以 next 作为分界，先执行next之前的内容</p>
+<h3 id="本地变量-和-模块变量之间的关系"><a href="#本地变量-和-模块变量之间的关系" class="headerlink" title="本地变量 和 模块变量之间的关系"></a>本地变量 和 模块变量之间的关系</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ！">前文:笔者在本地 a.js 新建了一个变量a=1.1在b.js 新建了一个变量a=2 导出了一个module.exports=&#123;a&#125;,在主模块index.js引用了之后发现a被赋值为2<br></code></pre></td></tr></table></figure>
+<p>这个时候是因为模块间相互调用导致的,在模块间相互只用之前，a会导出一个export供另外一个使用，直到另一个完全执行完了，才会export b给a</p>
+<h3 id="通过Path-resolve-API聊一聊nodejs中路径的问题"><a href="#通过Path-resolve-API聊一聊nodejs中路径的问题" class="headerlink" title="通过Path.resolve API聊一聊nodejs中路径的问题"></a>通过Path.resolve API聊一聊nodejs中路径的问题</h3><p>如果没有以’.&#x2F;‘,’..&#x2F;‘和’&#x2F;‘开头的文件，在CommonJS里面，寻找依赖模块是 比如a&#x2F;b&#x2F;c.js 其中c.js引用了d.js,那么模块的查找顺序为a&#x2F;b&#x2F;node_moudles&#x2F;d,如果再找不到则会去调用a&#x2F;node_modules&#x2F;d，最后会在全局目录加载<br>如果是目录模块，在 package.json 文件中，会指定一个main入口.如果一个都找不到则会报错<br>can’t find module xxxx</p>
+<h3 id="Content-type的类型"><a href="#Content-type的类型" class="headerlink" title="Content-type的类型"></a>Content-type的类型</h3><blockquote>
+<div class="code-wrapper"><pre><code class="hljs">POST请求的消息主体放在entity body中，服务端根据请求头中的Content-Type字段来获取消息主体的编码方式，进而进行解析数据。
+</code></pre></div>
+<p>一、application&#x2F;x-www-form-urlencoded<br><strong>最常见</strong>的 POST 提交数据的方式，原生Form表单，如果不设置 enctype 属性，默认为application&#x2F;x-www-form-urlencoded 方式提交数据。<br>首先，Content-Type被指定为 application&#x2F;x-www-form-urlencoded；其次，提交的表单数据会转换为键值对并按照 key1&#x3D;val1&amp;key2&#x3D;val2 的方式进行编码，key 和 val 都进行了 URL 转码。大部分服务端语言都对这种方式有很好的支持。<br>另外，如利用AJAX 提交数据时，也可使用这种方式。例如 jQuery，Content-Type 默认值都是”application&#x2F;x-www-form-urlencoded;charset&#x3D;utf-8”。<br>二、multipart&#x2F;form-data<br>另一个常见的 POST 数据提交的方式， Form 表单的 enctype 设置为multipart&#x2F;form-data，它会将表单的数据处理为一条消息，以标签为单元，用分隔符（这就是boundary的作用）分开，类似我们上面Content-Type中的例子。<br>由于这种方式将数据有很多部分，它既可以上传键值对，也可以上传文件，甚至多个文件。当上传的字段是文件时，会有Content-Type来说明文件类型；Content-disposition，用来说明字段的一些信息。每部分都是以 –boundary 开始，紧接着是内容描述信息，然后是回车，最后是字段具体内容（字段、文本或二进制等）。如果传输的是文件，还要包含文件名和文件类型信息。消息主体最后以 –boundary– 标示结束。<br>三、application&#x2F;json<br>Content-Type: application&#x2F;json 作为响应头比较常见。实际上，现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串，其中一个好处就是JSON 格式支持比键值对复杂得多的结构化数据。由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持JSON.stringify，服务端语言也都有处理 JSON 的函数，使用起来没有困难。<br>Google 的 AngularJS 中的 Ajax 功能，默认就是提交 JSON 字符串。<br>四、text&#x2F;xml<br>XML的作用不言而喻，用于传输和存储数据，它非常适合万维网传输，提供统一的方法来描述和交换独立于应用程序或供应商的结构化数据，在JSON出现之前是业界一大标准（当然现在也是），相比JSON的优缺点大家有兴趣可以上网search。因此，在POST提交数据时，xml类型也是不可缺少的一种，虽然一般场景上使用JSON可能更轻巧、灵活。<br>五、binary (application&#x2F;octet-stream)<br>在Chrome浏览器的Postman工具中，还可以看到”binary“这一类型，指的就是一些二进制文件类型。如application&#x2F;pdf，指定了特定二进制文件的MIME类型。就像对于text文件类型若没有特定的子类型（subtype），就使用 text&#x2F;plain。类似的，二进制文件没有特定或已知的 subtype，即使用 application&#x2F;octet-stream，这是应用程序文件的默认值，一般很少直接使用 。<br>对于application&#x2F;octet-stream，只能提交二进制，而且只能提交一个二进制，如果提交文件的话，只能提交一个文件，后台接收参数只能有一个，而且只能是流（或者字节数组）。<br>很多web服务器使用默认的 application&#x2F;octet-stream 来发送未知类型。出于一些安全原因，对于这些资源浏览器不允许设置一些自定义默认操作，导致用户必须存储到本地以使用。一般来说，设置正确的MIME类型很重要。    </p>
+</blockquote>
+<p>其中参数对象需要JSON.stringify.</p>
+<h3 id="nodejs高并发控制"><a href="#nodejs高并发控制" class="headerlink" title="nodejs高并发控制"></a>nodejs高并发控制</h3><blockquote>
+<p>Q: 如何控制高并发 如果有50个api 但是一次性只能7个api<br>A: nodejs高并发大流量的设计实现,控制并发的三种方法 eventproxy、async.mapLimit、async.queue控制并发</p>
+</blockquote>
+<h2 id="crypto-模块"><a href="#crypto-模块" class="headerlink" title="crypto 模块"></a>crypto 模块</h2><ol>
+<li>RSA算法<blockquote>
+<p>RSA算法是1977年由Ron Rivest、Adi Shamir和Leonard Adleman共同提出的，所以以他们三人的姓氏的头字母命名。</p>
+</blockquote>
+</li>
+</ol>
+<p>RSA是一种非对称加密的算法，是一个公钥和一个私钥组成的密钥对，可以通过</p>
+<blockquote>
+<div class="code-wrapper"><pre><code class="hljs">* 公钥加密，私钥解密
+* 私钥加密, 公钥解密
+</code></pre></div>
+</blockquote>
+<p>公钥可以暴露的但是私钥是一定是私有的。</p>
+<h3 id="dependencies-和-devDependencies-的区别"><a href="#dependencies-和-devDependencies-的区别" class="headerlink" title="dependencies 和 devDependencies 的区别"></a>dependencies 和 devDependencies 的区别</h3><hr>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm install *** --save<br>npm install ***  --save-dev<br><span class="hljs-regexp">//</span>–save会把依赖包名称添加到package.json文件dependencies键下，–save-dev则添加到package.json文件devDependencies键下<br>链接：https:<span class="hljs-regexp">//</span>juejin.im<span class="hljs-regexp">/post/</span><span class="hljs-number">6844903794086510600</span><br></code></pre></td></tr></table></figure>
+<p>devDependencies 依赖只用于开发环境，不用于生产环境。<br>dependencies  依赖只用于生产环境，开发环境。</p>
+<table>
+<thead>
+<tr>
+<th>全部</th>
+<th>简写</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–save-dev</td>
+<td>-D</td>
+<td>安装到开发环境中</td>
+</tr>
+<tr>
+<td></td>
+<td>-S</td>
+<td>安装到生产环境中</td>
+</tr>
+<tr>
+<td>cnpm i</td>
+<td>-</td>
+<td>不写入package.json</td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td></td>
+</tr>
+<tr>
+<td>–save-dev ，缩写为 -D</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="require闭环检测器"><a href="#require闭环检测器" class="headerlink" title="require闭环检测器"></a>require闭环检测器</h3><hr>
+<p>当我们在a.js 和 b.js文件中，相互require对方，会发现undefined的返回，因此有了nocycle(npm)神器!<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1725297ae2744873a211e70e620a8fba~tplv-k3u1fbpfcp-watermark.image" srcset="/img/loading.gif" lazyload></p>
+<h3 id="asserts"><a href="#asserts" class="headerlink" title="asserts"></a>asserts</h3><p>assert 模块提供了一组断言函数，用于验证不变量。</p>
+<hr>
+<h3 id="pakcage-json"><a href="#pakcage-json" class="headerlink" title="pakcage.json"></a>pakcage.json</h3><blockquote>
+<div class="code-wrapper"><pre><code class="hljs">前言
+</code></pre></div>
+<ol>
+<li><div class="code-wrapper"><pre><code class="hljs">concurrently
+</code></pre></div>
+</li>
+<li><div class="code-wrapper"><pre><code class="hljs">如何指定nodejs启动在固定的端口	
+</code></pre></div>
+  –port 7001 , 比如 node app.js –port 7001 即将node服务启动在端口为7001上。</li>
+<li>如何判断当前的Node环境是开发环境还是生产环境</li>
+</ol>
+</blockquote>
+<div class="code-wrapper"><pre><code class="hljs">process.env.NODE_ENV === &#39;development&#39; true -&gt; 开发模式
+process.env.NODE_ENV === &#39;production&#39; true -&gt; 生产模式
+</code></pre></div>
+<hr>
+<h3 id="npm-script"><a href="#npm-script" class="headerlink" title="npm script"></a>npm script</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/nodejs/">nodejs</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/24/Node-js%E4%B8%AD%E5%B0%8F%E6%95%B0%E8%AE%A1%E7%AE%97%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Node.js中小数计算溢出问题以及如何解决</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/24/Node-jsEtimeout%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+                        <span class="hidden-mobile">Node.jsEtimeout解决方案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

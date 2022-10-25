@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="字段缺漏导致的问题。1Caused by: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field &quot;entryTime&quot; (class com.netease.lhep.assistantsystem.biz.dto.WbUserSpecifyDTO), not">
+<meta property="og:type" content="article">
+<meta property="og:title" content="feign引入过程中遇到的问题">
+<meta property="og:url" content="http://example.com/2022/10/10/feign%E5%BC%95%E5%85%A5%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="字段缺漏导致的问题。1Caused by: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field &quot;entryTime&quot; (class com.netease.lhep.assistantsystem.biz.dto.WbUserSpecifyDTO), not">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h72hsu5j1mj31z80u0n43.jpg">
+<meta property="article:published_time" content="2022-10-10T07:26:09.000Z">
+<meta property="article:modified_time" content="2022-10-12T08:21:55.900Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h72hsu5j1mj31z80u0n43.jpg">
+  
+  
+  <title>feign引入过程中遇到的问题 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="feign引入过程中遇到的问题">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-10 15:26" pubdate>
+        2022年10月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      45 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">feign引入过程中遇到的问题</h1>
+            
+            <div class="markdown-body">
+              <h3 id="字段缺漏导致的问题。"><a href="#字段缺漏导致的问题。" class="headerlink" title="字段缺漏导致的问题。"></a>字段缺漏导致的问题。</h3><figure class="highlight stylus"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs stylus">Caused by: com<span class="hljs-selector-class">.fasterxml</span><span class="hljs-selector-class">.jackson</span><span class="hljs-selector-class">.databind</span><span class="hljs-selector-class">.exc</span><span class="hljs-selector-class">.UnrecognizedPropertyException</span>: Unrecognized field <span class="hljs-string">&quot;entryTime&quot;</span> (class com<span class="hljs-selector-class">.netease</span><span class="hljs-selector-class">.lhep</span><span class="hljs-selector-class">.assistantsystem</span><span class="hljs-selector-class">.biz</span><span class="hljs-selector-class">.dto</span>.WbUserSpecifyDTO), not marked as ignorable (<span class="hljs-number">11</span> known properties: <span class="hljs-string">&quot;dep4Name&quot;</span>, <span class="hljs-string">&quot;photo&quot;</span>, <span class="hljs-string">&quot;areaName&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>, <span class="hljs-string">&quot;dep1Name&quot;</span>, <span class="hljs-string">&quot;dep2Name&quot;</span>, <span class="hljs-string">&quot;dep3Name&quot;</span>, <span class="hljs-string">&quot;supervisorCorp&quot;</span>, <span class="hljs-string">&quot;jobName&quot;</span>, <span class="hljs-string">&quot;workCode&quot;</span>])<br></code></pre></td></tr></table></figure>
+
+<p>如何解决：</p>
+<p>加上 @JsonIgnoreProperties(ignoreUnknown &#x3D; true)。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Data</span><br><span class="hljs-variable">@AllArgsConstructor</span><br><span class="hljs-variable">@NoArgsConstructor</span><br><span class="hljs-variable">@JsonIgnoreProperties</span>(ignoreUnknown = true)<br>public class WbUserSpecifyDTO &#123;<br>    <span class="hljs-variable">@JsonProperty</span>(<span class="hljs-string">&quot;areaName&quot;</span>)<br>    private String areaName;<br>    <span class="hljs-variable">@JsonProperty</span>(<span class="hljs-string">&quot;dep1Name&quot;</span>)<br>    private String dep1Name;<br>    <span class="hljs-variable">@JsonProperty</span>(<span class="hljs-string">&quot;dep2Name&quot;</span>)<br>    private String dep2Name;<br>    <span class="hljs-variable">@JsonProperty</span>(<span class="hljs-string">&quot;dep3Name&quot;</span>)<br>    private String dep3Name;<br>    <span class="hljs-variable">@JsonProperty</span>(<span class="hljs-string">&quot;dep4Name&quot;</span>)<br>    private String dep4Name;<br>    <span class="hljs-selector-tag">private</span> <span class="hljs-selector-tag">String</span> <span class="hljs-selector-tag">email</span>;<br>    @<span class="hljs-selector-tag">JsonProperty</span>(<span class="hljs-string">&quot;jobName&quot;</span>)<br>    <span class="hljs-selector-tag">private</span> <span class="hljs-selector-tag">String</span> <span class="hljs-selector-tag">jobName</span>;<br>    <span class="hljs-selector-tag">private</span> <span class="hljs-selector-tag">String</span> <span class="hljs-selector-tag">name</span>;<br>    <span class="hljs-selector-tag">private</span> <span class="hljs-selector-tag">String</span> <span class="hljs-selector-tag">photo</span>;<br>    @<span class="hljs-selector-tag">JsonProperty</span>(<span class="hljs-string">&quot;supervisorCorp&quot;</span>)<br>    <span class="hljs-selector-tag">private</span> <span class="hljs-selector-tag">String</span> <span class="hljs-selector-tag">supervisorCorp</span>;<br>    @<span class="hljs-selector-tag">JsonProperty</span>(<span class="hljs-string">&quot;workCode&quot;</span>)<br>    <span class="hljs-selector-tag">private</span> <span class="hljs-selector-tag">String</span> <span class="hljs-selector-tag">workCode</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="form-表单提交异常的问题"><a href="#form-表单提交异常的问题" class="headerlink" title="form 表单提交异常的问题"></a>form 表单提交异常的问题</h3><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.openfeign.form<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>feign-form<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.8.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.openfeign.form<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>feign-form-spring<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.4.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>修改Feign客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-meta">@FeignClient(</span><br><span class="hljs-meta">        name = &quot;poPoRobotFeign&quot;,</span><br><span class="hljs-meta">        url = &quot;http://qa.leihuo.netease.com:3316&quot;,</span><br><span class="hljs-meta">        configuration = FeignConfig.class</span><br><span class="hljs-meta">)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">PoPoRobotFeign</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 用 grp.tyqatest@corp.netease.com  发送消息 测试用机器人</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostMapping(value = &quot;/popo_test&quot;,</span><br><span class="hljs-meta">            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)</span><br>    String <span class="hljs-title function_">sendMsgByQaToolRobot</span><span class="hljs-params">(Map&lt;String, ?&gt; poPoInfoDTO)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 用 grp.leihuo.qatools@corp.netease.com  发送消息 雷火测试工具使者</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostMapping(value = &quot;/popo_qatool&quot;,</span><br><span class="hljs-meta">            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)</span><br>    String <span class="hljs-title function_">sendMsgByChatSendRobot</span><span class="hljs-params">(Map&lt;String, ?&gt; poPoInfoDTO)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>属性<code>consumes = &#123;&quot;application/x-www-form-urlencoded&quot;&#125;</code>,指定Feign以表单方式提交</p>
+<ol>
+<li>参数使用<code>Map&lt;String, ?&gt;</code>形式 (不再是<code>@RequestParam(&quot;parameter&quot;)</code>这种形式);</li>
+</ol>
+</blockquote>
+<p>配置类，注册一个<code>feignFormEncoder</code> <code>bean</code>组件的方式到应用上下文。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> ObjectFactory&lt;HttpMessageConverters&gt; messageConverters;<br><br><span class="hljs-comment">// 注意这里方法名称，也就是bean的名称是什么不重要，</span><br><span class="hljs-comment">// 重要的是返回类型要是 Encoder 并且实现类必须是 FormEncoder 或者其子类</span><br><span class="hljs-comment">// new一个form编码器，实现支持form表单提交</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-meta">@Primary</span><br><span class="hljs-meta">@Scope(SCOPE_PROTOTYPE)</span><br><span class="hljs-keyword">public</span> Encoder <span class="hljs-title function_">feignFormEncoder</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SpringFormEncoder</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SpringEncoder</span>(messageConverters));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>至此，通过接口调用就不会提示400的错误了</p>
+<p>参考资料:</p>
+<p><a target="_blank" rel="noopener" href="https://yijimin.github.io/2019/08/01/Feign%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/">Feign使用小记表单提交异常处理方案</a></p>
+<h3 id="关于如何更好的函数区分的疑惑"><a href="#关于如何更好的函数区分的疑惑" class="headerlink" title="关于如何更好的函数区分的疑惑"></a>关于如何更好的函数区分的疑惑</h3><p>​	为了防止一个feign除了url不一样之外，重复写多次的情况如下</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">if</span> (popoMessageChannel.get<span class="hljs-constructor">SenderUrlConfigPath()</span>.equals(<span class="hljs-string">&quot;thirdParty.urlList.poPoAlarmSendMsgUrl&quot;</span>)) &#123;<br>         final String responseBody = poPoRobotFeign.send<span class="hljs-constructor">MsgByQaToolRobot(<span class="hljs-params">requestBody</span>)</span>;<br>         log.info(<span class="hljs-string">&quot;popo推送, 请求：&#123;&#125;，结果：&#123;&#125;&quot;</span>, <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">GsonUtil</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">Json(<span class="hljs-params">requestBody</span>)</span>, responseBody);<br>     &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (popoMessageChannel.get<span class="hljs-constructor">SenderUrlConfigPath()</span>.equals(<span class="hljs-string">&quot;thirdParty.urlList.poPoActiveSendMsgUrl&quot;</span>)) &#123;<br>         final String responseBody = poPoRobotFeign.send<span class="hljs-constructor">MsgByChatSendRobot(<span class="hljs-params">requestBody</span>)</span>;<br>         log.info(<span class="hljs-string">&quot;popo推送, 请求：&#123;&#125;，结果：&#123;&#125;&quot;</span>, <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">GsonUtil</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">Json(<span class="hljs-params">requestBody</span>)</span>, responseBody);<br>     &#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过这样的方式，如果有更多的接入可以少写代码。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h72hsu5j1mj31z80u0n43.jpg" srcset="/img/loading.gif" lazyload alt="image-20221012143357336"></p>
+<h3 id="openFeign无法解码"><a href="#openFeign无法解码" class="headerlink" title="openFeign无法解码"></a>openFeign无法解码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">Caused by: org.springframework.web.client.UnknownContentTypeException: Could not extract response: no suitable HttpMessageConverter found <span class="hljs-keyword">for</span> response type [<span class="hljs-keyword">class</span> <span class="hljs-title class_">com</span>.netease.lhep.assistantsystem.biz.dto.PoPoServerGetAccessTokenResponseDTO] and content type [text/json;charset=UTF-<span class="hljs-number">8</span>]<br>	at org.springframework.web.client.HttpMessageConverterExtractor.extractData(HttpMessageConverterExtractor.java:<span class="hljs-number">126</span>) ~[spring-web-<span class="hljs-number">5.3</span><span class="hljs-number">.20</span>.jar:<span class="hljs-number">5.3</span><span class="hljs-number">.20</span>]<br>	at org.springframework.cloud.openfeign.support.SpringDecoder.decode(SpringDecoder.java:<span class="hljs-number">57</span>) ~[spring-cloud-openfeign-core-<span class="hljs-number">3.0</span><span class="hljs-number">.6</span>.jar:<span class="hljs-number">3.0</span><span class="hljs-number">.6</span>]<br>	at org.springframework.cloud.openfeign.support.ResponseEntityDecoder.decode(ResponseEntityDecoder.java:<span class="hljs-number">61</span>) ~[spring-cloud-openfeign-core-<span class="hljs-number">3.0</span><span class="hljs-number">.6</span>.jar:<span class="hljs-number">3.0</span><span class="hljs-number">.6</span>]<br>	at feign.optionals.OptionalDecoder.decode(OptionalDecoder.java:<span class="hljs-number">36</span>) ~[feign-core-<span class="hljs-number">10.12</span>.jar:?]<br>	at feign.AsyncResponseHandler.decode(AsyncResponseHandler.java:<span class="hljs-number">115</span>) ~[feign-core-<span class="hljs-number">10.12</span>.jar:?]<br>	... <span class="hljs-number">67</span> more<br></code></pre></td></tr></table></figure>
+
+<p>参考资料： <a target="_blank" rel="noopener" href="https://justsme.github.io/2020/02/21/springboot-no-suitable-HttpMessageConverter-found-for-response/">springboot: no suitable HttpMessageConverter found for response</a></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br> <span class="hljs-keyword">public</span> Decoder <span class="hljs-title function_">feignDecoder</span><span class="hljs-params">()</span> &#123;<br>     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ResponseEntityDecoder</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SpringDecoder</span>(feignHttpMessageConverter()));<br> &#125;<br><br> <span class="hljs-keyword">public</span> ObjectFactory&lt;HttpMessageConverters&gt; <span class="hljs-title function_">feignHttpMessageConverter</span><span class="hljs-params">()</span> &#123;<br>     <span class="hljs-keyword">final</span> <span class="hljs-type">HttpMessageConverters</span> <span class="hljs-variable">httpMessageConverters</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpMessageConverters</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">PhpMappingJackson2HttpMessageConverter</span>());<br>     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectFactory</span>&lt;HttpMessageConverters&gt;() &#123;<br>         <span class="hljs-meta">@Override</span><br>         <span class="hljs-keyword">public</span> HttpMessageConverters <span class="hljs-title function_">getObject</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>             <span class="hljs-keyword">return</span> httpMessageConverters;<br>         &#125;<br>     &#125;;<br> &#125;<br><br> <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PhpMappingJackson2HttpMessageConverter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">MappingJackson2HttpMessageConverter</span> &#123;<br>     PhpMappingJackson2HttpMessageConverter() &#123;<br>         List&lt;MediaType&gt; mediaTypes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>         mediaTypes.add(MediaType.valueOf(MediaType.ALL_VALUE + <span class="hljs-string">&quot;;charset=UTF-8&quot;</span>)); <span class="hljs-comment">//关键</span><br>         setSupportedMediaTypes(mediaTypes);<br>     &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/feign/">feign</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/13/sonarqube%E9%83%A8%E7%BD%B2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">手把手带你部署sonarQube</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/08/springboot%E5%BC%95%E5%85%A5feign/">
+                        <span class="hidden-mobile">springboot引入feign配置向</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

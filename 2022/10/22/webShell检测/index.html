@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言​	参加了我司的1024程序员技术节，是一个安全方向的题目。要求2天内去实现 “检测扫描可能存在的java web shell文件”，对于我组来说是一个全新的未知的领域，一切都靠自己去研究和学习。最后结果是非常nice的，获得了第二名🥈的好成绩！在16支队伍汇总脱颖而出！ 什么是webShell？含义​	能够执行系统命令、加载代码的函数，或者组合一些普通函数，完成一些高级间谍功能的网站后门脚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1024技术马拉松-webShell检测">
+<meta property="og:url" content="http://example.com/2022/10/22/webShell%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="前言​	参加了我司的1024程序员技术节，是一个安全方向的题目。要求2天内去实现 “检测扫描可能存在的java web shell文件”，对于我组来说是一个全新的未知的领域，一切都靠自己去研究和学习。最后结果是非常nice的，获得了第二名🥈的好成绩！在16支队伍汇总脱颖而出！ 什么是webShell？含义​	能够执行系统命令、加载代码的函数，或者组合一些普通函数，完成一些高级间谍功能的网站后门脚">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7e73m8ldmj30yj0jkdhi.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7fh59xapaj30qs0hy0tu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7fhadorp0j30eg0veacq.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7fbp9taywj30k20c274h.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7fabttjenj30ae0hv751.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7fhkorcx9j30yg0madgn.jpg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a3990c331c41478699204dfd04582c2e.png">
+<meta property="article:published_time" content="2022-10-22T03:11:27.000Z">
+<meta property="article:modified_time" content="2022-10-25T06:56:21.411Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGly1h7e73m8ldmj30yj0jkdhi.jpg">
+  
+  
+  <title>1024技术马拉松-webShell检测 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="1024技术马拉松-webShell检测">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-22 11:11" pubdate>
+        2022年10月22日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      52 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">1024技术马拉松-webShell检测</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​	参加了我司的1024程序员技术节，是一个安全方向的题目。要求2天内去实现 “检测扫描可能存在的java web shell文件”，对于我组来说是一个全新的未知的领域，一切都靠自己去研究和学习。最后结果是非常nice的，获得了第二名🥈的好成绩！在16支队伍汇总脱颖而出！</p>
+<h2 id="什么是webShell？"><a href="#什么是webShell？" class="headerlink" title="什么是webShell？"></a>什么是webShell？</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><p>​	能够执行系统命令、加载代码的函数，或者组合一些普通函数，完成一些高级间谍功能的网站后门脚本，就叫做webShell.</p>
+<h2 id="如何检测webShell"><a href="#如何检测webShell" class="headerlink" title="如何检测webShell?"></a>如何检测webShell?</h2><p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7e73m8ldmj30yj0jkdhi.jpg" srcset="/img/loading.gif" lazyload alt="如何检测webShell"></p>
+<h2 id="先上结果！"><a href="#先上结果！" class="headerlink" title="先上结果！"></a>先上结果！</h2><p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7fh59xapaj30qs0hy0tu.jpg" srcset="/img/loading.gif" lazyload alt="请求执行流程"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7fhadorp0j30eg0veacq.jpg" srcset="/img/loading.gif" lazyload alt="请求具体流程图"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7fbp9taywj30k20c274h.jpg" srcset="/img/loading.gif" lazyload alt="扫描变化优化"></p>
+<h3 id="首次准确率-78-125"><a href="#首次准确率-78-125" class="headerlink" title="首次准确率 78.125%"></a>首次准确率 78.125%</h3><h3 id="使用到的方式："><a href="#使用到的方式：" class="headerlink" title="使用到的方式："></a>使用到的方式：</h3><h4 id="内容相似度-模糊哈希算法"><a href="#内容相似度-模糊哈希算法" class="headerlink" title="内容相似度(模糊哈希算法):"></a>内容相似度(模糊哈希算法):</h4><p>因为绝大概率是文件的多处修改、增加、删除部分内容，从而植入恶意脚本。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>逐个字节对比</th>
+<th>分片哈希(piecewise hashing)</th>
+<th>模糊哈希算法（基于内容分割的分片哈希算法 context triggered piecewise hashing, CTPH）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存在的问题</td>
+<td>1. n个文件寻找相似关系，每个文件需要读取和对比n-1次；<br />2. 即便是只修改文件中的一个字节，得到的结果也会大不相同（这是哈希算法的基本要求）</td>
+<td>1. 局部的修改只会影响少量分片的哈希结果，因此从整个文件看还是会有较高的相似性（虽然不是100%)<br />2. 即在一个文件中插入或删除一个字节，就会失效</td>
+<td>性能相比较弱</td>
+</tr>
+<tr>
+<td>主要原理</td>
+<td>逐个字节对比</td>
+<td>每隔一个固定间隔就将文件分片，对每片计算一个哈希值，将这些哈希值一起作相似比较</td>
+<td>使用一个弱哈希计算文件局部内容，在特定条件下对文件进行分片，然后使用一个强哈希对文件每片计算哈希值，取这些值的一部分并连接起来，与分片条件一起构成一个模糊哈希结果。使用一个字符串相似性对比算法判断两个模糊哈希值的相似度有多少，从而判断两个文件的相似程度。</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>简单</td>
+<td>数据可以较为均匀地分配到各节点，并发写入性能更好</td>
+<td>1. 大量<strong>被用于恶意代码检测</strong>，最近又有用于开源软件漏洞挖掘等<br />2. 对文件的部分变化（包括在多处修改、增加、删除部分内容），使用模糊哈希均能发现与源文件的相似关系，是目前判断相似性较好的一种方法。</td>
+</tr>
+</tbody></table>
+<p>文件文本内容读取 与 特征库正样本的内容计算hash值 来判断阈值，首先排除了4k以内的小文件 , 如果相似度&gt;80%那么极大可能说明是个 webShell.</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs ini">Ajax_PHP Command <span class="hljs-attr">Shell.txt</span>=<span class="hljs-number">192</span>:m8w0x1clNhL8wWSewS8wHYAMAY/o7SLCqwvz7ef8WHeepSqU:Xx1clNhL8wTewS8w4DAqo2LpwH8g<br>Antichat Shell <span class="hljs-attr">v1.3.txt</span>=<span class="hljs-number">192</span>:s08vOJJGKejPc1DUacgad3qdbTBchHSGMNwsEE5xO0mU:eZ7E1YhJd3qdbNchjMNhD5I05<br>Ayyildiz Tim  -AYT- Shell v 2.1 <span class="hljs-attr">Biz.txt</span>=<span class="hljs-number">192</span>:G1mF5CZk6Q8Az8P1Az8P8Az8PCfAFsHC6yY/dTJKo2mmGXfa6qMtMWwQKVazgpm/:G4Urw8P1w8P8w8PCfssHF/<span class="hljs-number">2</span>mmGXfa6q2<br>等等，剩下的hash为了观看体验省略<br></code></pre></td></tr></table></figure>
+
+<h4 id="正则匹配高危关键词"><a href="#正则匹配高危关键词" class="headerlink" title="正则匹配高危关键词"></a>正则匹配高危关键词</h4><p>如果检测到了关键词则说明是个异常的webShell.</p>
+<p>比如 Runtime、eval、write以及exec等。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Static]</span><br>数据库后门=(\$a5\\n\$b33\\n\$c87\\n\$d23\\n\$e09\\n\$f23\\n\$g32\\n\$h65|\$msg8873)<br>习科后门=(blackbap\.org|silic\sgroup\shacker\sarmy)<br><span class="hljs-attr">c99.php</span>=(c99sh_surl|c99shvars|c99shcook|c99_buff_prepare)<br><span class="hljs-attr">c100.php</span>=(M5mBAUJmUD4i2hKsKFSBhC9RRFN1FK1bRpSK1jXEfHCD|p8QyxuODTvDDTFtxK4AUzeBJNfZJmoceA1Jlb2EK47y)<br><span class="hljs-attr">c2007.php</span>=(hcmdldCkgfHwgZGllKCJFcnJvcjogJCFcbiIp|OKTsNCmNsb3NlKFNURE9VVCk7DQpjbG9zZShTVERFUlIpOw|fs_rmobj)<br>剩下的hash为了观看体验省略<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="贝叶斯模型"><a href="#贝叶斯模型" class="headerlink" title="贝叶斯模型"></a>贝叶斯模型</h4><p>通过贝叶斯模型分类加密文件，这里通过NeoPi工具的几个维度(压缩比、信息墒、重合指数、最长单词)来训练数据.</p>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7fabttjenj30ae0hv751.jpg" srcset="/img/loading.gif" lazyload alt="贝叶斯分类"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs arff">0.403372,5.560183,0.012844,184384,546200,yes<br>0.757997,6.002106,0.01562,65644,65652,yes<br>0.757997,6.002106,0.01562,65644,65652,yes<br>0.627644,6.406372,0.016304,565,96432,yes<br>0.759292,6.007194,0.015599,23308,23327,yes<br>0.759274,6.006697,0.015608,23730,23749,yes<br>0.758414,6.078658,0.015112,14157,15005,yes<br>0.61079,6.408259,0.016056,613,127471,yes<br>0.758414,6.078658,0.015112,14157,15005,yes<br>0.5796,5.846444,0.030049,213,1049,yes<br>0.5796,5.846444,0.030049,213,1049,yes<br>0.746059,6.108262,0.014913,5855,12180,yes<br>0.269673,5.79752,0.019535,196040,196056,yes<br>...部分正样本<br></code></pre></td></tr></table></figure>
+
+<p>通过上述几个方式串联执行 发现了 150 个异常文件，一共192个文件 , 结果是78.125%</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">2022-10-22 17:50:09.823  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : 共192待扫描文件<br>2022-10-22 17:50:09.827  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Scan Start<br>2022-10-22 17:50:11.695  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : WebshellFeature&lt;FuzzHash&gt; load success<br>2022-10-22 17:50:22.610  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: Runtime.getRuntime().<span class="hljs-built_in">exec</span>(<br>2022-10-22 17:50:22.685  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: exeCmd(<br>2022-10-22 17:50:22.865  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: Runtime.getRuntime().<span class="hljs-built_in">exec</span>(<br>2022-10-22 17:50:23.056  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: Runtime.getRuntime().<span class="hljs-built_in">exec</span>(<br>2022-10-22 17:50:23.056  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : full Scan Finished, Found 150 evil file<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7fhkorcx9j30yg0madgn.jpg" srcset="/img/loading.gif" lazyload alt="单个分析结果"></p>
+<h3 id="优化改进"><a href="#优化改进" class="headerlink" title="优化改进"></a>优化改进</h3><ol>
+<li><p>新增了Content 正则匹配高风险 语法规则, 根据jsp 新增了如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">stream_write.jsp</span>=(\.write\()<br><span class="hljs-attr">runtime_getRuntime.jsp</span>=(runtime\.exec)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>新增了高风险文件内容散列hash</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">1</span>=<span class="hljs-number">384</span>:E10yca3w+hGweWpWSExUKoSE14JeLd6yylV6hEwk4Zay2ZaU+<span class="hljs-number">2</span>U+<span class="hljs-number">4</span>iDDRUnXwRRU:wtP<br><span class="hljs-attr">2</span>=<span class="hljs-number">3072</span>:rryQNmSkHqnPjZsdsW2RsDGjv20FPi6szKNVP8IowQT+<span class="hljs-number">5</span>n5xBG7nSHhmU44B2wO/:MTwQT+ZqwOe+tV<br><span class="hljs-attr">3</span>=<span class="hljs-number">24</span>:sScja5ZZ+s5hQdlUHFL5wUHFKicuNVxi7NVxi4V4ibZQHzWze5SQ92eAJAeaDNEQ:Zn5q6tw6KqMcvTxAQMeAmea5fZai<br><span class="hljs-attr">4</span>=<span class="hljs-number">48</span>:zXAxVZaor6myJ4X33rbpIpJXypbhslFK6/lgSDZYogfqrx8Raqi3Ch/NOr+DbpIe:I/xySKzi92OwXCoGC8RK3CnuY8dE<br><span class="hljs-attr">5</span>=<span class="hljs-number">24</span>:S4ZKOg41Tb3U6Lr/<span class="hljs-number">2</span>wTEy+eqNn/NnGxV3j0BR7wwU254/<span class="hljs-number">6</span>O1TjH81o:S40O31X3UGy0keC1I0P54d2K<br><span class="hljs-attr">6</span>=<span class="hljs-number">3</span>:nQW6ciLHQM4XNMd1KwP2017zAsXXvn:QQOLP2Mn7nvn<br><span class="hljs-attr">7</span>=<span class="hljs-number">48</span>:Zvtmk8jxr28ktxXpdh6uxxVxnzqAAQTSB0ndeMWUIIjcBBIU58FS5xAnPv4t:Zvtmk81SvxX/h6O/dzjTSSnEMWUFjcAk<br><span class="hljs-attr">8</span>=<span class="hljs-number">3</span>:nQW6ciLHQM4XNMd1KwP2017zAsXXvn:QQOLP2Mn7nvn<br>Ajax_PHP Command <span class="hljs-attr">Shell.txt</span>=<span class="hljs-number">192</span>:m8w0x1clNhL8wWSewS8wHYAMAY/o7SLCqwvz7ef8WHeepSqU:Xx1clNhL8wTewS8w4DAqo2LpwH8g<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>发现了 178 个异常文件，一共192个文件 , 结果是&#x3D;92.7%</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">2022-10-22 17:50:09.823  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : 共192待扫描文件<br>2022-10-22 17:50:09.827  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Scan Start<br>2022-10-22 17:50:11.695  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : WebshellFeature&lt;FuzzHash&gt; load success<br>2022-10-22 17:50:22.610  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: Runtime.getRuntime().<span class="hljs-built_in">exec</span>(<br>2022-10-22 17:50:22.685  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: exeCmd(<br>2022-10-22 17:50:22.865  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: Runtime.getRuntime().<span class="hljs-built_in">exec</span>(<br>2022-10-22 17:50:23.056  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : Found value: Runtime.getRuntime().<span class="hljs-built_in">exec</span>(<br>2022-10-22 17:50:23.056  INFO 55082 --- [       Thread-5] com.okami.MonitorClientApplication       : full Scan Finished, Found 150 evil file<br></code></pre></td></tr></table></figure>
+
+<h3 id="首次速度结果"><a href="#首次速度结果" class="headerlink" title="首次速度结果"></a>首次速度结果</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">2022-10-23 15:08:53.852  INFO 79058 --- [       Thread-5] com.okami.MonitorClientApplication       : 共192待扫描文件<br>2022-10-23 15:08:53.855  INFO 79058 --- [       Thread-5] com.okami.MonitorClientApplication       : Scan Start<br>2022-10-23 15:08:53.884  INFO 79058 --- [       Thread-5] com.okami.MonitorClientApplication       : WebshellFeature&lt;FuzzHash&gt; load success<br>2022-10-23 15:08:58.785  INFO 79058 --- [       Thread-5] com.okami.MonitorClientApplication       : full Scan Finished, Found 192 evil file<br></code></pre></td></tr></table></figure>
+
+<p>可以看到从 2022-10-23 10:14:28.596 到 2022-10-23 10:14:35.309 一共约7秒。</p>
+<p>通过 本地存储一个已经通过检测安全的Map，key为存储文件的绝对路径 value为上一次修改时间.</p>
+<p>修改了2个文件然后因为上一次修改时间变动了所以可以在几毫秒内瞬间完成</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">2022-10-23 15:11:40.738  INFO 79058 --- [       Thread-7] com.okami.MonitorClientApplication       : 共2待扫描文件<br>2022-10-23 15:11:40.741  INFO 79058 --- [       Thread-7] com.okami.MonitorClientApplication       : Scan Start<br>2022-10-23 15:11:40.741  INFO 79058 --- [       Thread-7] com.okami.MonitorClientApplication       : WebshellFeature&lt;FuzzHash&gt; load success<br>2022-10-23 15:11:40.794  INFO 79058 --- [       Thread-7] com.okami.MonitorClientApplication       : full Scan Finished, Found 2 evil file<br></code></pre></td></tr></table></figure>
+
+<h2 id="发现的常见问题"><a href="#发现的常见问题" class="headerlink" title="发现的常见问题"></a>发现的常见问题</h2><p><img src="https://img-blog.csdnimg.cn/a3990c331c41478699204dfd04582c2e.png" srcset="/img/loading.gif" lazyload alt="JSP的命令执行"></p>
+<h2 id="临时解决方案"><a href="#临时解决方案" class="headerlink" title="临时解决方案"></a>临时解决方案</h2><ol>
+<li>直接将文件content hash 得到写入到ini配置文件中。</li>
+</ol>
+<h2 id="额外功能"><a href="#额外功能" class="headerlink" title="额外功能"></a>额外功能</h2><ol>
+<li>排除某个文件夹，防止说因为频繁改动的jsp文件，而进行无意义扫描，节约大量时间！</li>
+</ol>
+<h2 id="对面评委的潜在问题回答"><a href="#对面评委的潜在问题回答" class="headerlink" title="对面评委的潜在问题回答"></a>对面评委的潜在问题回答</h2><h3 id="为什么阈值选择了80"><a href="#为什么阈值选择了80" class="headerlink" title="为什么阈值选择了80?"></a>为什么阈值选择了80?</h3><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35029061/article/details/126093738">https://blog.csdn.net/qq_35029061/article/details/126093738</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tdebatty/java-spamsum">java-spamsum</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.claudxiao.net/2012/02/fuzzy_hashing/">模糊哈希算法的原理与应用</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">计算机安全</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/23/Spring%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【TODO】Spring多线程共享变量</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/19/%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8Btips/">
+                        <span class="hidden-mobile">【todo】日志查看tips</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

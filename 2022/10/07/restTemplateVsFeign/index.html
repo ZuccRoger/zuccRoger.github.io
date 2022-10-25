@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本使用    getForObject getForEntity    返回形式 将预期的对象封装到ResponseEntity 直接返回预期对象   使用场景 想拿到Headers等其他信息 只关心实体内容   123456@Data@AllArgsConstructor@NoArgsConstructorpublic class ResultDTO &amp;#123;    private Str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="restTemplate简述">
+<meta property="og:url" content="http://example.com/2022/10/07/restTemplateVsFeign/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="基本使用    getForObject getForEntity    返回形式 将预期的对象封装到ResponseEntity 直接返回预期对象   使用场景 想拿到Headers等其他信息 只关心实体内容   123456@Data@AllArgsConstructor@NoArgsConstructorpublic class ResultDTO &amp;#123;    private Str">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-07T07:20:38.000Z">
+<meta property="article:modified_time" content="2022-10-08T05:08:59.321Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>restTemplate简述 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="restTemplate简述">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-07 15:20" pubdate>
+        2022年10月7日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">restTemplate简述</h1>
+            
+            <div class="markdown-body">
+              <h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>getForObject</th>
+<th>getForEntity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>返回形式</td>
+<td>将预期的对象封装到ResponseEntity</td>
+<td>直接返回预期对象</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>想拿到Headers等其他信息</td>
+<td>只关心实体内容</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ResultDTO</span> &#123;<br>    <span class="hljs-keyword">private</span> String result;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@GetMapping(&quot;/get-for-entity&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">getForEntity</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://mocki.io/v1/831c3dd0-70f4-47cc-aa28-48e858ed0785&quot;</span>;<br>    ResponseEntity&lt;ResultDTO&gt; forEntity = restTemplate.getForEntity(url, ResultDTO.class);<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 2022-10-08 08:47:05.714  INFO 2375 --- [io-8080-exec-10] c.r.n.c.RestTraditionalController        : forEntity.getHeaders [Content-Type:&quot;application/json&quot;, Content-Length:&quot;15&quot;, Connection:&quot;keep-alive&quot;, Date:&quot;Fri, 07 Oct 2022 23:14:31 GMT&quot;, Last-Modified:&quot;Fri, 07 Oct 2022 07:58:28 GMT&quot;, ETag:&quot;&quot;b0eb02791543d20d789c22724329c8bc&quot;&quot;, Expires:&quot;Sun, 06 Nov 2022 07:58:27 GMT&quot;, Accept-Ranges:&quot;bytes&quot;, Server:&quot;AmazonS3&quot;, X-Cache:&quot;Hit from cloudfront&quot;, Via:&quot;1.1 37a7b82c9bd3774d003812bdfacee460.cloudfront.net (CloudFront)&quot;, X-Amz-Cf-Pop:&quot;HKG60-C1&quot;, X-Amz-Cf-Id:&quot;u5FU7KJMvUIqY9gSmaPymSKCWYhmBLr0oe-ENXxz94LTg2AJEf2EGw==&quot;, Age:&quot;5555&quot;]</span><br><span class="hljs-comment">     * 2022-10-08 08:47:05.715  INFO 2375 --- [io-8080-exec-10] c.r.n.c.RestTraditionalController        : forEntity.getBody ResultDTO(result=ok)</span><br><span class="hljs-comment">     * 2022-10-08 08:47:05.715  INFO 2375 --- [io-8080-exec-10] c.r.n.c.RestTraditionalController        : forEntity.getStatusCode 200 OK</span><br><span class="hljs-comment">     * 2022-10-08 08:47:05.715  INFO 2375 --- [io-8080-exec-10] c.r.n.c.RestTraditionalController        : forEntity.getStatusCodeValue 200</span><br><span class="hljs-comment">     */</span><br>    log.info(<span class="hljs-string">&quot;forEntity.getHeaders &#123;&#125;&quot;</span>, forEntity.getHeaders());<br>    log.info(<span class="hljs-string">&quot;forEntity.getBody &#123;&#125;&quot;</span>, forEntity.getBody());<br>    log.info(<span class="hljs-string">&quot;forEntity.getStatusCode &#123;&#125;&quot;</span>, forEntity.getStatusCode());<br>    log.info(<span class="hljs-string">&quot;forEntity.getStatusCodeValue &#123;&#125;&quot;</span>, forEntity.getStatusCodeValue());<br>    <span class="hljs-keyword">return</span> forEntity.getBody().getResult();<br>&#125;<br><br><span class="hljs-meta">@GetMapping(&quot;/get-for-object&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">getFoObject</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://mocki.io/v1/831c3dd0-70f4-47cc-aa28-48e858ed0785&quot;</span>;<br>    <span class="hljs-type">ResultDTO</span> <span class="hljs-variable">forObject</span> <span class="hljs-operator">=</span> restTemplate.getForObject(url, ResultDTO.class);<br>    log.info(<span class="hljs-string">&quot;forEntity &#123;&#125;&quot;</span>, forObject);<br>    <span class="hljs-keyword">return</span> forObject.getResult();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>另外postForEntity和postForObject 和上述的getForObject、getForEntity类似，<strong>重点在于是否只关注结果</strong>！</p>
+<h4 id="如何设置请求头？"><a href="#如何设置请求头？" class="headerlink" title="如何设置请求头？"></a>如何设置请求头？</h4><p>​	如何提交x-www-form-urlencoded类型的表单请求？以下代码是 发送 popo机器人给luojiajun 的代码case.重点在于 设置的header 以及 <strong>MultiValueMap</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@PostMapping(&quot;/post-for-object&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">postFoObject</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;http://qa.leihuo.netease.com:3316/popo_qatool&quot;</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置headers</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">HttpHeaders</span> <span class="hljs-variable">headers</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHeaders</span>();<br>    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);<br><br>    MultiValueMap&lt;String, String&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedMultiValueMap</span>&lt;&gt;();<br>    map.add(<span class="hljs-string">&quot;receiver&quot;</span>, <span class="hljs-string">&quot;luojiajun&quot;</span>);<br>    map.add(<span class="hljs-string">&quot;msg&quot;</span>, <span class="hljs-string">&quot;测试post请求&quot;</span>);<br>    HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt; request = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpEntity</span>&lt;&gt;(map, headers);<br>    <span class="hljs-type">String</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> restTemplate.postForObject(<br>            url, request, String.class);<br><br>    log.info(<span class="hljs-string">&quot;response &#123;&#125;&quot;</span>, response);<br>    <span class="hljs-keyword">return</span> response;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="exchange"><a href="#exchange" class="headerlink" title="exchange"></a>exchange</h3><h4 id="exchange有什么好处？"><a href="#exchange有什么好处？" class="headerlink" title="exchange有什么好处？"></a>exchange有什么好处？</h4><ol>
+<li>简化代码</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@PostMapping(&quot;/exchange-post-api&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">exchangePostApi</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;http://qa.leihuo.netease.com:3316/popo_qatool&quot;</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置headers</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">HttpHeaders</span> <span class="hljs-variable">headers</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHeaders</span>();<br>    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);<br><br>    MultiValueMap&lt;String, String&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedMultiValueMap</span>&lt;&gt;();<br>    map.add(<span class="hljs-string">&quot;receiver&quot;</span>, <span class="hljs-string">&quot;luojiajun&quot;</span>);<br>    map.add(<span class="hljs-string">&quot;msg&quot;</span>, <span class="hljs-string">&quot;测试post请求&quot;</span>);<br>    HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt; request = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpEntity</span>&lt;&gt;(map, headers);<br>    ResponseEntity&lt;String&gt; response = restTemplate<br>            .exchange(url, HttpMethod.POST, request, String.class);<br>    log.info(<span class="hljs-string">&quot;response &#123;&#125;&quot;</span>, response);<br>    <span class="hljs-keyword">return</span> response.getBody();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="延伸问题"><a href="#延伸问题" class="headerlink" title="延伸问题"></a>延伸问题</h3><h4 id="RestTemplaet的实现原理是怎样的"><a href="#RestTemplaet的实现原理是怎样的" class="headerlink" title="RestTemplaet的实现原理是怎样的?"></a>RestTemplaet的实现原理是怎样的?</h4><h4 id="exchange-vs-postForEntity-vs-execute"><a href="#exchange-vs-postForEntity-vs-execute" class="headerlink" title="exchange() vs postForEntity() vs execute()"></a>exchange() vs postForEntity() vs execute()</h4><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/rest-template">https://www.baeldung.com/rest-template</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/52364187/resttemplate-exchange-vs-postforentity-vs-execute">exchange() vs postForEntity() vs execute()</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/http%E5%BA%93/">http库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/08/springboot%E5%BC%95%E5%85%A5feign/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">springboot引入feign配置向</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/02/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4-%E4%BB%A3%E7%A0%81%E4%B9%8B%E4%B8%91%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">极客时间-代码之丑读书笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

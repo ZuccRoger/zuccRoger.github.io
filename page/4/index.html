@@ -191,15 +191,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/09/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E7%B1%BB%E5%8A%A0%E8%BD%BD-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/" target="_self">
-          面试官:请介绍一些类加载,双亲委派模型
+        <a href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/" target="_self">
+          无消息丢失配置
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/09/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E7%B1%BB%E5%8A%A0%E8%BD%BD-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/" target="_self">
+        <a href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/" target="_self">
           
-          类加载过程类加载的过程分为加载、链接和初始化。 加载阶段Java将字节码从不同的数据源读取到JVM中，并映射为JVM认可的数据结构(Class对象),这里的数据源可以是各种各样形态的，比如jar文件、class文件,甚至是网络数据源，如果输入数据不是ClassFile的结构，则会抛出ClassFormatError. 链接简单来说就是将定义的类信息平滑地转入到JVM的运行过程中. 验证这个是虚拟机
+          消息丢失的情况 生产者程序丢失数据  使用 producer.send(msg) 这个API是属于异步发送消息，所以如果要用的话需要用 producer.send(msg,callback).  消费者程序丢失数据
         </a>
       </p>
 
@@ -207,8 +207,41 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-09 12:32" pubdate>
-              2022-05-09
+            <time datetime="2022-05-22 12:55" pubdate>
+              2022-05-22
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/22/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_self">
+          生产者消费分区机制原理剖析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/22/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_self">
+          
+          kafka有主题Topic的概念，它是承载真实数据的逻辑容器，主题之下还有有若干个分区，所以Kafka的消息组织方式有三级 主题 - 分区 -消息 提出问题为什么kafka不直接使用多个主题，而是使用了多分区呢？ 其实分区主要是提供了负责均衡 和 高吞吐量的关键. 如何自定义分区策略1234567891011121314public class PartitionImpl implements o
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-22 10:43" pubdate>
+              2022-05-22
             </time>
           </div>
         
@@ -216,9 +249,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/">我是面试官系列</a>
+              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/">消费队列</a>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/Java/">Java</a>
+              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/">Kafka</a>
             
           </div>
         
@@ -240,15 +273,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/09/%E5%89%91%E6%8C%87OfferII076%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACk%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/" target="_self">
-          剑指OfferII076数组中的第k大的数字
+        <a href="/2022/05/19/%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/" target="_self">
+          最最最重要的集群参数配置
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/09/%E5%89%91%E6%8C%87OfferII076%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACk%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/" target="_self">
+        <a href="/2022/05/19/%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/" target="_self">
           
-          快速排序全量快排12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @date: 2022&#x2F;5&#x2F;9 7:37 AM *     &lt;p&gt;运行结果 *     &lt;
+          其中这些配置不单单指Kafka的服务端配置、也有Broker的配置，也有Topic的配置，甚至还有JVM的配置。 Zookeeper参数它是一个分布式的协调框架，负责协调管理并且保存Kafka集群的所有的元数据信息,比如集群都有哪些Broker在运行，创建了哪些Topic，每个Topic有多少的分区 以及 这些分区的Leader副本都在哪些机器上等信息。    参数名 参数意义 需要注意    z
         </a>
       </p>
 
@@ -256,8 +289,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-09 09:36" pubdate>
-              2022-05-09
+            <time datetime="2022-05-19 20:10" pubdate>
+              2022-05-19
             </time>
           </div>
         
@@ -265,9 +298,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/leetcode/">leetcode</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
             
-              <a href="/categories/leetcode/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/kafka/">kafka</a>
             
           </div>
         
@@ -289,15 +322,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/09/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" target="_self">
-          排序算法总结
+        <a href="/2022/05/19/kafka%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          kafka常见的问题
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/09/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" target="_self">
+        <a href="/2022/05/19/kafka%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
           
-          快速排序java中提供的Arrays.sort方法对于基础类型的排序的底层实现就是采用的快速排序方法.  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667&#x2F;** * @author: 骆佳俊 * @
+          我开发中遇到的问题生产者 一个Topic中有多个Partition我该如何处理？  因为有自己的分区逻辑可以按照自己的策略进行放入消息。   我该如何发送一个对象？  Solution link:https:&#x2F;&#x2F;blog.csdn.net&#x2F;u014104286&#x2F;article&#x2F;details&#x2F;77102872    public static Properties initPerferConfig
         </a>
       </p>
 
@@ -305,8 +338,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-09 07:43" pubdate>
-              2022-05-09
+            <time datetime="2022-05-19 19:21" pubdate>
+              2022-05-19
             </time>
           </div>
         
@@ -314,7 +347,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+            
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/kafka/">kafka</a>
             
           </div>
         
@@ -336,15 +371,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/08/topK/" target="_self">
-          topK
+        <a href="/2022/05/19/Java%E5%BC%80%E5%8F%91%E5%B0%8F%E8%8A%9D%E5%A3%AB/" target="_self">
+          Java开发小芝士
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/08/topK/" target="_self">
+        <a href="/2022/05/19/Java%E5%BC%80%E5%8F%91%E5%B0%8F%E8%8A%9D%E5%A3%AB/" target="_self">
           
-          解题思路:快速排序全量排序但是结果发现效率不高 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @date: 2022&#x2F;5&#x2F;9 7:37 AM *     &lt;p&amp;gt
+          遇到复杂、嵌套的JSON，如何处理  https:&#x2F;&#x2F;www.json.cn&#x2F;json&#x2F;json2java.html 点击JSON生成JAVA实体     如果遇到对方给的 变量名 风格和自己不一致  可以通过重命名变量的方式  @JsonProperty(&quot;colDefine&quot;) private List&lt;ColDefine&gt; ColDefine;
         </a>
       </p>
 
@@ -352,8 +387,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-08 16:08" pubdate>
-              2022-05-08
+            <time datetime="2022-05-19 14:35" pubdate>
+              2022-05-19
             </time>
           </div>
         
@@ -361,9 +396,11 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/leetcode/">leetcode</a>
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
             
-              <a href="/categories/leetcode/topk/">topk</a>
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/Java/">Java</a>
+            
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/Java/todo/">todo</a>
             
           </div>
         
@@ -385,15 +422,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/08/%E5%89%91%E6%8C%87Offer26-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/" target="_self">
-          剑指Offer26.树的子结构
+        <a href="/2022/05/18/kafka%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E6%8E%8C%E6%8F%A1/" target="_self">
+          kafka基本概念掌握
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/08/%E5%89%91%E6%8C%87Offer26-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/" target="_self">
+        <a href="/2022/05/18/kafka%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E6%8E%8C%E6%8F%A1/" target="_self">
           
-          剑指 Offer 26. 树的子结构12执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户内存消耗：43.9 MB, 在所有 Java 提交中击败了9.74%的用户  因为使用的是dfs所以整一个内存的开销比较大。 123456789101112131415161718192021222324252627282930313233343536373839404142434445
+          基本概念 术语介绍Broker(代理)是一个独立的Kafka实例,多个Kafka Broker组成一个 Kafka Cluster. 并且 这个Broker 中包含了Topic 以及 Partition 这两个重要的概念. Topic （主题）: Producer将消息发送到特定的Topic，Consumer通过订阅特定的Topic来进行消费。 Partition（分区）: Partition 属
         </a>
       </p>
 
@@ -401,8 +438,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-08 15:52" pubdate>
-              2022-05-08
+            <time datetime="2022-05-18 19:53" pubdate>
+              2022-05-18
             </time>
           </div>
         
@@ -410,9 +447,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/leetcode/">leetcode</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
             
-              <a href="/categories/leetcode/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/kafka/">kafka</a>
             
           </div>
         
@@ -434,15 +471,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/" target="_self">
-          剑指Offer16.数值的整数次方
+        <a href="/2022/05/16/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" target="_self">
+          Docker学习记录
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/07/%E5%89%91%E6%8C%87Offer16-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/" target="_self">
+        <a href="/2022/05/16/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" target="_self">
           
-          剑指 Offer 16. 数值的整数次方解决方案1: 递归法 12345678910111213141516171819202122232425262728293031323334353637package com.roger.leetcodejava.jianzhi.solution_16.logN的解法;import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @d
+          基本概念 镜像和容器的关系 镜像和容器可以类比为类和对象，容器可以被创建、启动、停止、删除和暂停。    实战经历 如何进入容器？  第一阶段: 首先需要把镜像启动起来. 1docker run -it --name lhepMaven hub.fuxi.netease.com&#x2F;qa-web&#x2F;jenkins-maven:3.6  第二阶段: 通过容器ID进入 或者 NAMES 进行 (其中name
         </a>
       </p>
 
@@ -450,8 +487,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-07 08:45" pubdate>
-              2022-05-07
+            <time datetime="2022-05-16 10:45" pubdate>
+              2022-05-16
             </time>
           </div>
         
@@ -459,9 +496,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/leetcode/">leetcode</a>
-            
-              <a href="/categories/leetcode/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
+              <a href="/categories/%E5%AE%B9%E5%99%A8/">容器</a>
             
           </div>
         
@@ -483,15 +518,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%98%AF%E5%9F%BA%E4%BA%8E%E4%BB%80%E4%B9%88%E5%8E%9F%E7%90%86/" target="_self">
-          面试官:动态代理是基于什么原理
+        <a href="/2022/05/16/rocketMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          rocketMQ学习笔记
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%98%AF%E5%9F%BA%E4%BA%8E%E4%BB%80%E4%B9%88%E5%8E%9F%E7%90%86/" target="_self">
+        <a href="/2022/05/16/rocketMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
           
-          什么是反射
+          环境安装 拉取镜像  1docker pull rocketmqinc&#x2F;rocketmq   启动namesrv服务  12345678910111213docker run \--restart&#x3D;always \--name rmqbroker \--link rmqnamesrv:namesrv \-p 10911:10911 \-p 10909:10909 \-v  &#x2F;tmp&#x2F;rocketm
         </a>
       </p>
 
@@ -499,8 +534,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-06 22:43" pubdate>
-              2022-05-06
+            <time datetime="2022-05-16 07:49" pubdate>
+              2022-05-16
             </time>
           </div>
         
@@ -508,9 +543,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/">我是面试官系列</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/Java/">Java</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rocketMQ/">rocketMQ</a>
             
           </div>
         
@@ -532,15 +567,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-String%E3%80%81StringBuffer%E3%80%81StringBuilder%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/" target="_self">
-          面试官:String、StringBuffer、StringBuilder有什么区别
+        <a href="/2022/05/15/kafka%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          kafka 3.x 学习笔记
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-String%E3%80%81StringBuffer%E3%80%81StringBuilder%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/" target="_self">
+        <a href="/2022/05/15/kafka%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
           
-          简单介绍   类型 特点 使用场景    String 是Immutable的,然后它的类名是final修饰的,属性都是final. 然后因为我们经常要去操作比如修改或者增加String的内容所以我们会用到下面介绍的StringBuffer以及StringBuilder. 1. 常量的声明 2.少量字符串的拼接，一定要避免使用+操作去拼接字符串,因为这样会有大量的无用中间对象，耗费空间并且执行效率
+          定义​	切记一点： Kafka是消息系统,也是分布式流处理平台, 被数千家用于高性能的数据管道、流分析、数据集成和关键任务应用。 传统消息队列应用场景 缓存&#x2F;削峰填谷 解耦 异步通信  ​	所谓的削峰填谷是指缓冲上下游瞬时突发流量，使其更平滑。特别是那种对于那种发送能力很强的上游系统，如果没有消息引擎的保护，脆弱的下游系统可能会直接被压垮导致全链路服务的雪崩，但是一旦有了消息引擎，它能有
         </a>
       </p>
 
@@ -548,8 +583,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-06 15:14" pubdate>
-              2022-05-06
+            <time datetime="2022-05-15 13:00" pubdate>
+              2022-05-15
             </time>
           </div>
         
@@ -557,9 +592,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/">我是面试官系列</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/Java/">Java</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/kafka/">kafka</a>
             
           </div>
         
@@ -581,15 +616,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%90%86%E8%A7%A3%E4%B8%ADjava%E7%9A%84%E5%BC%95%E7%94%A8/" target="_self">
-          面试官:请说说你理解中java的引用
+        <a href="/2022/05/15/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%B0%83%E7%A0%94/" target="_self">
+          消息队列调研
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/05/06/%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%90%86%E8%A7%A3%E4%B8%ADjava%E7%9A%84%E5%BC%95%E7%94%A8/" target="_self">
+        <a href="/2022/05/15/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%B0%83%E7%A0%94/" target="_self">
           
-          前言在Java中除了基本的数据类型之外，其他的都是指向各个对象的对象引用; Java中会根据其生命周期的长短，将引用分为4类. 引用的类型   引用类型 特点 应用场景    强引用 我们平时的编码中,比如 Object obj &#x3D; new Object,这个就是显示的强引用，当JVM内存不足的时候如果想进行垃圾回收，宁可抛出OOM也不会对这部分的强引用做垃圾回收.我们可以在将Objec
+          定义​	消息队列是消息的传输过程中保存信息的容器，用于接受消息并以文件的方式存储，一个消息队列可以被一个或者多个消息者消费。 使用场景​	在大数据里面里面采用Kafka作为消息队列，在我们的JavaEE中会主要啊次用RabbitMq、RocketMQ等。 对比分析​	 ActiveMQ 5.x 维护越来越少，较少在大规模吞吐的场景中使用所以不做讨论。    – apache&#x2F;Kafa R
         </a>
       </p>
 
@@ -597,8 +632,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-06 09:17" pubdate>
-              2022-05-06
+            <time datetime="2022-05-15 11:50" pubdate>
+              2022-05-15
             </time>
           </div>
         
@@ -606,58 +641,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/">我是面试官系列</a>
-            
-              <a href="/categories/%E6%88%91%E6%98%AF%E9%9D%A2%E8%AF%95%E5%AE%98%E7%B3%BB%E5%88%97/Java/">Java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/06/%E5%89%91%E6%8C%87Offer66-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/" target="_self">
-          剑指Offer66.构建乘积数组
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/06/%E5%89%91%E6%8C%87Offer66-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/" target="_self">
-          
-          剑指 Offer 66. 构建乘积数组🔗先直接来一个错误解决方法: 该错误的解决方法的时间复杂度为O(n^2) 1234567891011121314151617181920212223242526272829303132import org.junit.Test;&#x2F;** * @author: 骆佳俊 * @date: 2022&#x2F;5&#x2F;6 7:37 AM *&#x2F;public class Soluti
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-06 08:45" pubdate>
-              2022-05-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/leetcode/">leetcode</a>
-            
-              <a href="/categories/leetcode/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
+              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
             
           </div>
         
@@ -677,7 +661,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

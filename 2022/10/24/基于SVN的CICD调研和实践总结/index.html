@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1组内基于SVN的CICD调研和实践总结落地调研,持续更新中...  定个小目标 经过沟通后，第一阶段来说是至少将 dnm 项目的后端(基于Springboot框架) 代码上传到 svn 之后, 能够容器化地去做到热部署。  CICD工具现状工具的选择：     比较项目 Jenkins Drone GitlabCi（不考虑）    空间容量清理问题 需要定时清理，否则占空间越来越大 无残留">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于SVN的CICD调研和实践总结">
+<meta property="og:url" content="http://example.com/2022/10/24/%E5%9F%BA%E4%BA%8ESVN%E7%9A%84CICD%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="骆佳俊的博客">
+<meta property="og:description" content="1组内基于SVN的CICD调研和实践总结落地调研,持续更新中...  定个小目标 经过沟通后，第一阶段来说是至少将 dnm 项目的后端(基于Springboot框架) 代码上传到 svn 之后, 能够容器化地去做到热部署。  CICD工具现状工具的选择：     比较项目 Jenkins Drone GitlabCi（不考虑）    空间容量清理问题 需要定时清理，否则占空间越来越大 无残留">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h25ptdixcxj21pa0u0n2b.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h25puly2mvj22ue0u0444.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h25meu2vudj21hu0ha76h.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bj4j0byhj21je0u0jum.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bj4mkehrj21zi0le0vm.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2705a6d4gj22xq08eq5l.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2708ex4xkj22hw07e0un.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h270tl1b9bj20a40a8jri.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h270ttuxraj20h207y74e.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h270oopltej22ls0ban00.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bi6p0nmaj22320ns427.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2abo4d3xvj21il0u0n27.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2abokpqw8j22gl0u0q7s.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bhfiw8k4j22fk0qijwb.jpg">
+<meta property="article:published_time" content="2022-10-24T02:50:51.000Z">
+<meta property="article:modified_time" content="2022-10-25T03:14:13.123Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h25ptdixcxj21pa0u0n2b.jpg">
+  
+  
+  <title>基于SVN的CICD调研和实践总结 - 骆佳俊的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"dNMO1a2lfpClMjvOWl0SzD38-gzGzoHsz","app_key":"4egS3ArY4RdX7SV1vGUKVOKr","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>骆佳俊的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于SVN的CICD调研和实践总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-24 10:50" pubdate>
+        2022年10月24日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于SVN的CICD调研和实践总结</h1>
+            
+            <div class="markdown-body">
+              <figure class="highlight erlang"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs erlang">组内基于SVN的CICD调研和实践总结落地调研,持续更新中...<br></code></pre></td></tr></table></figure>
+
+<h3 id="定个小目标"><a href="#定个小目标" class="headerlink" title="定个小目标"></a>定个小目标</h3><div class="code-wrapper"><pre><code class="hljs"> 经过沟通后，第一阶段来说是至少将 dnm 项目的后端(基于Springboot框架) 代码上传到 svn 之后, 能够容器化地去做到热部署。
+</code></pre></div>
+<h3 id="CICD工具现状"><a href="#CICD工具现状" class="headerlink" title="CICD工具现状"></a>CICD工具现状</h3><div class="code-wrapper"><pre><code class="hljs">工具的选择：
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>比较项目</th>
+<th>Jenkins</th>
+<th>Drone</th>
+<th>GitlabCi（不考虑）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空间容量清理问题</td>
+<td>需要定时清理，否则占空间越来越大</td>
+<td>无残留</td>
+<td></td>
+</tr>
+<tr>
+<td>插件升级</td>
+<td>每次需要在新环境(测试环境上)，升级测试一下，比较繁琐</td>
+<td>插件都是docker容易,一切都是全自动的.</td>
+<td></td>
+</tr>
+<tr>
+<td>生态的构建</td>
+<td><strong>强大</strong>,插件很多</td>
+<td>完全基于容器来实现的 CI&#x2F;CD 工具，构建的过程也完全是在容器中实现的。</td>
+<td></td>
+</tr>
+<tr>
+<td>CSV支持(关键)</td>
+<td>git、svn</td>
+<td>git. <a target="_blank" rel="noopener" href="https://github.com/harness/drone/issues/2799">Do drone Support the SVN?</a></td>
+<td>git</td>
+</tr>
+</tbody></table>
+<div class="code-wrapper"><pre><code class="hljs">    其中 新锐Drone 以及 老牌的gitlabCI 需要和git搭配,但是 我们 效能平台部 以及整个雷火的游戏都是在svn上的，所以可以告别这俩只有Jenkins。
+</code></pre></div>
+<h3 id="方案选定"><a href="#方案选定" class="headerlink" title="方案选定"></a>方案选定</h3><ol>
+<li>Jenkins + Docker 自动化集成环境搭建</li>
+</ol>
+<h3 id="我遇到的问题"><a href="#我遇到的问题" class="headerlink" title="我遇到的问题"></a>我遇到的问题</h3><ol>
+<li><p>缺失 构建一个maven项目 的选项.<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h25ptdixcxj21pa0u0n2b.jpg" srcset="/img/loading.gif" lazyload alt="image-20220512164618895"></p>
+<p>【解决方案 I 】是需要去插件市场下载的 maven integration </p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h25puly2mvj22ue0u0444.jpg" srcset="/img/loading.gif" lazyload alt="image-20220512164730229"></p>
+<p>【解决方案 II】 直接在maven的镜像中打jar包进行代码的编译打包，至于我是怎么做的<strong>后文有介绍</strong>.</p>
+</li>
+<li><p>对于java的项目我该配置哪些流程</p>
+<ol>
+<li><p>流程拆解<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h25meu2vudj21hu0ha76h.jpg" srcset="/img/loading.gif" lazyload alt="整体流程"></p>
+</li>
+<li><p>pull code选择的是最简单的 poll SCM的形式，会每一分钟去触发一次。</p>
+<ol>
+<li><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bj4j0byhj21je0u0jum.jpg" srcset="/img/loading.gif" lazyload alt="image-20220517172814179"></p>
+</li>
+<li><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bj4mkehrj21zi0le0vm.jpg" srcset="/img/loading.gif" lazyload alt="image-20220517172820245"></p>
+</li>
+</ol>
+</li>
+<li><p>完整的dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6002</span> AS mvn<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /tmp</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> / /tmp</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> mvn clean package</span><br><br><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">8</span>-jdk-stretch<br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=mvn /tmp/target/jenkinsImage-0.0.1-SNAPSHOT.jar <span class="hljs-string">&quot;/tmp/jenkinsImage-0.0.1-SNAPSHOT.jar&quot;</span></span><br><span class="hljs-comment"># 启动应用程序</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-server&quot;</span>, <span class="hljs-string">&quot;-Xms2048m&quot;</span>, <span class="hljs-string">&quot;-Xmx4096m&quot;</span>, <span class="hljs-string">&quot;-XX:+UseG1GC&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;/tmp/jenkinsImage-0.0.1-SNAPSHOT.jar&quot;</span>, <span class="hljs-string">&quot;--spring.profiles.active=test&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>命令</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span>. docker buildx build -t hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span>.com/luojiajun/jenkins-build:<span class="hljs-number">1.1</span> .<br>(含义是: 使用当前目录的 Dockerfile 创建镜像，标签为 hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span>.com/luojiajun/jenkins-build:<span class="hljs-number">1.1</span>)<br><br><span class="hljs-number">2</span>. docker login hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span><span class="hljs-selector-class">.com</span><br><span class="hljs-number">3</span>. docker push hub<span class="hljs-selector-class">.fuxi</span><span class="hljs-selector-class">.netease</span>.com/luojiajun/jenkins-build:<span class="hljs-number">1.1</span><br></code></pre></td></tr></table></figure>
+
+<p>命令详解</p>
+<ol>
+<li><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>–</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker buildx build</td>
+<td>构建镜像</td>
+</tr>
+<tr>
+<td><strong>–tag, -t:</strong></td>
+<td>镜像的名字及标签，通常 name:tag 或者 name 格式；可以在一次构建中为一个镜像设置多个标签。</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Docker部署后发现<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2705a6d4gj22xq08eq5l.jpg" srcset="/img/loading.gif" lazyload alt="运行失败"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:<span class="hljs-number">2.6</span><span class="hljs-number">.7</span>:repackage (repackage) on project jenkinsImage: Execution repackage of goal org.springframework.boot:spring-boot-maven-plugin:<span class="hljs-number">2.6</span><span class="hljs-number">.7</span>:repackage failed: Unable to find main class -&gt; [Help <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+
+<p>查看自己的dockerfile文件,只有短短几行就是做了一个复制到&#x2F;tmp下然后进行mvn clean package.结果说找不到主类.</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6</span> AS mvn<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /tmp</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> * /tmp</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> mvn clean package</span><br></code></pre></td></tr></table></figure>
+
+<p>于是自己到镜像中查看</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2708ex4xkj22hw07e0un.jpg" srcset="/img/loading.gif" lazyload alt="镜像中目录文件">好家伙发现没有src目录。</p>
+<p>找到了一个<a target="_blank" rel="noopener" href="https://github.com/moby/moby/issues/15858">病友</a>, 现象是:  </p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h270tl1b9bj20a40a8jri.jpg" srcset="/img/loading.gif" lazyload alt="copy前">   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h270ttuxraj20h207y74e.jpg" srcset="/img/loading.gif" lazyload alt="copy后"></p>
+<p>最后通过修改dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6</span> AS mvn<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /tmp</span><br><span class="hljs-comment"># 注意这里是 / 不是 * </span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> / /tmp  </span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> mvn clean package</span><br></code></pre></td></tr></table></figure>
+
+<p>最后完美运行。</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h270oopltej22ls0ban00.jpg" srcset="/img/loading.gif" lazyload alt="主类问题解决正常打包"></p>
+</li>
+<li><p>当把镜像推送上去之后发现,本地运行发现</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># mac M1 上不能运行,linux正常。</span><br>qemu: uncaught target signal 11 (Segmentation fault) - core dumped<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>举个栗子🌰，Jenkins通常内存占用较大，部署在一台单独的机器上称作A，等它镜像打包部署推送完成后,那么如果通知B上的机器去更新其应用呢？</p>
+<ol>
+<li>可以通过ssh去处理,前提是需要到jenkins的插件管理市场中下载ssh.</li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bi6p0nmaj22320ns427.jpg" srcset="/img/loading.gif" lazyload alt="image-20220517165543290"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 登陆docker</span><br><span class="hljs-built_in">cat</span> /home/luojiajun/docker/fuxiDockerPasswd | sudo docker login -u luojiajun  hub.fuxi.netease.com --password-stdin<br><span class="hljs-comment"># 拉取镜像</span><br>sudo docker pull hub.fuxi.netease.com/luojiajun/jenkins-build:latest<br><span class="hljs-comment"># 运行镜像 需要提前 chmod 777.sh文件  </span><br><span class="hljs-built_in">source</span> /home/luojiajun/docker/jenkinsBuild/jenkinsBuild.sh<br></code></pre></td></tr></table></figure>
+
+<p>通过执行在某个目录下的sh脚本去完成。这样不管是第一次运行镜像还是后续维护都能正确执行。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># shell 文件</span><br><span class="hljs-keyword">if</span> [ $(sudo docker ps -a|grep jenkins_build |<span class="hljs-built_in">wc</span> -l) != <span class="hljs-string">&quot;0&quot;</span> ]<br><span class="hljs-keyword">then</span><br>    sudo docker stop jenkins_build<br>    sudo docker <span class="hljs-built_in">rm</span> jenkins_build<br><span class="hljs-keyword">fi</span><br>sudo docker run -it -d -p 3426:8080 --name=jenkins_build hub.fuxi.netease.com/luojiajun/jenkins-build:latest<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>mvn 下载依赖速度过慢，导致整个CICD流程因为该关键节点所delay。就连下载最基础的Spring framework依赖都花费了10min!.</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2abo4d3xvj21il0u0n27.jpg" srcset="/img/loading.gif" lazyload alt="image-20220516162440142"></p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2abokpqw8j22gl0u0q7s.jpg" srcset="/img/loading.gif" lazyload alt="image-20220516162508450"></p>
+<p><strong>先看效果</strong></p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2bhfiw8k4j22fk0qijwb.jpg" srcset="/img/loading.gif" lazyload alt="image-20220517162936029"></p>
+<ol>
+<li><p>其实就是把本地已经安装好的依赖放到maven的基础镜像库中如何实现可以看步骤一。</p>
+</li>
+<li><p>步骤拆解</p>
+<ol>
+<li><p>第一步</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> hub.fuxi.netease.com/qa-web/jenkins-maven:<span class="hljs-number">3.6</span> AS mvn<br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">mkdir</span> /root/.m2/repository/org</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> / /root/.m2/repository/org</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>第二步</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># docker buildx build构建镜像</span><br><span class="hljs-comment"># **--tag, -t:** 镜像的名字及标签，通常 name:tag 或者 name 格式；可以在一次构建中为一个镜像设置多个标签。</span><br>docker buildx build -t hub.fuxi.netease.com/qa-web/jenkins-maven:latest .<br><span class="hljs-comment"># 登陆仓库</span><br>docker login hub.fuxi.netease.com<br><span class="hljs-comment"># push镜像</span><br>docker push hub.fuxi.netease.com/luojiajun/jenkins-build:1.1<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="需要解决的事情-持续更新中-按照优先级排序"><a href="#需要解决的事情-持续更新中-按照优先级排序" class="headerlink" title="需要解决的事情(持续更新中,按照优先级排序)"></a>需要解决的事情(持续更新中,按照优先级排序)</h3><ol>
+<li>不同机器之间如何部署？<ol>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7000534516410351646">Jenkins通过Publish Over SSH实现前端项目部署到远程服务全纪录</a></li>
+</ol>
+</li>
+<li>多module的问题是如何处理？</li>
+<li>代码的diff,类似发布系统，两个环境的代码进行比对。</li>
+<li>热部署,在服务升级的时候最好不出现502等问题，用户无感知地去升级</li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/chenjie19891104/article/details/42807959">热部署</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89312003">手把手带你搭建jenkins</a></li>
+<li><a target="_blank" rel="noopener" href="https://kms.netease.com/article/38761">基于轻舟CICD的代码静态扫描流程分享</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/432edcqbiu5je_dqj3zx">阿里巴巴如何基于 Kubernetes 实践 CI&#x2F;CD</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.i4k.xyz/article/weixin_38087538/109080218">修改docker镜像并重新推送到镜像仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/image/multistage-builds">Dockerfile 多阶段构建</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/">部署教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/24/%E7%AB%AF%E5%8D%88AR%E6%8A%BD%E5%A5%96%E9%80%BB%E8%BE%91%E5%A4%A7%E6%8F%AD%E7%A7%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">端午AR抽奖逻辑大揭秘</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/24/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">常用的消息队列对比分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
