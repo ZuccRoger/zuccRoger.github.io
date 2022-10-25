@@ -191,6 +191,55 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/08/15/dnm%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%B9%8Bsvn%E8%B4%A6%E6%88%B7%E6%9D%83%E9%99%90%E7%BC%BA%E6%BC%8F%E6%89%AB%E6%8F%8FcommitLog%E8%BF%94%E5%9B%9E403Forbidden%E5%BC%82%E5%B8%B8/" target="_self">
+          dnm开发中遇到的问题 之 svn账户权限缺漏 扫描commit log 返回403 forbidden异常
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/08/15/dnm%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%B9%8Bsvn%E8%B4%A6%E6%88%B7%E6%9D%83%E9%99%90%E7%BC%BA%E6%BC%8F%E6%89%AB%E6%8F%8FcommitLog%E8%BF%94%E5%9B%9E403Forbidden%E5%BC%82%E5%B8%B8/" target="_self">
+          
+          碰到的问题以及如何解决 报错出现的问题：账户密码对的但是因为部分目录没有权限，导致403.    原因是 ：  1. dnm会自动执行扫描目录，获取commit 记录，所以 读 repositoryUrl 根目录（https:&#x2F;&#x2F;svn-pg.gz.netease.com&#x2F;svn&#x2F;）下的结果因为没有权限返回了403.  2. 在获取head revision的时候同样也会没有权限。  解决方案:
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-15 10:58" pubdate>
+              2022-08-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/">项目实践</a>
+            
+              <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/dnm/">dnm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/08/08/Spring%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
           Spring开发中遇到的问题
         </a>
@@ -611,57 +660,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/" target="_self">
-          【todo】聊一下kafka的中的生产者
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/22/%E8%81%8A%E4%B8%80%E4%B8%8Bkafka%E7%9A%84%E4%B8%AD%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85/" target="_self">
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-22 15:07" pubdate>
-              2022-05-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/">消费队列</a>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/">Kafka</a>
-            
-              <a href="/categories/%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97/Kafka/todo/">todo</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">原创</a>
             
           </div>
         

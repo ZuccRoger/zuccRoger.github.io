@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>雷火助理系统-会话ID分配问题处理</title>
+    <link href="/2022/10/25/%E9%9B%B7%E7%81%AB%E5%8A%A9%E7%90%86%E7%B3%BB%E7%BB%9F-%E4%BC%9A%E8%AF%9DID%E5%88%86%E9%85%8D%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
+    <url>/2022/10/25/%E9%9B%B7%E7%81%AB%E5%8A%A9%E7%90%86%E7%B3%BB%E7%BB%9F-%E4%BC%9A%E8%AF%9DID%E5%88%86%E9%85%8D%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="碰到的问题"><a href="#碰到的问题" class="headerlink" title="碰到的问题"></a>碰到的问题</h2><p>​该系统需要在群聊中监听触发@关键字之后<strong>员工</strong>发出的消息，但是在不同群聊中<strong>员工</strong>主动发送的消息，会分配不同的会话ID分配 <strong>助理</strong> 去进行回复和对应的支持。如果<strong>员工</strong>长时间未则会关闭会话创建一个新的会话ID，这个时候就碰到了本文所提到问题，如何去更好地分配这个会话ID还是拿上一次的ID？</p><h2 id="我是怎么做的："><a href="#我是怎么做的：" class="headerlink" title="我是怎么做的："></a>我是怎么做的：</h2><h3 id="方案一-：通过redis-mysql的形式"><a href="#方案一-：通过redis-mysql的形式" class="headerlink" title="方案一 ：通过redis + mysql的形式"></a>方案一 ：通过redis + mysql的形式</h3><p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7hnu00h69j30ow0wotb1.jpg" alt="redis+mysql实现"></p><p>​细思极恐的问题就是当同时有两个请求进来，会去争抢这个maxId，导致两个不同的用户会去共享一个会话Id. </p><h3 id="方案二-：通过mysql的唯一索引实现"><a href="#方案二-：通过mysql的唯一索引实现" class="headerlink" title="方案二 ：通过mysql的唯一索引实现"></a>方案二 ：通过mysql的唯一索引实现</h3><p>​通过新增了表的唯一索引，通过 insert ignore into 的方式去实现会话Id的分配。</p><p><img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7hl9a60xtj30we0u0adp.jpg" alt="通过mysql的唯一索引实现"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>项目实践</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Node.js中小数计算溢出问题以及如何解决</title>
     <link href="/2022/10/24/Node-js%E4%B8%AD%E5%B0%8F%E6%95%B0%E8%AE%A1%E7%AE%97%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/"/>
     <url>/2022/10/24/Node-js%E4%B8%AD%E5%B0%8F%E6%95%B0%E8%AE%A1%E7%AE%97%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/</url>
@@ -461,6 +486,18 @@
     <content type="html"><![CDATA[<h3 id="遇到的问题-以及如何解决的"><a href="#遇到的问题-以及如何解决的" class="headerlink" title="遇到的问题 以及如何解决的"></a>遇到的问题 以及如何解决的</h3><h4 id="技术上的问题"><a href="#技术上的问题" class="headerlink" title="技术上的问题"></a>技术上的问题</h4><ol><li><p>多模块项目的时候子模块无法找到父模块项目是因为 版本没有匹配上导致的。这个version非常重要.<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5pro0kdkej219y0ge0vw.jpg" alt="image-20220831110240875"><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5pro9i34wj21140f6n04.jpg" alt="image-20220831110254962"></p></li><li><p>启动起来异常的问题该如何排查以及解决？<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5q18jurbuj22x20oywjm.jpg" alt="image-20220831163347905"></p><ol><li><p>首先要确定pacage名字是否正确</p></li><li><p>然后在 scanBasePackages 的地方加上扫描的包的路径</p></li><li><p>&#96;&#96;&#96;java<br>@SpringBootApplication(<br>    scanBasePackages &#x3D; {“com.netease.lhep”},<br>    exclude &#x3D; {DataSourceAutoConfiguration.class}<br>)</p><figure class="highlight less"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs less"><br><span class="hljs-number">3</span>. 返回的是一个编码后的但是发现无法转换。!<span class="hljs-selector-attr">[image-20220831172301209]</span>(<span class="hljs-attribute">https</span>:<span class="hljs-comment">//tva1.sinaimg.cn/large/e6c9d24ely1h5q2nrrcb5j22s803ydi8.jpg)</span><br><br>   解决方案<br><br>   <span class="hljs-number">1</span>. <span class="hljs-variable">@JsonProperty</span>(<span class="hljs-string">&quot;workCode&quot;</span>) ![image-<span class="hljs-number">20220831174445427</span>](<span class="hljs-attribute">https</span>:<span class="hljs-comment">//tva1.sinaimg.cn/large/e6c9d24ely1h5q3ae0ujxj20um0qidid.jpg)</span><br><br><span class="hljs-number">4</span>. 感觉这俩字段放在 controller 中作用是什么？你一般用来干嘛 比如response 能干嘛？<br><br>   <span class="hljs-number">1</span>. <span class="hljs-built_in">``</span>`<br>      HttpServletRequest request, HttpServletResponse response,<br></code></pre></td></tr></table></figure></li></ol></li></ol><h3 id="项目难点"><a href="#项目难点" class="headerlink" title="项目难点"></a>项目难点</h3><ol><li><strong>建表</strong>，一个好的数据库结构，可以让整个代码开发不管是思路还是其他的都事半功倍，其中 协助转移 是个比较难的地方我们是如何去建这个表的？</li><li>如何判断是否是一个新的会话？ <ol><li>同一个群聊 或者 私聊 按照上一次发言时间比如5min内都视作同一个会话？</li></ol></li></ol><h3 id="我学到了什么"><a href="#我学到了什么" class="headerlink" title="我学到了什么"></a>我学到了什么</h3><ol><li>学习使用 MyBatisCodeHelperPro 工具，但是前期的各种踩雷让人脑壳疼，比如安装啊之类的，发现高版本的IDEA不兼容一些老的plugin.</li><li>如果这里不显示的话就需要加@Data.否则就是 message:{}.<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5x1ho9wquj20rk0qg0vb.jpg" alt="image-20220906180129047"></li></ol><h4 id="业务上的问题"><a href="#业务上的问题" class="headerlink" title="业务上的问题"></a>业务上的问题</h4><ol><li><p>这个时候有算监听以及首次入库的问题。<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6bq7erkg1j21zm0t4adq.jpg" alt="image-20220919105431974"></p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6bq8amzghj21tm08sgo2.jpg" alt="image-20220919105523620"></p></li><li><p>此处入库的sessionId有问题。单人聊天的时候，流程上 先从redis getKey拿到当前会话的ID，然后如果找不到则mysql新增一条返回ID。结果这个时候 并发大，同时出现了4个新增的ID.即4次去redis拿都是空的，结果同时4条入库了。<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6bs6ftg1vj20fq08ujrw.jpg" alt="image-20220919120248250"></p></li><li><p>先私聊-&gt;再群聊就gg了</p><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6c2m3pdjkj21v409qtc0.jpg" alt="image-20220919180350590"></p></li><li><p>会话ID 用redis 出现了 抢占 MaxId的问题</p></li><li><p>服务号推不到内网 但是丹炉上又用不了popo机器人服务。</p></li></ol>]]></content>
     
     
+    <categories>
+      
+      <category>部署教程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
     
   </entry>
   
@@ -752,19 +789,6 @@
       <tag>原创</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>无消息丢失配置</title>
-    <link href="/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/"/>
-    <url>/2022/05/22/%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE/</url>
-    
-    <content type="html"><![CDATA[<h3 id="消息丢失的情况"><a href="#消息丢失的情况" class="headerlink" title="消息丢失的情况"></a>消息丢失的情况</h3><ol><li>生产者程序丢失数据</li></ol><p>使用 <strong>producer.send(msg)</strong> 这个API是属于异步发送消息，所以如果要用的话需要用 <strong>producer.send(msg,callback)</strong>.</p><ol start="2"><li>消费者程序丢失数据</li></ol>]]></content>
-    
-    
     
   </entry>
   
